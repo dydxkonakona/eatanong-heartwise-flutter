@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:final_eatanong_flutter/providers/person_provider.dart'; // Import your PersonProvider
+import 'package:final_eatanong_flutter/providers/person_provider.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
+
+  // Method to calculate BMI
+  double calculateBMI(double weight, double height) {
+    double heightInMeters = height / 100; // Convert height to meters
+    return weight / (heightInMeters * heightInMeters);
+  }
+
+  // Method to classify BMI
+  String classifyBMI(double bmi) {
+    if (bmi < 18.5) {
+      return "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      return "Normal weight";
+    } else if (bmi >= 25 && bmi < 29.9) {
+      return "Overweight";
+    } else {
+      return "Obesity";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,21 +30,66 @@ class NavBar extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          // Use Consumer to get access to the PersonProvider
+          // Custom Header Container
           Consumer<PersonProvider>(
             builder: (context, personProvider, child) {
-              // Check if there are any persons stored in Hive
               if (personProvider.persons.isNotEmpty) {
-                final person = personProvider.persons.first; // Get the first person for simplicity
+                final person = personProvider.persons.first; // Get the first person
 
-                return UserAccountsDrawerHeader(
-                  accountName: Text("Hello, ${person.name}"),
-                  accountEmail: Text(""),
+                // Calculate BMI
+                double bmi = calculateBMI(person.weight, person.height);
+                String bmiClassification = classifyBMI(bmi); // Get BMI classification
+
+                return Container(
+                  padding: EdgeInsets.all(16.0),
+                  color: Color.fromARGB(255, 255, 234, 234),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Text(
+                          person.name[0], // Display the first letter of the user's name
+                          style: TextStyle(fontSize: 40, color: Colors.black),
+                        ),
+                        radius: 30, // Set the radius for the avatar
+                      ),
+                      SizedBox(height: 16), // Spacing
+                      Text(
+                        "Hello, ${person.name}!",
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                      SizedBox(height: 4), // Spacing
+                      Text(
+                        "Age: ${person.age}",
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                      SizedBox(height: 4), // Spacing
+                      Text(
+                        "BMI: ${bmi.toStringAsFixed(2)} ($bmiClassification)",
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                    ],
+                  ),
                 );
               } else {
-                return UserAccountsDrawerHeader(
-                  accountName: Text("No Person Data"),
-                  accountEmail: Text("No Email Available"),
+                return Container(
+                  padding: EdgeInsets.all(16.0),
+                  color: Colors.blue,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "No Person Data",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        "No Email Available",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ],
+                  ),
                 );
               }
             },
