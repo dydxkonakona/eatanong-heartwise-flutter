@@ -38,14 +38,6 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.add),
-            title: Text("Person Screen"),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/person screen");
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.fastfood),
             title: Text("Food Screen"),
             onTap: () {

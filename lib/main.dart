@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       routes: {
         "/home": (context) => const HomePage(),
-        // "/person screen": (context) => PersonScreen(),
         "/food screen": (context) => FoodScreen(),
         "/user profile": (context) => UserProfile(),
       },

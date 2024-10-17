@@ -37,7 +37,7 @@ class FoodScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Food Tracker')),
+      appBar: AppBar(title: Text('Food Screen')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView( // Wrap the content in a SingleChildScrollView
