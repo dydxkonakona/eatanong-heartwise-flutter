@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/screens/nav_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:provider/provider.dart';
+import 'results_page.dart'; // Import the ResultsPage
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -65,7 +68,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/food screen');
+          pickImage(context); // Pass context to pickImage function
         },
         tooltip: 'Add Food',
         backgroundColor: Color.fromARGB(255, 255, 198, 198), // Customize your button color
@@ -89,7 +92,7 @@ class HomePage extends StatelessWidget {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.account_box),
+                icon: Icon(Icons.settings),
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/user profile');
@@ -101,5 +104,45 @@ class HomePage extends StatelessWidget {
       ),
       drawer: const NavBar(),
     );
+  }
+
+  // Function to pick an image and classify
+  Future<void> pickImage(BuildContext context) async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+
+    if (image != null) {
+      classifyImage(context, image.path);
+    }
+  }
+
+  // Function to load the TFLite model
+  Future<void> loadModel() async {
+    await Tflite.loadModel(
+      model: "assets/model.tflite",
+      labels: "assets/labels.txt",
+    );
+  }
+
+  // Function to classify the picked image and navigate to the results page
+  Future<void> classifyImage(BuildContext context, String imagePath) async {
+    await loadModel();
+    var recognitions = await Tflite.runModelOnImage(
+      path: imagePath,
+      imageMean: 127.5,
+      imageStd: 127.5,
+      numResults: 5,
+      threshold: 0.5,
+    );
+
+    if (recognitions != null) {
+      // Navigate to ResultsPage and pass the recognitions
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultsPage(recognitions: recognitions),
+        ),
+      );
+    }
   }
 }
