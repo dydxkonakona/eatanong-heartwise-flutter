@@ -21,7 +21,10 @@ class Person {
     // The this keyword is used to refer to the name property of the Person class.
     required this.name, 
     // This line defines a named argument age that is required when creating a new Person object.
-    required this.age
+    required this.age,
+    required this.gender,
+    required this.weight,
+    required this.height
   });
   // This line is an annotation that tells Hive that the name property should be stored in the database with the field ID 0.
   @HiveField(0)
@@ -32,6 +35,15 @@ class Person {
   @HiveField(1)
   // This line defines a property named age of type int.
   int age;
+
+  @HiveField(2)
+  String gender;
+
+  @HiveField(3)
+  double weight;
+
+  @HiveField(4)
+  double height;
 }
 
 /*
