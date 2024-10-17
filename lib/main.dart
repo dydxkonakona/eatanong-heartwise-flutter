@@ -5,6 +5,7 @@ import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/screens/food_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
+import 'package:final_eatanong_flutter/screens/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         "/home": (context) => const HomePage(),
         // "/person screen": (context) => PersonScreen(),
         "/food screen": (context) => FoodScreen(),
+        "/user profile": (context) => UserProfile(),
       },
     );
   }

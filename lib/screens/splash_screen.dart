@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/initial_page.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +38,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _controller.forward().then((_) {
       // After the fade-in animation completes, navigate after a delay
       Timer(Duration(seconds: 1), () async {
-        // Check if the user has already set up the app
-        var box = await Hive.openBox('userBox');
-        if (box.get('userName') == null) {
+        // Open the personBox
+        var personBox = await Hive.openBox<Person>('personBox');
+        
+        // Debugging: Print the number of entries in the personBox
+        print("Number of persons in the box: ${personBox.length}");
+
+        if (personBox.isEmpty) {
           // If no user data is found, show the initial setup page
           Navigator.pushReplacement(
             context,
