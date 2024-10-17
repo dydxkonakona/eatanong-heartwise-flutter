@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         var personBox = await Hive.openBox<Person>('personBox');
         
         // Debugging: Print the number of entries in the personBox
-        print("Number of persons in the box: ${personBox.length}");
+        // print("Number of persons in the box: ${personBox.length}");
 
         if (personBox.isEmpty) {
           // If no user data is found, show the initial setup page

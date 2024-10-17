@@ -46,7 +46,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.add),
+            leading: Icon(Icons.fastfood),
             title: Text("Food Screen"),
             onTap: () {
               Navigator.pop(context);
