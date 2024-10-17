@@ -1,4 +1,5 @@
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
+import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -148,6 +149,7 @@ class UserProfile extends StatelessWidget {
           ),
         ),
       ),
+      drawer: NavBar(),
     );
   }
 }

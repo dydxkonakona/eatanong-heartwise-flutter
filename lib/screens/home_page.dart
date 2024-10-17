@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text("Person"),
+          Text("Person Object Debugger"),
           Expanded(
             child: Consumer<PersonProvider>(
               builder: (context, personProvider, child) {
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
               },
             ),
           ),
-          Text("Foods"),
+          Text("Food Object Debugger"),
           Expanded(
             child: Consumer<FoodProvider>(
               builder: (context, foodProvider, child) {
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                     final food = foodProvider.foods[index];
                     return ListTile(
                       title: Text(food.name),
-                      subtitle: Text('Calories: ${food.calories} | Fat: ${food.fat}g | Protein: ${food.protein}g | Carbohydates: ${food.carbohydrates}g'),
+                      subtitle: Text('Calories: ${food.calories} | Fat: ${food.fat}g | Protein: ${food.protein}g | Carbohydrates: ${food.carbohydrates}g'),
                       trailing: IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {
@@ -62,6 +62,42 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/food screen');
+        },
+        tooltip: 'Add Food',
+        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Customize your button color
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        child: Image.asset('assets/logo.png'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
+      bottomNavigationBar: Container(
+        height: 50.0, // Set your desired height here
+        child: BottomAppBar(
+          color: Color.fromARGB(255, 255, 198, 198),
+          shape: const CircularNotchedRectangle(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  // Handle home button press
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.account_box),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/user profile');
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       drawer: const NavBar(),
     );
