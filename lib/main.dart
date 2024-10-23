@@ -1,7 +1,10 @@
+import 'package:final_eatanong_flutter/models/daily_totals.dart';
 import 'package:final_eatanong_flutter/models/food.dart';
+import 'package:final_eatanong_flutter/models/logged_food.dart';
 import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
+import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/food_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
@@ -22,12 +25,16 @@ void main() async {
   // Adapters are used by Hive to serialize and deserialize objects of a specific type.
   Hive.registerAdapter(PersonAdapter()); //typeId: 1
   Hive.registerAdapter(FoodAdapter()); //typeId: 2
+  Hive.registerAdapter(DailyTotalsAdapter());
+  Hive.registerAdapter(LoggedFoodAdapter());
 
   // Open a Hive box for storing Persons
   // This line opens a Hive box named personBox that is specific to storing Person objects.
   // The await keyword is used to wait for the box to be opened before proceeding.
   await Hive.openBox<Person>('personBox');
   await Hive.openBox<Food>('foodBox');
+  await Hive.openBox<DailyTotals>('dailyTotalsBox');
+  await Hive.openBox<LoggedFood>('loggedFoodsBox');
   runApp(
     MultiProvider(
       providers: [
@@ -48,6 +55,7 @@ class MyApp extends StatelessWidget {
         "/home": (context) => const HomePage(),
         "/food screen": (context) => FoodScreen(),
         "/user profile": (context) => UserProfile(),
+        "/calendar": (context) => DietLogScreen(),
       },
     );
   }

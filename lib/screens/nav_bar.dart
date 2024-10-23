@@ -117,6 +117,14 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, "/user profile");
             },
           ),
+          ListTile(
+            leading: Icon(Icons.account_box_outlined),
+            title: Text("Calendar Screen"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/calendar");
+            },
+          ),
         ],
       ),
     );

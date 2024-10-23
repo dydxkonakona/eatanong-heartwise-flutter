@@ -1,50 +1,50 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'food.dart';
+part of 'daily_totals.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class FoodAdapter extends TypeAdapter<Food> {
+class DailyTotalsAdapter extends TypeAdapter<DailyTotals> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
-  Food read(BinaryReader reader) {
+  DailyTotals read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Food(
-      name: fields[0] as String,
-      calories: fields[1] as int,
-      fat: fields[2] as double,
-      protein: fields[3] as double,
-      carbohydrates: fields[4] as double,
-      sodium: fields[5] as double,
-      cholesterol: fields[6] as double,
+    return DailyTotals(
+      date: fields[0] as DateTime,
+      totalCalories: fields[1] as double,
+      totalFat: fields[2] as double,
+      totalProtein: fields[3] as double,
+      totalCarbohydrates: fields[4] as double,
+      totalSodium: fields[5] as double,
+      totalCholesterol: fields[6] as double,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Food obj) {
+  void write(BinaryWriter writer, DailyTotals obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.date)
       ..writeByte(1)
-      ..write(obj.calories)
+      ..write(obj.totalCalories)
       ..writeByte(2)
-      ..write(obj.fat)
+      ..write(obj.totalFat)
       ..writeByte(3)
-      ..write(obj.protein)
+      ..write(obj.totalProtein)
       ..writeByte(4)
-      ..write(obj.carbohydrates)
+      ..write(obj.totalCarbohydrates)
       ..writeByte(5)
-      ..write(obj.sodium)
+      ..write(obj.totalSodium)
       ..writeByte(6)
-      ..write(obj.cholesterol);
+      ..write(obj.totalCholesterol);
   }
 
   @override
@@ -53,7 +53,7 @@ class FoodAdapter extends TypeAdapter<Food> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FoodAdapter &&
+      other is DailyTotalsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'food.g.dart'; // Generated adapter part
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
 class Food {
   @HiveField(0)
   final String name;
