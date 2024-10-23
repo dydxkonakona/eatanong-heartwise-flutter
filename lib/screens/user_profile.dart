@@ -7,7 +7,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Get the first person from the PersonProvider for simplicity (you may want to modify this if there's more than one person)
+    // Get the first person from the PersonProvider
     final personProvider = Provider.of<PersonProvider>(context);
     final person = personProvider.persons.isNotEmpty ? personProvider.persons.first : null;
 
@@ -132,14 +132,13 @@ class UserProfile extends StatelessWidget {
                         ..weight = weight;
                       personProvider.notifyListeners(); // Notify listeners to update UI
 
+                      // Show success message
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Profile updated successfully!'))
                       );
-
-                      // Optionally, navigate back to the home page
-                      Navigator.pop(context);
                     } else {
-                      form.markAllAsTouched(); // Mark all fields as touched to show validation errors
+                      // Mark all fields as touched to show validation errors
+                      form.markAllAsTouched();
                     }
                   },
                   child: Text('Save Changes'),
