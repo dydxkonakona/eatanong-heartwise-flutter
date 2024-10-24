@@ -154,6 +154,7 @@ class FoodScreen extends StatelessWidget {
 
                       // Add the food to the provider
                       context.read<FoodProvider>().addFood(food);
+                      FoodProvider().printFoodItems();
 
                       // Reset the form after submission
                       form.reset();

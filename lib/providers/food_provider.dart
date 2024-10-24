@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'dart:convert';
 import 'package:final_eatanong_flutter/models/food_item.dart';
 import 'package:final_eatanong_flutter/models/logged_food.dart';
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 
 class FoodProvider extends ChangeNotifier {
   final Box<FoodItem> _foodBox = Hive.box<FoodItem>('foodBox');
@@ -16,19 +18,62 @@ class FoodProvider extends ChangeNotifier {
     _initializePresetData();
   }
 
-  void _initializePresetData() {
+  Future<void> _initializePresetData() async {
     if (_foodBox.isEmpty) {
-      // Add preset food items
-      final List<FoodItem> presetFoods = [
-        FoodItem(name: 'Apple', calories: 52, carbohydrates: 14, protein: 0.3, fat: 0.2, sodium: 1, cholesterol: 0),
-        FoodItem(name: 'Banana', calories: 89, carbohydrates: 23, protein: 1.1, fat: 0.3, sodium: 1, cholesterol: 0),
-        FoodItem(name: 'Chicken Breast', calories: 165, carbohydrates: 0, protein: 31, fat: 3.6, sodium: 74, cholesterol: 85),
-      ];
+      try {
+        final data = await rootBundle.loadString('assets/food_data.json');
+        print("JSON Data Loaded: $data"); // Log raw data
 
-      for (var food in presetFoods) {
-        _foodBox.add(food);
+        List<dynamic> jsonData = jsonDecode(data);
+        print("Total items in JSON: ${jsonData.length}"); // Log total items
+
+        for (var item in jsonData) {
+          try {
+            final food = FoodItem(
+              name: item['Food name'],
+              calories: safeParse(item['Calories(kcal)'].toString()),
+              protein: safeParse(item['Protein(g)'].toString()),
+              fat: safeParse(item['Total Fat(g)'].toString()),
+              carbohydrates: safeParse(item['Carbohydrates(g)'].toString()),
+              sodium: safeParse(item['Sodium(mg)'].toString()),
+              cholesterol: safeParse(item['Cholesterol (mg)'].toString()),
+            );
+
+            _foodBox.add(food);
+            print("Added food: ${food.name}"); // Confirm addition
+          } catch (e) {
+            print("Error parsing food item: ${item['Food name']}"); // Log the problematic item
+            print("Error: $e"); // Log the error
+          }
+        }
+
+        // Check the contents of the Hive box
+        printFoodItems(); // Function to log food items in Hive
+
+        notifyListeners();
+      } catch (e) {
+        print("Error loading preset data: $e"); // Catch and log errors
       }
-      notifyListeners();
+    } else {
+      print("FoodBox is not empty."); // Log if FoodBox is not empty
+    }
+  }
+
+  double safeParse(String value) {
+    if (value.isEmpty || value == "-" || value == "NaN") return 0.0; // Treat "-" and NaN as 0.0
+    try {
+      return double.parse(value);
+    } catch (e) {
+      print("Failed to parse '$value': $e");
+      return 0.0; // Default value if parsing fails
+    }
+  }
+
+  // Function to log all items in the FoodBox
+  void printFoodItems() {
+    final foods = _foodBox.values.toList();
+    for (var food in foods) {
+      print("Food in Hive: ${food.name}"); // Log each food item
     }
   }
 
