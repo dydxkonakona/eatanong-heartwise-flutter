@@ -23,7 +23,6 @@ class FoodProvider extends ChangeNotifier {
         FoodItem(name: 'Apple', calories: 52, carbohydrates: 14, protein: 0.3, fat: 0.2, sodium: 1, cholesterol: 0),
         FoodItem(name: 'Banana', calories: 89, carbohydrates: 23, protein: 1.1, fat: 0.3, sodium: 1, cholesterol: 0),
         FoodItem(name: 'Chicken Breast', calories: 165, carbohydrates: 0, protein: 31, fat: 3.6, sodium: 74, cholesterol: 85),
-        // Add more preset items as needed
       ];
 
       for (var food in presetFoods) {
@@ -78,6 +77,7 @@ class FoodProvider extends ChangeNotifier {
   List<LoggedFood> get loggedFoods => _loggedFoodBox.values.toList();
 
   List<LoggedFood> getIntakesForDay(DateTime date) {
+    // Normalize date for comparison
     return _loggedFoodBox.values.where((loggedFood) {
       final loggedDate = DateTime(loggedFood.loggedTime.year, loggedFood.loggedTime.month, loggedFood.loggedTime.day);
       return loggedDate == date;

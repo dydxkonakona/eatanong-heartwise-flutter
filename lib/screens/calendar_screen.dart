@@ -1,3 +1,4 @@
+import 'package:final_eatanong_flutter/screens/log_food.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,16 @@ class _DietLogScreenState extends State<DietLogScreen> {
   @override
   Widget build(BuildContext context) {
     final foodProvider = Provider.of<FoodProvider>(context);
-    final dailyMacros = foodProvider.calculateDailyMacros(_selectedDay!);
+
+    // Normalize _selectedDay for date comparison
+    DateTime normalizedSelectedDay = DateTime(_selectedDay!.year, _selectedDay!.month, _selectedDay!.day);
+    final loggedFoods = foodProvider.getIntakesForDay(normalizedSelectedDay); // Get logged foods for the selected day
+    
+    print('Selected day: $_selectedDay'); // Debugging line to print selected day
+    print('Logged foods for the day: ${loggedFoods.length}'); // Debugging line to check the number of logged foods
+
+    // Calculate total macros for the selected day
+    final dailyMacros = foodProvider.calculateDailyMacros(normalizedSelectedDay);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,9 +43,21 @@ class _DietLogScreenState extends State<DietLogScreen> {
         children: [
           _buildCalendar(),
           const SizedBox(height: 16),
-          _buildNutritionalSummary(dailyMacros),
-          _buildMealLogSection(foodProvider),
+          _buildLoggedFoods(loggedFoods), // Display logged foods for the selected day
+          const SizedBox(height: 16),
+          _buildTotalMacros(dailyMacros), // Display total macros for the selected day
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigate to the AddLoggedFoodScreen when the button is pressed
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddLoggedFoodScreen()),
+          );
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.redAccent,
       ),
     );
   }
@@ -75,86 +97,13 @@ class _DietLogScreenState extends State<DietLogScreen> {
     );
   }
 
-  Widget _buildNutritionalSummary(Map<String, double> dailyMacros) {
-    const double calorieGoal = 2000;
-    const double carbsGoal = 300;
-    const double fatGoal = 70;
-    const double proteinGoal = 50;
-    const double sodiumGoal = 2300;
-    const double cholesterolGoal = 300;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          _buildHeaderRow(),
-          _buildGoalRow(
-            "Calories",
-            "$calorieGoal Cal",
-            "${dailyMacros['calories']?.toStringAsFixed(1) ?? 0} Cal",
-            "${(calorieGoal - (dailyMacros['calories'] ?? 0)).toStringAsFixed(1)} Cal",
-          ),
-          _buildGoalRow(
-            "Total Carbs",
-            "$carbsGoal g",
-            "${dailyMacros['carbohydrates']?.toStringAsFixed(1) ?? 0} g",
-            "${(carbsGoal - (dailyMacros['carbohydrates'] ?? 0)).toStringAsFixed(1)} g",
-          ),
-          _buildGoalRow(
-            "Fat",
-            "$fatGoal g",
-            "${dailyMacros['fat']?.toStringAsFixed(1) ?? 0} g",
-            "${(fatGoal - (dailyMacros['fat'] ?? 0)).toStringAsFixed(1)} g",
-          ),
-          _buildGoalRow(
-            "Protein",
-            "$proteinGoal g",
-            "${dailyMacros['protein']?.toStringAsFixed(1) ?? 0} g",
-            "${(proteinGoal - (dailyMacros['protein'] ?? 0)).toStringAsFixed(1)} g",
-          ),
-          _buildGoalRow(
-            "Sodium",
-            "$sodiumGoal mg",
-            "${dailyMacros['sodium']?.toStringAsFixed(1) ?? 0} mg",
-            "${(sodiumGoal - (dailyMacros['sodium'] ?? 0)).toStringAsFixed(1)} mg",
-          ),
-          _buildGoalRow(
-            "Cholesterol",
-            "$cholesterolGoal mg",
-            "${dailyMacros['cholesterol']?.toStringAsFixed(1) ?? 0} mg",
-            "${(cholesterolGoal - (dailyMacros['cholesterol'] ?? 0)).toStringAsFixed(1)} mg",
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeaderRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(child: Text("Nutrient", style: TextStyle(fontWeight: FontWeight.bold))),
-        Expanded(child: Text("Goals", style: TextStyle(fontWeight: FontWeight.bold))),
-        Expanded(child: Text("Eaten", style: TextStyle(fontWeight: FontWeight.bold))),
-        Expanded(child: Text("Remaining", style: TextStyle(fontWeight: FontWeight.bold))),
-      ],
-    );
-  }
-
-  Widget _buildGoalRow(String nutrient, String goal, String eaten, String remaining) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(child: Text(nutrient)),
-        Expanded(child: Text(goal)),
-        Expanded(child: Text(eaten)),
-        Expanded(child: Text(remaining)),
-      ],
-    );
-  }
-
-  Widget _buildMealLogSection(FoodProvider foodProvider) {
-    final loggedFoods = foodProvider.getIntakesForDay(_selectedDay!);
+  Widget _buildLoggedFoods(List loggedFoods) {
+    if (loggedFoods.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text('No food logged for this day.'),
+      );
+    }
 
     return Expanded(
       child: ListView.builder(
@@ -163,15 +112,35 @@ class _DietLogScreenState extends State<DietLogScreen> {
           final loggedFood = loggedFoods[index];
           return ListTile(
             title: Text(loggedFood.foodItem.name),
-            subtitle: Text("${loggedFood.quantity}g"),
+            subtitle: Text('Quantity: ${loggedFood.quantity}g | Calories: ${loggedFood.totalCalories}'),
             trailing: IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                foodProvider.deleteLoggedFood(index);
+                // Delete the logged food
+                Provider.of<FoodProvider>(context, listen: false).deleteLoggedFood(index);
               },
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildTotalMacros(Map<String, double> dailyMacros) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Total Macros for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          const SizedBox(height: 8),
+          Text('Calories: ${dailyMacros['calories']?.toStringAsFixed(1)} kcal'),
+          Text('Carbohydrates: ${dailyMacros['carbohydrates']?.toStringAsFixed(1)} g'),
+          Text('Protein: ${dailyMacros['protein']?.toStringAsFixed(1)} g'),
+          Text('Fat: ${dailyMacros['fat']?.toStringAsFixed(1)} g'),
+          Text('Sodium: ${dailyMacros['sodium']?.toStringAsFixed(1)} mg'),
+          Text('Cholesterol: ${dailyMacros['cholesterol']?.toStringAsFixed(1)} mg'),
+        ],
       ),
     );
   }
