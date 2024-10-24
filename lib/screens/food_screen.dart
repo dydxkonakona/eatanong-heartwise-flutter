@@ -1,4 +1,4 @@
-import 'package:final_eatanong_flutter/models/food.dart';
+import 'package:final_eatanong_flutter/models/food_item.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
 import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ class FoodScreen extends StatelessWidget {
   // Define the form group
   final FormGroup form = fb.group({
     'name': FormControl<String>(value: '', validators: [Validators.required]),
-    'calories': FormControl<int>(value: null, validators: [
+    'calories': FormControl<double>(value: null, validators: [
       Validators.required,
       Validators.min(0), // Ensuring calories is a non-negative number
     ]),
@@ -57,7 +57,7 @@ class FoodScreen extends StatelessWidget {
                 SizedBox(height: 16.0),
 
                 // Calories Field
-                ReactiveTextField<int>(
+                ReactiveTextField<double>(
                   formControlName: 'calories',
                   decoration: InputDecoration(labelText: 'Calories'),
                   keyboardType: TextInputType.number,
@@ -134,7 +134,7 @@ class FoodScreen extends StatelessWidget {
                     if (form.valid) {
                       // Get form values
                       final String name = form.control('name').value!;
-                      final int calories = form.control('calories').value!;
+                      final double calories = form.control('calories').value!;
                       final double fat = form.control('fat').value!;
                       final double protein = form.control('protein').value!;
                       final double carbohydrates = form.control('carbohydrates').value!;
@@ -142,7 +142,7 @@ class FoodScreen extends StatelessWidget {
                       final double cholesterol = form.control('cholesterol').value!;
 
                       // Create a new Food object
-                      final food = Food(
+                      final food = FoodItem(
                         name: name,
                         calories: calories,
                         fat: fat,

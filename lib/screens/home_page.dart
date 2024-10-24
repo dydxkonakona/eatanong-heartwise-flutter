@@ -41,6 +41,29 @@ class HomePage extends StatelessWidget {
               },
             ),
           ),
+          Text("Logged Food Object Debugger"),
+          Expanded(
+            child: Consumer<FoodProvider>(
+              builder: (context, foodProvider, child) {
+                return ListView.builder(
+                  itemCount: foodProvider.loggedFoods.length,
+                  itemBuilder: (context, index) {
+                    final food = foodProvider.loggedFoods[index];
+                    return ListTile(
+                      title: Text(food.foodItem.name),
+                      subtitle: Text('Grams: ${food.quantity} | Date: ${food.loggedTime} | Total Cals: ${food.totalCalories}'),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          foodProvider.deleteLoggedFood(index);
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
           Text("Food Object Debugger"),
           Expanded(
             child: Consumer<FoodProvider>(

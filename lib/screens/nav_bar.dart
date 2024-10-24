@@ -110,6 +110,30 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: Icon(Icons.fastfood),
+            title: Text("Log Food"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/log food");
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.fastfood),
+            title: Text("Search Screen"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/search screen");
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.account_box_outlined),
+            title: Text("Calendar Screen"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/calendar");
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.account_box_outlined),
             title: Text("User Profile"),
             onTap: () {

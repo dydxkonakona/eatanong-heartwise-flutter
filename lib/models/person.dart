@@ -12,7 +12,7 @@ part "person.g.dart";
 This line is an annotation that tells Hive that the Person class is a type that can be stored in the database.
 The typeId parameter is a unique identifier for this type, which is used by Hive to distinguish it from other types.
 */
-@HiveType(typeId: 1)
+@HiveType(typeId: 0)
 // This line defines a new class named Person.
 class Person {
   // This line defines a constructor for the Person class that takes a map of named arguments.
