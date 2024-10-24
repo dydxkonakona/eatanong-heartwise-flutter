@@ -76,7 +76,6 @@ flutter:
     - assets/model.tflite
     - assets/labels.txt
     - assets/logo.png
-    - assets/food_data.csv
     - assets/food_data.json
     - assets/food_images/adobong_baboy.jpg
     - assets/food_images/bicol_express.jpg
