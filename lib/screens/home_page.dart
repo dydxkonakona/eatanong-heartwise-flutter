@@ -64,29 +64,6 @@ class HomePage extends StatelessWidget {
               },
             ),
           ),
-          Text("Food Object Debugger"),
-          Expanded(
-            child: Consumer<FoodProvider>(
-              builder: (context, foodProvider, child) {
-                return ListView.builder(
-                  itemCount: foodProvider.foods.length,
-                  itemBuilder: (context, index) {
-                    final food = foodProvider.foods[index];
-                    return ListTile(
-                      title: Text(food.name),
-                      subtitle: Text('Calories: ${food.calories} | Fat: ${food.fat}g | Protein: ${food.protein}g | Carbohydrates: ${food.carbohydrates}g'),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          foodProvider.deleteFood(index);
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

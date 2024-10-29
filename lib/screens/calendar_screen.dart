@@ -1,4 +1,4 @@
-import 'package:final_eatanong_flutter/screens/log_food.dart';
+import 'package:final_eatanong_flutter/screens/add_food.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +53,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
           // Navigate to the AddLoggedFoodScreen when the button is pressed
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddLoggedFoodScreen()),
+            MaterialPageRoute(builder: (context) => AddFood()),
           );
         },
         child: Icon(Icons.add),

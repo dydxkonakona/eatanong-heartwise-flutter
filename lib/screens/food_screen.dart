@@ -38,7 +38,7 @@ class FoodScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Food Screen')),
+      appBar: AppBar(title: Text('Create Food')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView( // Wrap the content in a SingleChildScrollView
@@ -163,31 +163,6 @@ class FoodScreen extends StatelessWidget {
                     }
                   },
                   child: Text('Add Food'),
-                ),
-
-                // Display the List of Foods
-                SizedBox(height: 16.0), // Add space before the list
-                Consumer<FoodProvider>(
-                  builder: (context, foodProvider, child) {
-                    return ListView.builder(
-                      shrinkWrap: true, // Prevents overflow issues
-                      physics: NeverScrollableScrollPhysics(), // Disable scrolling for this ListView
-                      itemCount: foodProvider.foods.length,
-                      itemBuilder: (context, index) {
-                        final food = foodProvider.foods[index];
-                        return ListTile(
-                          title: Text(food.name),
-                          subtitle: Text('Calories: ${food.calories} | Fat: ${food.fat}g | Protein: ${food.protein}g'),
-                          trailing: IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              foodProvider.deleteFood(index);
-                            },
-                          ),
-                        );
-                      },
-                    );
-                  },
                 ),
               ],
             ),

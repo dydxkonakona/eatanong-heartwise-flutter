@@ -7,7 +7,6 @@ import 'package:final_eatanong_flutter/screens/add_food.dart';
 import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/food_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
-import 'package:final_eatanong_flutter/screens/log_food.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
 import 'package:final_eatanong_flutter/screens/user_profile.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +53,6 @@ class MyApp extends StatelessWidget {
         "/home": (context) => const HomePage(),
         "/food screen": (context) => FoodScreen(),
         "/user profile": (context) => UserProfile(),
-        "/log food": (context) => AddLoggedFoodScreen(),
         "/search screen": (context) => AddFood(),
         "/calendar": (context) => DietLogScreen(),
       },

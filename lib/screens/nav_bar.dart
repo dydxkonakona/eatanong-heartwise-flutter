@@ -103,22 +103,14 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.fastfood),
-            title: Text("Food Screen"),
+            title: Text("Create Food Screen"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/food screen");
             },
           ),
           ListTile(
-            leading: Icon(Icons.fastfood),
-            title: Text("Log Food"),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/log food");
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.fastfood),
+            leading: Icon(Icons.search),
             title: Text("Search Screen"),
             onTap: () {
               Navigator.pop(context);
@@ -126,7 +118,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.account_box_outlined),
+            leading: Icon(Icons.calendar_month),
             title: Text("Calendar Screen"),
             onTap: () {
               Navigator.pop(context);
