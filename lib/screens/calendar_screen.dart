@@ -1,4 +1,6 @@
-import 'package:final_eatanong_flutter/screens/add_food.dart';
+// diet_log_screen.dart
+
+import 'package:final_eatanong_flutter/providers/food_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +15,19 @@ class DietLogScreen extends StatefulWidget {
 class _DietLogScreenState extends State<DietLogScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  late ImageClassifier _imageClassifier;
 
   @override
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
+    _imageClassifier = ImageClassifier(context);
+  }
+
+  @override
+  void dispose() {
+    _imageClassifier.dispose();
+    super.dispose();
   }
 
   @override
@@ -27,37 +37,67 @@ class _DietLogScreenState extends State<DietLogScreen> {
     // Normalize _selectedDay for date comparison
     DateTime normalizedSelectedDay = DateTime(_selectedDay!.year, _selectedDay!.month, _selectedDay!.day);
     final loggedFoods = foodProvider.getIntakesForDay(normalizedSelectedDay); // Get logged foods for the selected day
-    
-    print('Selected day: $_selectedDay'); // Debugging line to print selected day
-    print('Logged foods for the day: ${loggedFoods.length}'); // Debugging line to check the number of logged foods
 
     // Calculate total macros for the selected day
     final dailyMacros = foodProvider.calculateDailyMacros(normalizedSelectedDay);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Log'),
+        title: const Text('Diet Log'),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198),
       ),
       drawer: NavBar(),
       body: Column(
         children: [
           _buildCalendar(),
           const SizedBox(height: 16),
-          _buildLoggedFoods(loggedFoods), // Display logged foods for the selected day
-          const SizedBox(height: 16),
-          _buildTotalMacros(dailyMacros), // Display total macros for the selected day
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildLoggedFoods(loggedFoods), // Display logged foods for the selected day
+                  const SizedBox(height: 16),
+                  _buildTotalMacros(dailyMacros), // Display total macros for the selected day
+                ],
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to the AddLoggedFoodScreen when the button is pressed
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddFood()),
-          );
+          _imageClassifier.classifyImageFromCamera(); // Start image classification
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.redAccent,
+        tooltip: 'Add Food',
+        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Customize your button color
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        child: Image.asset('assets/logo.png'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
+      bottomNavigationBar: Container(
+        height: 50.0,
+        child: BottomAppBar(
+          color: Color.fromARGB(255, 255, 198, 198),
+          shape: const CircularNotchedRectangle(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  // Handle home button press
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/user profile');
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -105,7 +145,8 @@ class _DietLogScreenState extends State<DietLogScreen> {
       );
     }
 
-    return Expanded(
+    return SizedBox(
+      height: 200.0, // Set a fixed height for the ListView to fit within the scrollable area
       child: ListView.builder(
         itemCount: loggedFoods.length,
         itemBuilder: (context, index) {

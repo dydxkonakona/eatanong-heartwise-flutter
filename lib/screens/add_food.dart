@@ -13,7 +13,10 @@ class AddFood extends StatelessWidget {
     var foodProvider = Provider.of<FoodProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Food Logger')),
+      appBar: AppBar(
+        title: Text('Food Logger'),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198),
+      ),
       body: Column(
         children: [
           // Search Field

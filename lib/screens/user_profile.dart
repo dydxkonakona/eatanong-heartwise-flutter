@@ -3,6 +3,8 @@ import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:final_eatanong_flutter/models/person.dart';
+
 
 class UserProfile extends StatelessWidget {
   @override
@@ -38,7 +40,10 @@ class UserProfile extends StatelessWidget {
     });
 
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Profile')),
+      appBar: AppBar(
+        title: Text('Edit Profile'),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198),
+        ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -116,21 +121,18 @@ class UserProfile extends StatelessWidget {
                       final double height = form.control('height').value!;
                       final double weight = form.control('weight').value!;
 
-                      // Update the person object
-                      person.name = name;
-                      person.age = age;
-                      person.gender = gender;
-                      person.height = height;
-                      person.weight = weight;
+                      // Create a new updated Person object
+                      final updatedPerson = Person(
+                        name: name,
+                        age: age,
+                        gender: gender,
+                        height: height,
+                        weight: weight,
+                      );
 
-                      // Save the updated person object to the Hive box
-                      personProvider.persons.first // Assuming single user
-                        ..name = name
-                        ..age = age
-                        ..gender = gender
-                        ..height = height
-                        ..weight = weight;
-                      personProvider.notifyListeners(); // Notify listeners to update UI
+                      // Update the person in the PersonProvider
+                      final personIndex = personProvider.persons.indexOf(person);
+                      personProvider.updatePerson(personIndex, updatedPerson);
 
                       // Show success message
                       ScaffoldMessenger.of(context).showSnackBar(

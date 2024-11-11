@@ -15,7 +15,11 @@ class PersonProvider extends ChangeNotifier {
     // Notify listeners to update the UI
     notifyListeners();
   }
-
+  // Update person method
+  void updatePerson(int index, Person updatedPerson) {
+    _personBox.putAt(index, updatedPerson); // Update person at index
+    notifyListeners(); // Notify listeners after the update
+  }
   // Delete person method
   void deletePerson(int index) {
     _personBox.deleteAt(index);

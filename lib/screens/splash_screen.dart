@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/initial_page.dart';
@@ -27,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     // Fade-in animation
     _fadeInAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
-    
+
     // Fade-out animation
     _fadeOutAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
       parent: _controller,
@@ -35,29 +34,35 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     ));
 
     // Start the fade-in animation
-    _controller.forward().then((_) {
-      // After the fade-in animation completes, navigate after a delay
-      Timer(Duration(seconds: 1), () async {
-        // Open the personBox
+    _controller.forward().then((_) async {
+      // Use try-catch to handle any potential Hive initialization issues
+      try {
         var personBox = await Hive.openBox<Person>('personBox');
-        
+
         // Debugging: Print the number of entries in the personBox
         // print("Number of persons in the box: ${personBox.length}");
 
+        // Navigate based on whether there is user data in the box
         if (personBox.isEmpty) {
-          // If no user data is found, show the initial setup page
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => InitialPage()),
           );
         } else {
-          // If user data exists, go to home page
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => HomePage()),
           );
         }
-      });
+      } catch (e) {
+        // Handle error (e.g., if the box can't be opened)
+        print("Error opening personBox: $e");
+        // Default navigation in case of error
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => InitialPage()),
+        );
+      }
     });
   }
 

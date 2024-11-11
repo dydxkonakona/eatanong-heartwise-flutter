@@ -27,7 +27,10 @@ class InitialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Initial Setup')),
+      appBar: AppBar(
+        title: Text('Create Food'),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198),      
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

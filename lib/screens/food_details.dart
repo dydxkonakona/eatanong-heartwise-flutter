@@ -14,13 +14,16 @@ class FoodDetails extends StatelessWidget {
     final TextEditingController _quantityController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Food Details')),
+      appBar: AppBar(
+        title: Text('Create Food'),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198),      
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${foodItem.name}', style: TextStyle(fontSize: 24)),
+            Text('${foodItem.name} per 100g', style: TextStyle(fontSize: 24)),
             SizedBox(height: 10),
             Text('Calories: ${foodItem.calories} kcal'),
             Text('Protein: ${foodItem.protein} g'),
