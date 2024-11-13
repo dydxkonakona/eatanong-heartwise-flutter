@@ -28,8 +28,9 @@ class InitialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Food'),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198),      
+        title: Text('Initial Setup', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198),
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -41,7 +42,18 @@ class InitialPage extends StatelessWidget {
                 // Name Field
                 ReactiveTextField<String>(
                   formControlName: 'name',
-                  decoration: InputDecoration(labelText: 'Name'),
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                  ),
                   validationMessages: {
                     ValidationMessage.required: (error) => 'Please enter your name',
                   },
@@ -51,7 +63,18 @@ class InitialPage extends StatelessWidget {
                 // Age Field
                 ReactiveTextField<int>(
                   formControlName: 'age',
-                  decoration: InputDecoration(labelText: 'Age'),
+                  decoration: InputDecoration(
+                    labelText: 'Age',
+                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                  ),
                   keyboardType: TextInputType.number,
                   validationMessages: {
                     ValidationMessage.required: (error) => 'Please enter your age',
@@ -63,7 +86,18 @@ class InitialPage extends StatelessWidget {
                 // Gender Dropdown
                 ReactiveDropdownField<String>(
                   formControlName: 'gender',
-                  decoration: InputDecoration(labelText: 'Gender'),
+                  decoration: InputDecoration(
+                    labelText: 'Gender',
+                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                  ),
                   items: ['Male', 'Female', 'Other'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -76,7 +110,18 @@ class InitialPage extends StatelessWidget {
                 // Height Field
                 ReactiveTextField<double>(
                   formControlName: 'height',
-                  decoration: InputDecoration(labelText: 'Height (cm)'),
+                  decoration: InputDecoration(
+                    labelText: 'Height (cm)',
+                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                  ),
                   keyboardType: TextInputType.number,
                   validationMessages: {
                     ValidationMessage.required: (error) => 'Please enter your height',
@@ -88,7 +133,18 @@ class InitialPage extends StatelessWidget {
                 // Weight Field
                 ReactiveTextField<double>(
                   formControlName: 'weight',
-                  decoration: InputDecoration(labelText: 'Weight (kg)'),
+                  decoration: InputDecoration(
+                    labelText: 'Weight (kg)',
+                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                  ),
                   keyboardType: TextInputType.number,
                   validationMessages: {
                     ValidationMessage.required: (error) => 'Please enter your weight',
@@ -113,13 +169,11 @@ class InitialPage extends StatelessWidget {
                         name: name, 
                         age: age, 
                         gender: gender, 
-                        height:height, 
-                        weight:weight
-                        );
+                        height: height, 
+                        weight: weight,
+                      );
                       // Add the person to the PersonProvider
                       context.read<PersonProvider>().addPerson(person);
-                      // Store the person in Hive
-                      
 
                       // Navigate to the home page
                       Navigator.pushReplacement(
@@ -133,7 +187,26 @@ class InitialPage extends StatelessWidget {
                       form.markAllAsTouched(); // Mark all fields as touched to show validation errors
                     }
                   },
-                  child: Text('Save'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                    backgroundColor: Color(0xFFFF6363),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    elevation: 5,
+                    side: const BorderSide(
+                      color: Color(0xFFFF6363),
+                      width: 2,
+                    ),
+                  ),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             ),

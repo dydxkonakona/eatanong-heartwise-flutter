@@ -82,9 +82,22 @@ class FoodProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteFood(int index) {
-    _foodBox.deleteAt(index);
-    notifyListeners();
+  void deleteFood(BuildContext context, FoodItem foodItem) {
+    final index = _foodBox.values.toList().indexOf(foodItem);
+    if (index != -1) {
+      _foodBox.deleteAt(index);
+      notifyListeners();
+
+      // // Show a Snackbar confirming the deletion
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text('${foodItem.name} has been deleted.'),
+      //     duration: Duration(seconds: 2),
+      //   ),
+      // );
+    } else {
+      print("FoodItem not found in the box.");
+    }
   }
 
   void updateFood(int index, FoodItem updatedFood) {

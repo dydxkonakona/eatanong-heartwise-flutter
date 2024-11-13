@@ -1,5 +1,3 @@
-// diet_log_screen.dart
-
 import 'package:final_eatanong_flutter/providers/food_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -42,27 +40,30 @@ class _DietLogScreenState extends State<DietLogScreen> {
     final dailyMacros = foodProvider.calculateDailyMacros(normalizedSelectedDay);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Diet Log'),
         backgroundColor: Color.fromARGB(255, 255, 198, 198),
       ),
       drawer: NavBar(),
-      body: Column(
-        children: [
-          _buildCalendar(),
-          const SizedBox(height: 16),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildLoggedFoods(loggedFoods), // Display logged foods for the selected day
-                  const SizedBox(height: 16),
-                  _buildTotalMacros(dailyMacros), // Display total macros for the selected day
-                ],
+      body: SafeArea( // SafeArea to avoid overlaps with system UI (e.g., notches)
+        child: Column(
+          children: [
+            _buildCalendar(),
+            const SizedBox(height: 16),
+            Expanded( // Ensure this section can expand and contract based on screen size
+              child: SingleChildScrollView( // Ensure scrolling if content is too large
+                child: Column(
+                  children: [
+                    _buildLoggedFoods(loggedFoods), // Display logged foods for the selected day
+                    const SizedBox(height: 16),
+                    _buildTotalMacros(dailyMacros), // Display total macros for the selected day
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

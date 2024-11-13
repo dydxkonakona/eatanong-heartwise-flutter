@@ -39,8 +39,9 @@ class FoodScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Food'),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198),      
+        title: Text('Create Food', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        elevation: 0,
       ),
       body: GestureDetector(
         onTap: () {
@@ -53,21 +54,49 @@ class FoodScreen extends StatelessWidget {
             child: ReactiveForm(
               formGroup: form,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 8.0),
                   // Food Name Field
                   ReactiveTextField<String>(
                     formControlName: 'name',
-                    decoration: InputDecoration(labelText: 'Food Name'),
+                    decoration: InputDecoration(
+                      labelText: 'Food Name',
+                      labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                    ),
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Food Name is required',
                     },
                   ),
-                  SizedBox(height: 16.0),
-
+                  SizedBox(height: 8.0),
+                  Text(
+                    'If you don\'t know the exact value, enter 0.',
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
+                  ),
+                  SizedBox(height: 8.0),
                   // Calories Field
                   ReactiveTextField<double>(
                     formControlName: 'calories',
-                    decoration: InputDecoration(labelText: 'Calories'),
+                    decoration: InputDecoration(
+                      labelText: 'Calories',
+                      labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Calories are required',
@@ -79,7 +108,18 @@ class FoodScreen extends StatelessWidget {
                   // Fat Field
                   ReactiveTextField<double>(
                     formControlName: 'fat',
-                    decoration: InputDecoration(labelText: 'Fat (g)'),
+                    decoration: InputDecoration(
+                      labelText: 'Fat (g)',
+                      labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Fat is required',
@@ -91,7 +131,18 @@ class FoodScreen extends StatelessWidget {
                   // Protein Field
                   ReactiveTextField<double>(
                     formControlName: 'protein',
-                    decoration: InputDecoration(labelText: 'Protein (g)'),
+                    decoration: InputDecoration(
+                      labelText: 'Protein (g)',
+                      labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Protein is required',
@@ -103,7 +154,18 @@ class FoodScreen extends StatelessWidget {
                   // Carbohydrates Field
                   ReactiveTextField<double>(
                     formControlName: 'carbohydrates',
-                    decoration: InputDecoration(labelText: 'Carbohydrates (g)'),
+                    decoration: InputDecoration(
+                      labelText: 'Carbohydrates (g)',
+                      labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Carbohydrates are required',
@@ -115,7 +177,18 @@ class FoodScreen extends StatelessWidget {
                   // Sodium Field
                   ReactiveTextField<double>(
                     formControlName: 'sodium',
-                    decoration: InputDecoration(labelText: 'Sodium (mg)'),
+                    decoration: InputDecoration(
+                      labelText: 'Sodium (mg)',
+                      labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Sodium is required',
@@ -127,7 +200,18 @@ class FoodScreen extends StatelessWidget {
                   // Cholesterol Field
                   ReactiveTextField<double>(
                     formControlName: 'cholesterol',
-                    decoration: InputDecoration(labelText: 'Cholesterol (mg)'),
+                    decoration: InputDecoration(
+                      labelText: 'Cholesterol (mg)',
+                      labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Cholesterol is required',
@@ -163,21 +247,48 @@ class FoodScreen extends StatelessWidget {
                         // Add the food to the provider
                         context.read<FoodProvider>().addFood(food);
 
-                        // Show success SnackBar
+                        // Show success SnackBar at the top
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Food "$name" added successfully!'),
-                            backgroundColor: Colors.green,
+                            behavior: SnackBarBehavior.floating, // Custom positioning
+                            margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: Colors.green, // Green color for success
                           ),
                         );
 
                         // Reset the form after submission
                         form.reset();
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, "/calendar");
                       } else {
                         form.markAllAsTouched(); // Mark all fields as touched to show validation errors
                       }
                     },
-                    child: Text('Add Food'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0), // More spacious padding
+                      backgroundColor: Color(0xFFFF6363), // A softer, pastel-like red for the background
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0), // Round corners for a modern look
+                      ),
+                      shadowColor: Colors.black.withOpacity(0.2), // Subtle shadow for elevation effect
+                      elevation: 5, // Adding elevation for depth
+                      side: const BorderSide(
+                        color: Color(0xFFFF6363), // Border color matches the button color
+                        width: 2, // Border width for a subtle outline
+                      ),
+                    ),
+                    child: const Text(
+                      'Add Food',
+                      style: TextStyle(
+                        fontSize: 18, // Slightly larger font size for emphasis
+                        fontWeight: FontWeight.w600, // Slightly lighter weight for better readability
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),

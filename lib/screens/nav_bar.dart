@@ -42,7 +42,7 @@ class NavBar extends StatelessWidget {
 
                 return Container(
                   padding: EdgeInsets.all(16.0),
-                  color: Color.fromARGB(255, 255, 234, 234),
+                  color: Color.fromARGB(255, 255, 198, 198),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -101,6 +101,7 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, "/home");
             },
           ),
+          Divider(color: Colors.grey),
           ListTile(
             leading: Icon(Icons.fastfood),
             title: Text("Create Food Screen"),
@@ -109,6 +110,7 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, "/food screen");
             },
           ),
+          Divider(color: Colors.grey),
           ListTile(
             leading: Icon(Icons.search),
             title: Text("Search Screen"),
@@ -117,6 +119,7 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, "/search screen");
             },
           ),
+          Divider(color: Colors.grey),
           ListTile(
             leading: Icon(Icons.calendar_month),
             title: Text("Calendar Screen"),
@@ -125,6 +128,7 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, "/calendar");
             },
           ),
+          Divider(color: Colors.grey),
           ListTile(
             leading: Icon(Icons.account_box_outlined),
             title: Text("User Profile"),
@@ -132,7 +136,7 @@ class NavBar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/user profile");
             },
-          ),
+          ),Divider(color: Colors.grey),
         ],
       ),
     );

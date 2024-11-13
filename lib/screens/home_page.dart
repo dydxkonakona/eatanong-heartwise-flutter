@@ -32,13 +32,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // Prevents FAB from moving with the snackbar
       appBar: AppBar(
         title: const Text('Home'),
         backgroundColor: Color.fromARGB(255, 255, 198, 198),
       ),
       body: Column(
         children: [
-          Text("Person Object Debugger"),
+          const Text("Person Object Debugger"),
           Expanded(
             child: Consumer<PersonProvider>(
               builder: (context, personProvider, child) {
@@ -53,6 +54,10 @@ class _HomePageState extends State<HomePage> {
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           personProvider.deletePerson(index);
+                          // Show snackbar after deletion
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('${person.name} deleted')),
+                          );
                         },
                       ),
                     );
@@ -61,7 +66,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          Text("Logged Food Object Debugger"),
+          const Text("Logged Food Object Debugger"),
           Expanded(
             child: Consumer<FoodProvider>(
               builder: (context, foodProvider, child) {
@@ -71,11 +76,16 @@ class _HomePageState extends State<HomePage> {
                     final food = foodProvider.loggedFoods[index];
                     return ListTile(
                       title: Text(food.foodItem.name),
-                      subtitle: Text('Grams: ${food.quantity} | Date: ${food.loggedTime} | Total Cals: ${food.totalCalories}'),
+                      subtitle: Text(
+                          'Grams: ${food.quantity} | Date: ${food.loggedTime} | Total Cals: ${food.totalCalories}'),
                       trailing: IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           foodProvider.deleteLoggedFood(index);
+                          // Show snackbar after deletion
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('${food.foodItem.name} deleted')),
+                          );
                         },
                       ),
                     );

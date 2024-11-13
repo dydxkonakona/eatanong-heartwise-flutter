@@ -14,53 +14,112 @@ class AddFood extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Food Logger'),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198),
+        title: Text('Log Food', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        elevation: 0,
       ),
-      body: Column(
-        children: [
-          // Search Field
-          TextField(
-            controller: _searchController,
-            decoration: InputDecoration(labelText: 'Search Food Items'),
-            onChanged: (value) {
-              foodProvider.searchFood(value);
-            },
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0), // Adjust padding for overall body
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Search Field with updated modern styling
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  labelText: 'Search Food Items',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 251, 98, 98)), // Search icon with custom color
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                  ),
+                ),
+                onChanged: (value) {
+                  foodProvider.searchFood(value);
+                },
+              ),
+            ),
 
-          // Food items list
-          Expanded(
-            child: _searchController.text.isEmpty
-                ? Center(child: Text('Please enter a search term.')) // Message when the search field is empty
-                : foodProvider.filteredFoods.isEmpty
-                    ? Center(child: Text('No food items found.')) // Message when no items match the search
-                    : ListView.builder(
-                        itemCount: foodProvider.filteredFoods.length,
-                        itemBuilder: (context, index) {
-                          final foodItem = foodProvider.filteredFoods[index];
-                          return ListTile(
-                            title: Text(foodItem.name),
-                            subtitle: Text('Calories: ${foodItem.calories}'),
-                            onTap: () {
-                              // Navigate to food details screen on tap
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => FoodDetails(foodItem: foodItem),
-                                ),
-                              );
-                            },
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                foodProvider.deleteFood(index);
-                              },
-                            ),
-                          );
-                        },
+            // Food items list with better list item styling
+            Expanded(
+              child: _searchController.text.isEmpty
+                  ? Center(
+                      child: Text(
+                        'Please enter a search term.',
+                        style: TextStyle(fontSize: 16, color: Colors.black54),
                       ),
-          ),
-        ],
+                    )
+                  : foodProvider.filteredFoods.isEmpty
+                      ? Center(
+                          child: Text(
+                            'No food items found.',
+                            style: TextStyle(fontSize: 16, color: Colors.black54),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: foodProvider.filteredFoods.length,
+                          itemBuilder: (context, index) {
+                            final foodItem = foodProvider.filteredFoods[index];
+                            return Card(
+                              margin: EdgeInsets.only(bottom: 10),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              elevation: 2,
+                              child: ListTile(
+                                contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                                title: Text(
+                                  foodItem.name,
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                ),
+                                subtitle: Text(
+                                  'Calories: ${foodItem.calories}',
+                                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                                ),
+                                onTap: () {
+                                  // Navigate to food details screen on tap
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => FoodDetails(foodItem: foodItem),
+                                    ),
+                                  );
+                                },
+                                trailing: IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.redAccent),
+                                  onPressed: () {
+                                    foodProvider.deleteFood(context, foodItem);
+                                    // Clear the search text after deleting the food item
+                                    _searchController.clear();
+
+                                    // Show SnackBar at the top when food is deleted
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Food item deleted!'),
+                                        behavior: SnackBarBehavior.floating, // Custom positioning
+                                        margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        backgroundColor: Colors.redAccent,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+            ),
+          ],
+        ),
       ),
       drawer: NavBar(),
     );
