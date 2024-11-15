@@ -1,5 +1,57 @@
 [
     {
+        "Exercise name": "Running (6 mph)",
+        "MET": 9.8
+    },
+    {
+        "Exercise name": "Running (7.5 mph)",
+        "MET": 11
+    },
+    {
+        "Exercise name": "Walking (3.0 mph)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Walking (4.0 mph)",
+        "MET": 5
+    },
+    {
+        "Exercise name": "Cycling (12-14 mph)",
+        "MET": 8
+    },
+    {
+        "Exercise name": "Cycling (16-19 mph)",
+        "MET": 12
+    },
+    {
+        "Exercise name": "Jump Rope",
+        "MET": 12
+    },
+    {
+        "Exercise name": "Swimming (slow lap)",
+        "MET": 6
+    },
+    {
+        "Exercise name": "Swimming (fast lap)",
+        "MET": 10
+    },
+    {
+        "Exercise name": "Rowing (moderate intensity)",
+        "MET": 7
+    },
+    {
+        "Exercise name": "Rowing (vigorous intensity)",
+        "MET": 10
+    },
+    {
+        "Exercise name": "Elliptical Trainer",
+        "MET": 6
+    },
+    {
+        "Exercise name": "Hiking (with pack)",
+        "MET": 7
+    },
+    {
         "Exercise name": "Push-up",
         "MET": 3
     },
@@ -10,5 +62,89 @@
     {
         "Exercise name": "Squat",
         "MET": 3
+    },
+    {
+        "Exercise name": "Lunges",
+        "MET": 4
+    },
+    {
+        "Exercise name": "Plank",
+        "MET": 2.5
+    },
+    {
+        "Exercise name": "Yoga (Hatha)",
+        "MET": 2.5
+    },
+    {
+        "Exercise name": "Yoga (Vinyasa)",
+        "MET": 4
+    },
+    {
+        "Exercise name": "Pilates",
+        "MET": 4
+    },
+    {
+        "Exercise name": "Weightlifting (light effort)",
+        "MET": 3
+    },
+    {
+        "Exercise name": "Weightlifting (vigorous effort)",
+        "MET": 6
+    },
+    {
+        "Exercise name": "Dancing (moderate effort)",
+        "MET": 4.5
+    },
+    {
+        "Exercise name": "Dancing (vigorous effort)",
+        "MET": 7
+    },
+    {
+        "Exercise name": "Tinikling (Filipino Traditional Dance)",
+        "MET": 7.0
+    },
+    {
+        "Exercise name": "Barangay Cleanup Drive",
+        "MET": 5.0
+    },
+    {
+        "Exercise name": "Street Basketball (game)",
+        "MET": 6.0
+    },
+    {
+        "Exercise name": "Football (game)",
+        "MET": 7
+    },
+    {
+        "Exercise name": "Soccer (competitive)",
+        "MET": 8
+    },
+    {
+        "Exercise name": "Soccer (recreational)",
+        "MET": 5
+    },
+    {
+        "Exercise name": "Baseball (game)",
+        "MET": 4.5
+    },
+    {
+        "Exercise name": "Gardening (moderate effort)",
+        "MET": 4
+    },
+    {
+        "Exercise name": "Walking (uphill)",
+        "MET": 6
+    },
+    {
+        "Exercise name": "Cycling (uphill)",
+        "MET": 10
+    },
+    {
+        "Exercise name": "Stretching (light)",
+        "MET": 2
+    },
+    {
+        "Exercise name": "Stretching (vigorous)",
+        "MET": 4
     }
 ]

@@ -137,6 +137,14 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, "/user profile");
             },
           ),Divider(color: Colors.grey),
+          ListTile(
+            leading: Icon(Icons.fitness_center),
+            title: Text("Exercise"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/exercise screen");
+            },
+          ),Divider(color: Colors.grey),
         ],
       ),
     );

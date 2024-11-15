@@ -1,10 +1,13 @@
+import 'package:final_eatanong_flutter/models/exercise.dart';
 import 'package:final_eatanong_flutter/models/food_item.dart';
 import 'package:final_eatanong_flutter/models/logged_food.dart';
 import 'package:final_eatanong_flutter/models/person.dart';
+import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/screens/add_food.dart';
 import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
+import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
 import 'package:final_eatanong_flutter/screens/food_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
@@ -25,7 +28,8 @@ void main() async {
   // Adapters are used by Hive to serialize and deserialize objects of a specific type.
   Hive.registerAdapter(PersonAdapter()); //typeId: 1
   Hive.registerAdapter(FoodItemAdapter()); //typeId: 2
-  Hive.registerAdapter(LoggedFoodAdapter());
+  Hive.registerAdapter(LoggedFoodAdapter()); //typeId: 3
+  Hive.registerAdapter(ExerciseAdapter()); //typeId: 4
 
   // Open a Hive box for storing Persons
   // This line opens a Hive box named personBox that is specific to storing Person objects.
@@ -33,11 +37,13 @@ void main() async {
   await Hive.openBox<Person>('personBox');
   await Hive.openBox<FoodItem>('foodBox');
   await Hive.openBox<LoggedFood>('loggedFoodBox');
+  await Hive.openBox<Exercise>('exerciseBox');
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => PersonProvider()),
         ChangeNotifierProvider(create: (_) => FoodProvider()),
+        ChangeNotifierProvider(create: (_) => ExerciseProvider()),
       ], 
       child: MyApp()),
   );
@@ -55,6 +61,7 @@ class MyApp extends StatelessWidget {
         "/user profile": (context) => UserProfile(),
         "/search screen": (context) => AddFood(),
         "/calendar": (context) => DietLogScreen(),
+        "/exercise screen": (context) => ExerciseScreen(),
       },
     );
   }
