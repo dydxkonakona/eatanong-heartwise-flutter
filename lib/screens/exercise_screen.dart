@@ -1,3 +1,4 @@
+import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
@@ -56,6 +57,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 },
               ),
             ),
+            Text(
+                    'Calories burned calculated based on METs. Calories burned = METs * Weight (kg) * Time (minutes)/60',
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
+                  ),
+            SizedBox(height: 8.0),
             // List of exercises
             Expanded(
               child: Consumer<ExerciseProvider>(
@@ -94,7 +100,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             icon: Icon(Icons.delete, color: Colors.red),
                             onPressed: () => _deleteExercise(context, exerciseProvider, index),
                           ),
-                          onTap: () => _showExerciseDetails(context, exercise),
+                          onTap: () => _showExerciseDetails(
+                            context, 
+                            exercise, 
+                            Provider.of<PersonProvider>(context, listen: false)
+                            ),
                         ),
                       );
                     },
@@ -236,19 +246,146 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   // Show Exercise Details
-  void _showExerciseDetails(BuildContext context, Exercise exercise) {
+  void _showExerciseDetails(
+      BuildContext context, Exercise exercise, PersonProvider personProvider) {
+    // Get the weight of the first person (adjust logic if needed for multiple persons)
+    double weight = personProvider.persons.isNotEmpty
+        ? personProvider.persons.first.weight
+        : 70; // Default weight if none available
+
+    final TextEditingController durationController = TextEditingController();
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(exercise.name),
-        content: Text('MET Value: ${exercise.metValue}\nCalories Burned: ${exercise.calculateCaloriesBurned(70, 5).toStringAsFixed(2)}'),
-        actions: [
-          TextButton(
-            child: Text('Close'),
-            onPressed: () => Navigator.pop(context),
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0), // Rounded corners for the dialog
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0), // Padding around the dialog content
+          child: SingleChildScrollView( // Make content scrollable to avoid overflow
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  exercise.name,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 251, 98, 98), // Match with the theme color
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 16), // Add some space between title and details
+                Text('MET Value: ${exercise.metValue}', 
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                SizedBox(height: 16), // Space between MET and duration field
+                TextField(
+                  controller: durationController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Enter duration (minutes)',
+                    hintText: 'e.g., 30',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    prefixIcon: Icon(Icons.timer, color: Color.fromARGB(255, 251, 98, 98)),
+                    border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    ),
+                  ),
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))], // Allow only numbers and decimals
+                ),
+                SizedBox(height: 24), // Space between the input field and buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text('Cancel', style: TextStyle(color: Colors.grey)),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        final double? duration = double.tryParse(durationController.text);
+                        if (duration != null) {
+                          final double caloriesBurned =
+                              exercise.calculateCaloriesBurned(weight, duration);
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'Calories Burned',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 251, 98, 98),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 16),
+                                    Text(
+                                      'You burned ${caloriesBurned.toStringAsFixed(2)} calories.',
+                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 24),
+                                    ElevatedButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color.fromARGB(255, 251, 98, 98),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 251, 98, 98),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      child: Text(
+                        'Calculate',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
+
+
 }

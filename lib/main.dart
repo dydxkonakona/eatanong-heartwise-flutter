@@ -1,5 +1,6 @@
 import 'package:final_eatanong_flutter/models/exercise.dart';
 import 'package:final_eatanong_flutter/models/food_item.dart';
+import 'package:final_eatanong_flutter/models/logged_exercise.dart';
 import 'package:final_eatanong_flutter/models/logged_food.dart';
 import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
@@ -8,7 +9,6 @@ import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/screens/add_food.dart';
 import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
-import 'package:final_eatanong_flutter/screens/food_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
 import 'package:final_eatanong_flutter/screens/user_profile.dart';
@@ -26,10 +26,11 @@ void main() async {
   // Register the Person adapter
   // This line registers the PersonAdapter class as an adapter for the Person class
   // Adapters are used by Hive to serialize and deserialize objects of a specific type.
-  Hive.registerAdapter(PersonAdapter()); //typeId: 1
-  Hive.registerAdapter(FoodItemAdapter()); //typeId: 2
-  Hive.registerAdapter(LoggedFoodAdapter()); //typeId: 3
-  Hive.registerAdapter(ExerciseAdapter()); //typeId: 4
+  Hive.registerAdapter(PersonAdapter()); //typeId: 0
+  Hive.registerAdapter(FoodItemAdapter()); //typeId: 1
+  Hive.registerAdapter(LoggedFoodAdapter()); //typeId: 2
+  Hive.registerAdapter(ExerciseAdapter()); //typeId: 3
+  Hive.registerAdapter(LoggedExerciseAdapter());
 
   // Open a Hive box for storing Persons
   // This line opens a Hive box named personBox that is specific to storing Person objects.
@@ -38,6 +39,7 @@ void main() async {
   await Hive.openBox<FoodItem>('foodBox');
   await Hive.openBox<LoggedFood>('loggedFoodBox');
   await Hive.openBox<Exercise>('exerciseBox');
+  await Hive.openBox<LoggedExercise>('loggedExerciseBox');
   runApp(
     MultiProvider(
       providers: [
@@ -57,7 +59,6 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       routes: {
         "/home": (context) => const HomePage(),
-        "/food screen": (context) => FoodScreen(),
         "/user profile": (context) => UserProfile(),
         "/search screen": (context) => AddFood(),
         "/calendar": (context) => DietLogScreen(),

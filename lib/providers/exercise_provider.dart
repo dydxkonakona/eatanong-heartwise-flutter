@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:final_eatanong_flutter/models/exercise.dart';
+import 'package:final_eatanong_flutter/models/logged_exercise.dart';
 
 class ExerciseProvider extends ChangeNotifier {
   final Box<Exercise> _exerciseBox = Hive.box<Exercise>('exerciseBox');
+  final Box<LoggedExercise> _loggedExerciseBox = Hive.box<LoggedExercise>('loggedExerciseBox');
   List<Exercise> _filteredExercises = [];
 
   List<Exercise> get exercises => _exerciseBox.values.toList();
   List<Exercise> get filteredExercises => _filteredExercises.isEmpty ? exercises : _filteredExercises;
+  List<LoggedExercise> get loggedExercises => _loggedExerciseBox.values.toList();
 
   ExerciseProvider() {
     _initializePresetData();
@@ -71,5 +74,46 @@ class ExerciseProvider extends ChangeNotifier {
           .toList();
     }
     notifyListeners();
+  }
+
+  // Add a logged exercise entry
+  void addLoggedExercise(Exercise exercise, double duration) {
+    final loggedExercise = LoggedExercise(
+      duration: duration,
+      loggedTime: DateTime.now(),
+      exercise: exercise,
+    );
+
+    _loggedExerciseBox.add(loggedExercise);
+    notifyListeners();
+  }
+
+  // Delete a logged exercise entry
+  void deleteLoggedExercise(int index) {
+    _loggedExerciseBox.deleteAt(index);
+    notifyListeners();
+  }
+
+  // Get exercises logged for a specific day
+  List<LoggedExercise> getLoggedExercisesForDay(DateTime date) {
+    return _loggedExerciseBox.values.where((loggedExercise) {
+      final loggedDate = DateTime(loggedExercise.loggedTime.year, loggedExercise.loggedTime.month, loggedExercise.loggedTime.day);
+      return loggedDate == date;
+    }).toList();
+  }
+
+  // Calculate total calories burned on a specific day
+  Map<String, double> calculateDailyCaloriesBurned(DateTime date, double weightInKg) {
+    final dailyExercises = getLoggedExercisesForDay(date);
+
+    double totalCaloriesBurned = 0;
+
+    for (var loggedExercise in dailyExercises) {
+      totalCaloriesBurned += loggedExercise.calculateCaloriesBurned(weightInKg);
+    }
+
+    return {
+      'calories_burned': totalCaloriesBurned,
+    };
   }
 }

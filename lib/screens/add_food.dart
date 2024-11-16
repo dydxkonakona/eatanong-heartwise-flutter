@@ -1,4 +1,5 @@
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
+import 'package:final_eatanong_flutter/screens/food_screen.dart';
 import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 import 'package:final_eatanong_flutter/screens/food_details.dart'; // Import the new screen
 import 'package:flutter/material.dart';
@@ -14,9 +15,21 @@ class AddFood extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Log Food', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Search Food', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            tooltip: 'Create a new food item (not in database)', // Tooltip added
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FoodScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0), // Adjust padding for overall body
@@ -24,6 +37,11 @@ class AddFood extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Search Field with updated modern styling
+            Text(
+                    'The + icon allows you to create a new food item (not in database).',
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
+                  ),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: TextField(

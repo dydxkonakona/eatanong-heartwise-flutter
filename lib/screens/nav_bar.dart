@@ -20,7 +20,7 @@ class NavBar extends StatelessWidget {
     } else if (bmi >= 25 && bmi < 29.9) {
       return "Overweight";
     } else {
-      return "Obesity";
+      return "Obese";
     }
   }
 
@@ -103,17 +103,8 @@ class NavBar extends StatelessWidget {
           ),
           Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.fastfood),
-            title: Text("Create Food Screen"),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/food screen");
-            },
-          ),
-          Divider(color: Colors.grey),
-          ListTile(
             leading: Icon(Icons.search),
-            title: Text("Search Screen"),
+            title: Text("Search Food"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/search screen");
@@ -130,19 +121,20 @@ class NavBar extends StatelessWidget {
           ),
           Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.account_box_outlined),
-            title: Text("User Profile"),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/user profile");
-            },
-          ),Divider(color: Colors.grey),
-          ListTile(
             leading: Icon(Icons.fitness_center),
             title: Text("Exercise"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/exercise screen");
+            },
+          ),
+          Divider(color: Colors.grey),
+          ListTile(
+            leading: Icon(Icons.account_box_outlined),
+            title: Text("User Profile"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/user profile");
             },
           ),Divider(color: Colors.grey),
         ],
