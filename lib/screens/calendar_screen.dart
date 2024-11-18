@@ -196,14 +196,44 @@ class _DietLogScreenState extends State<DietLogScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 4.0), // Space between text elements
                           child: Text(
-                            'Quantity: ${loggedFood.quantity}g',
+                            'Quantity: ${loggedFood.quantity.toStringAsFixed(1)} g',
                             style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                         ),
                         Text(
-                          'Calories: ${loggedFood.totalCalories}',
+                          'Calories: ${loggedFood.totalCalories.toStringAsFixed(1)} kcal',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          'Carbohydrates: ${loggedFood.totalCarbohydrates.toStringAsFixed(1)} kcal',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          'Protein: ${loggedFood.totalProtein.toStringAsFixed(1)} kcal',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          'Fat: ${loggedFood.totalFat.toStringAsFixed(1)} kcal',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          'Sodium: ${loggedFood.totalSodium.toStringAsFixed(1)} kcal',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          'Cholesterol: ${loggedFood.totalCholesterol.toStringAsFixed(1)} kcal',
                           style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -310,7 +340,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 4.0), // Space between text elements
                           child: Text(
-                            'Duration: ${loggedExercise.duration} min',
+                            'Duration: ${loggedExercise.duration.toStringAsFixed(0)} min',
                             style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,

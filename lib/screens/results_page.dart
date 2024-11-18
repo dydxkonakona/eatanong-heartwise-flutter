@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:final_eatanong_flutter/models/food_item.dart'; // Import the FoodItem model
 import 'package:final_eatanong_flutter/screens/food_details.dart'; // Import the FoodDetails screen
+import 'package:hive_flutter/hive_flutter.dart'; // Import Hive for accessing the database
 
 class ResultsPage extends StatelessWidget {
   final List<dynamic> recognitions;
@@ -27,8 +28,10 @@ class ResultsPage extends StatelessWidget {
                 itemCount: recognitions.length,
                 itemBuilder: (context, index) {
                   final recognition = recognitions[index];
-                  // Remove leading numbers from the label
-                  String label = recognition['label'].replaceAll(RegExp(r'^\d+\s*'), '');
+                  // Clean and normalize the label
+                  String label = recognition['label'].replaceAll(RegExp(r'^\d+\s*'), '').trim();
+                  String normalizedLabel = label.toLowerCase(); // Normalize label to lowercase
+
                   // Generate the image path using the label (formatted for the file names)
                   String imagePath = 'assets/food_images/${label.toLowerCase().replaceAll(' ', '_')}.jpg';
 
@@ -89,25 +92,41 @@ class ResultsPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Center( // Center the button within the column
                               child: ElevatedButton(
-                                onPressed: () {
-                                  // Create a FoodItem instance using the recognition data
-                                  FoodItem foodItem = FoodItem(
-                                    name: label,
-                                    calories: 0, // Set default or fetched values as needed
-                                    protein: 0, // Set default or fetched values as needed
-                                    fat: 0, // Set default or fetched values as needed
-                                    carbohydrates: 0, // Set default or fetched values as needed
-                                    sodium: 0, // Set default or fetched values as needed
-                                    cholesterol: 0, // Set default or fetched values as needed
+                                onPressed: () async {
+                                  // Access the Hive box that contains the food items
+                                  var foodBox = await Hive.openBox<FoodItem>('foodBox');
+                                  
+                                  // Search for the food item using a case-insensitive comparison
+                                  FoodItem? foodItem = foodBox.values.firstWhere(
+                                    (item) => item.name.toLowerCase() == normalizedLabel,
+                                    orElse: () => FoodItem(
+                                      name: label, 
+                                      calories: 0, 
+                                      protein: 0, 
+                                      fat: 0, 
+                                      carbohydrates: 0, 
+                                      sodium: 0, 
+                                      cholesterol: 0,
+                                    ), // Return a default FoodItem if no match found
                                   );
 
-                                  // Navigate to FoodDetails screen with the created FoodItem
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => FoodDetails(foodItem: foodItem),
-                                    ),
-                                  );
+                                  if (foodItem.name.toLowerCase() != normalizedLabel) {
+                                    // If the foodItem is a default one, show an error message
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Food item "$label" not found in the database'),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  } else {
+                                    // If a valid foodItem is found, pass it to the FoodDetails screen
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FoodDetails(foodItem: foodItem),
+                                      ),
+                                    );
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 40.0), // Adjust padding

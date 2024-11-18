@@ -42,6 +42,6 @@ flutter:
     - assets/logo.png
     - assets/food_data.json
     - assets/exercise_data.json
-    - assets/food_images/adobong_baboy.jpg
+    - assets/food_images/pork_adobo.jpg
     - assets/food_images/bicol_express.jpg
-    - assets/food_images/caldereta.jpg
+    - assets/food_images/beef_caldereta.jpg

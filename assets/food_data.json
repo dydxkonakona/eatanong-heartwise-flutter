@@ -15774,7 +15774,7 @@
     "Cholesterol (mg)": "-"
   },
   {
-    "Food name": "Beef caldereta cnd",
+    "Food name": "Beef caldereta",
     "Edible Portion": "95%",
     "Water (g)": 58.6,
     "Calories(kcal)": 284,
@@ -15972,7 +15972,7 @@
     "Cholesterol (mg)": "-"
   },
   {
-    "Food name": "Pork adobo cnd",
+    "Food name": "Pork adobo",
     "Edible Portion": "100%",
     "Water (g)": 60.2,
     "Calories(kcal)": 277,
@@ -16960,5 +16960,16 @@
     "Carbohydrates(g)": 13.4,
     "Sodium(mg)": "-",
     "Cholesterol (mg)": "-"
+  },
+  {
+    "Food name": "Bicol Express",
+    "Edible Portion": "-",
+    "Water (g)": "-",
+    "Calories(kcal)": 230.4,
+    "Protein(g)": 11,
+    "Total Fat(g)": 16.8,
+    "Carbohydrates(g)": 9.1,
+    "Sodium(mg)": 0.5,
+    "Cholesterol (mg)": 39.6
   }
 ]

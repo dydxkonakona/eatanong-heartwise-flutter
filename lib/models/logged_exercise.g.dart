@@ -20,19 +20,22 @@ class LoggedExerciseAdapter extends TypeAdapter<LoggedExercise> {
       duration: fields[0] as double,
       loggedTime: fields[1] as DateTime,
       exercise: fields[2] as Exercise,
+      person: fields[3] as Person,
     );
   }
 
   @override
   void write(BinaryWriter writer, LoggedExercise obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.duration)
       ..writeByte(1)
       ..write(obj.loggedTime)
       ..writeByte(2)
-      ..write(obj.exercise);
+      ..write(obj.exercise)
+      ..writeByte(3)
+      ..write(obj.person);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -80,11 +81,12 @@ class ExerciseProvider extends ChangeNotifier {
   }
 
   // Add a logged exercise entry
-  void addLoggedExercise(Exercise exercise, double duration) {
+  void addLoggedExercise(Exercise exercise, double duration, Person person) {
     final loggedExercise = LoggedExercise(
       duration: duration,
       loggedTime: DateTime.now(),
       exercise: exercise,
+      person: person,
     );
 
     _loggedExerciseBox.add(loggedExercise);

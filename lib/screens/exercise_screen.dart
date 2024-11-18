@@ -1,3 +1,4 @@
+import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -312,7 +313,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       onPressed: () {
                         final double? duration = double.tryParse(durationController.text);
                         if (duration != null) {
-                          _showLogOrCloseDialog(context, exercise, weight, duration);
+                          _showLogOrCloseDialog(context, exercise, weight, duration, personProvider.persons.first);
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -341,7 +342,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   // Log or Close Dialog
-  void _showLogOrCloseDialog(BuildContext context, Exercise exercise, double weight, double duration) {
+  void _showLogOrCloseDialog(BuildContext context, Exercise exercise, double weight, double duration, Person person) {
     final double caloriesBurned = exercise.calculateCaloriesBurned(weight, duration);
 
     showDialog(
@@ -383,10 +384,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       // Log the exercise action here, such as saving it to the database or other actions.
                       var exerciseProvider = Provider.of<ExerciseProvider>(context, listen: false);
                       if (duration > 0) {
-                        exerciseProvider.addLoggedExercise(exercise, duration);
+                        exerciseProvider.addLoggedExercise(exercise, duration, person);
                       }
                       Navigator.pop(context);
-                      Navigator.pushNamed(context, "/exercise screen");
+                      Navigator.pushNamed(context, "/calendar");
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
