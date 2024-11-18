@@ -52,6 +52,7 @@ class ExerciseProvider extends ChangeNotifier {
 
   void addExercise(Exercise exercise) {
     _exerciseBox.add(exercise);
+    _filteredExercises = _exerciseBox.values.toList();
     notifyListeners();
   }
 
@@ -62,6 +63,8 @@ class ExerciseProvider extends ChangeNotifier {
 
   void deleteExercise(int index) {
     _exerciseBox.deleteAt(index);
+    _filteredExercises = _exerciseBox.values.toList();
+
     notifyListeners();
   }
 

@@ -6,7 +6,6 @@ import 'package:final_eatanong_flutter/models/exercise.dart';
 import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 import 'package:flutter/services.dart';
 
-
 class ExerciseScreen extends StatefulWidget {
   @override
   _ExerciseScreenState createState() => _ExerciseScreenState();
@@ -58,9 +57,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               ),
             ),
             Text(
-                    'Calories burned calculated based on METs. Calories burned = METs * Weight (kg) * Time (minutes)/60',
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
-                  ),
+              'Calories burned calculated based on METs. Calories burned = METs * Weight (kg) * Time (minutes)/60',
+              style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
+            ),
             SizedBox(height: 8.0),
             // List of exercises
             Expanded(
@@ -83,6 +82,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     itemCount: exercises.length,
                     itemBuilder: (context, index) {
                       final exercise = exercises[index];
+                      final mainIndex = provider.exercises.indexOf(exercise); // Get the corresponding index in the main list
+
                       return Card(
                         margin: EdgeInsets.only(bottom: 8.0),
                         shape: RoundedRectangleBorder(
@@ -98,13 +99,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                           subtitle: Text('MET: ${exercise.metValue}'),
                           trailing: IconButton(
                             icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => _deleteExercise(context, exerciseProvider, index),
+                            onPressed: () => _deleteExercise(context, provider, mainIndex), // Use the correct index
                           ),
                           onTap: () => _showExerciseDetails(
                             context, 
                             exercise, 
                             Provider.of<PersonProvider>(context, listen: false)
-                            ),
+                          ),
                         ),
                       );
                     },
@@ -226,7 +227,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     );
   }
 
-
   // Delete Exercise
   void _deleteExercise(BuildContext context, ExerciseProvider provider, int index) {
     provider.deleteExercise(index);
@@ -246,14 +246,16 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   // Show Exercise Details
-  void _showExerciseDetails(
+    void _showExerciseDetails(
       BuildContext context, Exercise exercise, PersonProvider personProvider) {
     // Get the weight of the first person (adjust logic if needed for multiple persons)
     double weight = personProvider.persons.isNotEmpty
         ? personProvider.persons.first.weight
         : 70; // Default weight if none available
 
+
     final TextEditingController durationController = TextEditingController();
+
 
     showDialog(
       context: context,
@@ -386,6 +388,4 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       ),
     );
   }
-
-
 }
