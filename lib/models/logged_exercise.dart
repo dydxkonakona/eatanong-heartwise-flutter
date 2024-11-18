@@ -20,6 +20,11 @@ class LoggedExercise {
     required this.exercise,
   });
 
+  // Getter to calculate calories burned
+  double get caloriesBurned {
+    return exercise.calculateCaloriesBurned(70, duration); // Example weight 70 kg
+  }
+
   double calculateCaloriesBurned(double weightInKg) {
     // Calories burned = MET * weight * duration (in hours)
     return exercise.calculateCaloriesBurned(weightInKg, duration);

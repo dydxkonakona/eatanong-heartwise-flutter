@@ -378,6 +378,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ElevatedButton(
                     onPressed: () {
                       // Log the exercise action here, such as saving it to the database or other actions.
+                      var exerciseProvider = Provider.of<ExerciseProvider>(context, listen: false);
+                      if (duration > 0) {
+                        exerciseProvider.addLoggedExercise(exercise, duration);
+                      }
                       Navigator.pop(context);
                       Navigator.pushNamed(context, "/exercise screen");
 
