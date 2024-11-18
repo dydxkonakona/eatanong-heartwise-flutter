@@ -246,16 +246,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   // Show Exercise Details
-    void _showExerciseDetails(
+  void _showExerciseDetails(
       BuildContext context, Exercise exercise, PersonProvider personProvider) {
     // Get the weight of the first person (adjust logic if needed for multiple persons)
     double weight = personProvider.persons.isNotEmpty
         ? personProvider.persons.first.weight
         : 70; // Default weight if none available
 
-
     final TextEditingController durationController = TextEditingController();
-
 
     showDialog(
       context: context,
@@ -311,57 +309,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       onPressed: () {
                         final double? duration = double.tryParse(durationController.text);
                         if (duration != null) {
-                          final double caloriesBurned =
-                              exercise.calculateCaloriesBurned(weight, duration);
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Calories Burned',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 251, 98, 98),
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(height: 16),
-                                    Text(
-                                      'You burned ${caloriesBurned.toStringAsFixed(2)} calories.',
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(height: 24),
-                                    ElevatedButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color.fromARGB(255, 251, 98, 98),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'OK',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
+                          _showLogOrCloseDialog(context, exercise, weight, duration);
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -371,7 +319,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         ),
                       ),
                       child: Text(
-                        'Calculate',
+                        'Next',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -383,6 +331,86 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Log or Close Dialog
+  void _showLogOrCloseDialog(BuildContext context, Exercise exercise, double weight, double duration) {
+    final double caloriesBurned = exercise.calculateCaloriesBurned(weight, duration);
+
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Calories Burned',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 251, 98, 98),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 16),
+              Text(
+                'You burned ${caloriesBurned.toStringAsFixed(2)} calories.',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('Close', style: TextStyle(color: Colors.grey)),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Log the exercise action here, such as saving it to the database or other actions.
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, "/exercise screen");
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text('Calories burned added successfully!'),
+                            behavior: SnackBarBehavior.floating, // Custom positioning
+                            margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: Colors.green, // Green color for success
+                          ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 251, 98, 98),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: Text(
+                      'Log Exercise',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
