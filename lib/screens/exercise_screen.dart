@@ -277,10 +277,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 16), // Add some space between title and details
+                SizedBox(height: 8), // Add some space between title and details
                 Text('MET Value: ${exercise.metValue}', 
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                SizedBox(height: 16), // Space between MET and duration field
+                Text(
+                  'based on 2024 Adult Compendium of Physical Activities',
+                  style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),),
+                SizedBox(height: 16),
                 TextField(
                   controller: durationController,
                   keyboardType: TextInputType.number,

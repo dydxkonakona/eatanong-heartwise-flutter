@@ -26,15 +26,17 @@ class FoodDetails extends StatelessWidget {
             children: [
               // Food title
               Text(
-                '${foodItem.name} per 100g',
+                '${foodItem.name}',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(height: 10),
-
+              Text(
+                ' per 100g',
+                style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),),
+               SizedBox(height: 10),
               // Nutritional information
               Text('Calories: ${foodItem.calories} kcal', style: _buildNutritionalTextStyle()),
               Text('Protein: ${foodItem.protein} g', style: _buildNutritionalTextStyle()),
@@ -42,8 +44,10 @@ class FoodDetails extends StatelessWidget {
               Text('Carbohydrates: ${foodItem.carbohydrates} g', style: _buildNutritionalTextStyle()),
               Text('Sodium: ${foodItem.sodium} mg', style: _buildNutritionalTextStyle()),
               Text('Cholesterol: ${foodItem.cholesterol} mg', style: _buildNutritionalTextStyle()),
-              SizedBox(height: 30),
-
+              Text(
+                'Food Nutrition Values based on Philippine Food Composition Table (PhilFCT) Online Database',
+                style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),),
+               SizedBox(height: 30),
               // Quantity input field
               TextField(
                 controller: _quantityController,

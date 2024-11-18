@@ -45,14 +45,15 @@ class _DietLogScreenState extends State<DietLogScreen> {
 
     // Calculate total macros for the selected day
     final dailyMacros = foodProvider.calculateDailyMacros(normalizedSelectedDay);
-     // Calculate total calories burned for the selected day (pass weight in kg)
+    // Calculate total calories burned for the selected day (pass weight in kg)
     final dailyCaloriesBurned = exerciseProvider.calculateDailyCaloriesBurned(normalizedSelectedDay, weightInKg); // Example: 70 kg user weight
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Diet Log'),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198),
+        title: Text('Calendar', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        elevation: 0,
       ),
       drawer: NavBar(),
       body: SafeArea( // SafeArea to avoid overlaps with system UI (e.g., notches)
@@ -156,31 +157,83 @@ class _DietLogScreenState extends State<DietLogScreen> {
     if (loggedFoods.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text('No food logged for this day.'),
+        child: Text('No food logged for this day.', style: TextStyle(fontSize: 16)),
       );
     }
 
     return SizedBox(
-      height: 200.0, // Set a fixed height for the ListView to fit within the scrollable area
+      height: loggedFoods.length > 3 ? 300.0 : 200.0, // Dynamically adjust height based on list length
       child: ListView.builder(
         itemCount: loggedFoods.length,
         itemBuilder: (context, index) {
           final loggedFood = loggedFoods[index];
-          return ListTile(
-            title: Text(loggedFood.foodItem.name),
-            subtitle: Text('Quantity: ${loggedFood.quantity}g | Calories: ${loggedFood.totalCalories}'),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                // Delete the logged food
-                Provider.of<FoodProvider>(context, listen: false).deleteLoggedFood(index);
-              },
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0), // Rounded corners
+              ),
+              elevation: 4.0, // Shadow effect
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // Align items to the left
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space out content vertically
+                  children: [
+                    // Food name at the top
+                    Text(
+                      loggedFood.foodItem.name,
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis, // Prevent overflow if the text is too long
+                      maxLines: 1,
+                    ),
+                    SizedBox(height: 8), // Add space between the food name and details
+
+                    // Quantity and Calories information at the bottom
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0), // Space between text elements
+                          child: Text(
+                            'Quantity: ${loggedFood.quantity}g',
+                            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Text(
+                          'Calories: ${loggedFood.totalCalories}',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+
+                    // Delete button at the bottom-right corner
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        onPressed: () {
+                          // Delete the logged food
+                          Provider.of<FoodProvider>(context, listen: false)
+                              .deleteLoggedFood(index);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           );
         },
       ),
     );
   }
+
+
 
   Widget _buildTotalMacros(Map<String, double> dailyMacros) {
     return Padding(
@@ -190,45 +243,112 @@ class _DietLogScreenState extends State<DietLogScreen> {
         children: [
           Text('Total Macros for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           const SizedBox(height: 8),
-          Text('Calories: ${dailyMacros['calories']?.toStringAsFixed(1)} kcal'),
-          Text('Carbohydrates: ${dailyMacros['carbohydrates']?.toStringAsFixed(1)} g'),
-          Text('Protein: ${dailyMacros['protein']?.toStringAsFixed(1)} g'),
-          Text('Fat: ${dailyMacros['fat']?.toStringAsFixed(1)} g'),
-          Text('Sodium: ${dailyMacros['sodium']?.toStringAsFixed(1)} mg'),
-          Text('Cholesterol: ${dailyMacros['cholesterol']?.toStringAsFixed(1)} mg'),
+          _buildMacroRow('Calories (kcal)', dailyMacros['calories']),
+          _buildMacroRow('Carbohydrates (g)', dailyMacros['carbohydrates']),
+          _buildMacroRow('Protein (g)', dailyMacros['protein']),
+          _buildMacroRow('Fat (g)', dailyMacros['fat']),
+          _buildMacroRow('Sodium (mg)', dailyMacros['sodium']),
+          _buildMacroRow('Cholesterol (mg)', dailyMacros['cholesterol']),
         ],
       ),
     );
   }
-Widget _buildLoggedExercises(List<LoggedExercise> loggedExercises) {
+
+  Widget _buildMacroRow(String label, double? value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 16)),
+          Text(value != null ? value.toStringAsFixed(1) : '0.0', style: TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoggedExercises(List<LoggedExercise> loggedExercises) {
     if (loggedExercises.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text('No exercise logged for this day.'),
+        child: Text('No exercise logged for this day.', style: TextStyle(fontSize: 16)),
       );
     }
 
     return SizedBox(
-      height: 200.0, // Set a fixed height for the ListView
+      height: loggedExercises.length > 3 ? 300.0 : 200.0, // Dynamically adjust height based on list length
       child: ListView.builder(
         itemCount: loggedExercises.length,
         itemBuilder: (context, index) {
           final loggedExercise = loggedExercises[index];
-          return ListTile(
-            title: Text(loggedExercise.exercise.name),
-            subtitle: Text('Duration: ${loggedExercise.duration} min | Calories Burned: ${loggedExercise.caloriesBurned.toStringAsFixed(1)} kcal'),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                // Delete the logged exercise
-                Provider.of<ExerciseProvider>(context, listen: false).deleteLoggedExercise(index);
-              },
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: Card(
+              elevation: 3, // Adds a slight shadow to each card
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10), // Rounded corners for a clean look
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // Align items to the left
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space out content vertically
+                  children: [
+                    // Exercise name
+                    Text(
+                      loggedExercise.exercise.name,
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis, // Truncate long names
+                      maxLines: 1,
+                    ),
+                    SizedBox(height: 8), // Add space between name and details
+
+                    // Exercise details (Duration and Calories Burned) at the bottom
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0), // Space between text elements
+                          child: Text(
+                            'Duration: ${loggedExercise.duration} min',
+                            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Text(
+                          'Calories Burned: ${loggedExercise.caloriesBurned.toStringAsFixed(1)} kcal',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+
+                    // Delete button at the bottom-right corner
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        onPressed: () {
+                          // Delete the logged exercise
+                          Provider.of<ExerciseProvider>(context, listen: false)
+                              .deleteLoggedExercise(index);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           );
         },
       ),
     );
   }
+
+
+
 
   Widget _buildTotalCaloriesBurned(Map<String, double> dailyCaloriesBurned) {
     return Padding(
@@ -238,7 +358,7 @@ Widget _buildLoggedExercises(List<LoggedExercise> loggedExercises) {
         children: [
           Text('Total Calories Burned for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           const SizedBox(height: 8),
-          Text('Calories Burned: ${dailyCaloriesBurned['calories_burned']?.toStringAsFixed(1)} kcal'),
+          _buildMacroRow('Calories Burned', dailyCaloriesBurned['calories_burned']),
         ],
       ),
     );

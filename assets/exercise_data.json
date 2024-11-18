@@ -1,19 +1,47 @@
 [
     {
-        "Exercise name": "Running (6 mph)",
-        "MET": 9.8
+        "Exercise name": "Basketball (game)",
+        "MET": 8.0
     },
     {
-        "Exercise name": "Running (7.5 mph)",
-        "MET": 11
+        "Exercise name": "Basketball (drills, practice)",
+        "MET": 9.3
     },
     {
-        "Exercise name": "Walking (3.0 mph)",
-        "MET": 3.8
+        "Exercise name": "Basketball (officiating)",
+        "MET": 7.0
     },
     {
-        "Exercise name": "Walking (4.0 mph)",
-        "MET": 5
+        "Exercise name": "Basketball (shooting baskets)",
+        "MET": 5.0
+    },
+    {
+        "Exercise name": "Barangay Cleanup Drive",
+        "MET": 5.0
+    },
+    {
+        "Exercise name": "Billiards",
+        "MET": 2.5
+    },
+    {
+        "Exercise name": "Bowling",
+        "MET": 3.0
+    },
+    {
+        "Exercise name": "Boxing (in ring, general)",
+        "MET": 12.3
+    },
+    {
+        "Exercise name": "Boxing (simulated boxing rounds, exercise)",
+        "MET": 9.3
+    },
+    {
+        "Exercise name": "Boxing (sparring)",
+        "MET": 7.8
+    },
+    {
+        "Exercise name": "Cheerleading, (gymnastic moves, competitive)",
+        "MET": 6.0
     },
     {
         "Exercise name": "Cycling (12-14 mph)",
@@ -24,72 +52,8 @@
         "MET": 12
     },
     {
-        "Exercise name": "Jump Rope",
-        "MET": 12
-    },
-    {
-        "Exercise name": "Swimming (slow lap)",
-        "MET": 6
-    },
-    {
-        "Exercise name": "Swimming (fast lap)",
+        "Exercise name": "Cycling (uphill)",
         "MET": 10
-    },
-    {
-        "Exercise name": "Rowing (moderate intensity)",
-        "MET": 7
-    },
-    {
-        "Exercise name": "Rowing (vigorous intensity)",
-        "MET": 10
-    },
-    {
-        "Exercise name": "Elliptical Trainer",
-        "MET": 6
-    },
-    {
-        "Exercise name": "Hiking (with pack)",
-        "MET": 7
-    },
-    {
-        "Exercise name": "Push-up",
-        "MET": 3
-    },
-    {
-        "Exercise name": "Pull-up",
-        "MET": 3
-    },
-    {
-        "Exercise name": "Squat",
-        "MET": 3
-    },
-    {
-        "Exercise name": "Lunges",
-        "MET": 4
-    },
-    {
-        "Exercise name": "Plank",
-        "MET": 2.5
-    },
-    {
-        "Exercise name": "Yoga (Hatha)",
-        "MET": 2.5
-    },
-    {
-        "Exercise name": "Yoga (Vinyasa)",
-        "MET": 4
-    },
-    {
-        "Exercise name": "Pilates",
-        "MET": 4
-    },
-    {
-        "Exercise name": "Weightlifting (light effort)",
-        "MET": 3
-    },
-    {
-        "Exercise name": "Weightlifting (vigorous effort)",
-        "MET": 6
     },
     {
         "Exercise name": "Dancing (moderate effort)",
@@ -100,20 +64,116 @@
         "MET": 7
     },
     {
-        "Exercise name": "Tinikling (Filipino Traditional Dance)",
-        "MET": 7.0
-    },
-    {
-        "Exercise name": "Barangay Cleanup Drive",
-        "MET": 5.0
-    },
-    {
-        "Exercise name": "Street Basketball (game)",
-        "MET": 6.0
+        "Exercise name": "Elliptical Trainer",
+        "MET": 6
     },
     {
         "Exercise name": "Football (game)",
         "MET": 7
+    },
+    {
+        "Exercise name": "Gardening (moderate effort)",
+        "MET": 4
+    },
+    {
+        "Exercise name": "Hiking (with pack)",
+        "MET": 7
+    },
+    {
+        "Exercise name": "Jump Rope",
+        "MET": 12
+    },
+    {
+        "Exercise name": "Jumping Jacks (light effort)",
+        "MET": 2.8
+    },
+    {
+        "Exercise name": "Jumping Jacks (moderate effort)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Jumping Jacks (vigorous effort)",
+        "MET": 7.5
+    },
+    {
+        "Exercise name": "Lunges (light effort)",
+        "MET": 2.8
+    },
+    {
+        "Exercise name": "Lunges (moderate effort)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Lunges (vigorous effort)",
+        "MET": 7.5
+    },
+    {
+        "Exercise name": "Plank (light effort)",
+        "MET": 2.8
+    },
+    {
+        "Exercise name": "Plank (moderate effort)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Plank (vigorous effort)",
+        "MET": 7.5
+    },
+    {
+        "Exercise name": "Pilates",
+        "MET": 4
+    },
+    {
+        "Exercise name": "Pull-up (light effort)",
+        "MET": 2.8
+    },
+    {
+        "Exercise name": "Pull-up (moderate effort)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Pull-up (vigorous effort)",
+        "MET": 7.5
+    },
+    {
+        "Exercise name": "Push-up (light effort)",
+        "MET": 2.8
+    },
+    {
+        "Exercise name": "Push-up (moderate effort)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Push-up (vigorous effort)",
+        "MET": 7.5
+    },
+    {
+        "Exercise name": "Rowing (moderate intensity)",
+        "MET": 7
+    },
+    {
+        "Exercise name": "Rowing (vigorous intensity)",
+        "MET": 10
+    },
+    {
+        "Exercise name": "Running (6 mph)",
+        "MET": 9.8
+    },
+    {
+        "Exercise name": "Running (7.5 mph)",
+        "MET": 11
+    },
+    {
+        "Exercise name": "Sit-up (light effort)",
+        "MET": 2.8
+    },
+    {
+        "Exercise name": "Sit-up (moderate effort)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Sit-up (vigorous effort)",
+        "MET": 7.5
     },
     {
         "Exercise name": "Soccer (competitive)",
@@ -124,27 +184,55 @@
         "MET": 5
     },
     {
-        "Exercise name": "Baseball (game)",
-        "MET": 4.5
+        "Exercise name": "Stretching (light)",
+        "MET": 2
     },
     {
-        "Exercise name": "Gardening (moderate effort)",
+        "Exercise name": "Stretching (vigorous)",
         "MET": 4
+    },
+    {
+        "Exercise name": "Swimming (fast lap)",
+        "MET": 10
+    },
+    {
+        "Exercise name": "Swimming (slow lap)",
+        "MET": 6
+    },
+    {
+        "Exercise name": "Squat",
+        "MET": 3
+    },
+    {
+        "Exercise name": "Tinikling (Filipino Traditional Dance)",
+        "MET": 7
+    },
+    {
+        "Exercise name": "Walking (3.0 mph)",
+        "MET": 3.8
+    },
+    {
+        "Exercise name": "Walking (4.0 mph)",
+        "MET": 5
     },
     {
         "Exercise name": "Walking (uphill)",
         "MET": 6
     },
     {
-        "Exercise name": "Cycling (uphill)",
-        "MET": 10
+        "Exercise name": "Weightlifting (light effort)",
+        "MET": 3
     },
     {
-        "Exercise name": "Stretching (light)",
-        "MET": 2
+        "Exercise name": "Weightlifting (vigorous effort)",
+        "MET": 6
     },
     {
-        "Exercise name": "Stretching (vigorous)",
+        "Exercise name": "Yoga (Hatha)",
+        "MET": 2.5
+    },
+    {
+        "Exercise name": "Yoga (Vinyasa)",
         "MET": 4
     }
 ]
