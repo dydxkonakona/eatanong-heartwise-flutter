@@ -22,42 +22,42 @@ class FoodProvider extends ChangeNotifier {
     if (_foodBox.isEmpty) {
       try {
         final data = await rootBundle.loadString('assets/food_data.json');
-        print("JSON Data Loaded: $data"); // Log raw data
+        print("JSON Data Loaded: $data");
 
         List<dynamic> jsonData = jsonDecode(data);
-        print("Total items in JSON: ${jsonData.length}"); // Log total items
+        print("Total items in JSON: ${jsonData.length}");
 
         for (var item in jsonData) {
           try {
             final food = FoodItem(
-              name: item['Food name'],
-              calories: safeParse(item['Calories(kcal)'].toString()),
-              protein: safeParse(item['Protein(g)'].toString()),
-              fat: safeParse(item['Total Fat(g)'].toString()),
-              carbohydrates: safeParse(item['Carbohydrates(g)'].toString()),
-              sodium: safeParse(item['Sodium(mg)'].toString()),
-              cholesterol: safeParse(item['Cholesterol (mg)'].toString()),
+              name: item['Food Name'] ?? 'Unknown', // Default value if null
+              calories: safeParse(item['Calories(kcal)']?.toString() ?? '0'), // Fallback if null
+              protein: safeParse(item['Protein(g)']?.toString() ?? '0'),
+              fat: safeParse(item['Total Fat(g)']?.toString() ?? '0'),
+              carbohydrates: safeParse(item['Carbohydrates(g)']?.toString() ?? '0'),
+              sodium: safeParse(item['Sodium(mg)']?.toString() ?? '0'),
+              cholesterol: safeParse(item['Cholesterol (mg)']?.toString() ?? '0'),
             );
 
             _foodBox.add(food);
-            print("Added food: ${food.name}"); // Confirm addition
+            print("Added food: ${food.name}");
           } catch (e) {
-            print("Error parsing food item: ${item['Food name']}"); // Log the problematic item
-            print("Error: $e"); // Log the error
+            print("Error parsing food item: ${item['Food Name']}");
+            print("Error: $e");
           }
         }
 
-        // Check the contents of the Hive box
         printFoodItems(); // Function to log food items in Hive
 
         notifyListeners();
       } catch (e) {
-        print("Error loading preset data: $e"); // Catch and log errors
+        print("Error loading preset data: $e");
       }
     } else {
-      print("FoodBox is not empty."); // Log if FoodBox is not empty
+      print("FoodBox is not empty.");
     }
   }
+
 
   double safeParse(String value) {
     if (value.isEmpty || value == "-" || value == "NaN") return 0.0; // Treat "-" and NaN as 0.0

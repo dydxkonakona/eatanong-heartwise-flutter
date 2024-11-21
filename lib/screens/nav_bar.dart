@@ -130,6 +130,15 @@ class NavBar extends StatelessWidget {
           ),
           Divider(color: Colors.grey),
           ListTile(
+            leading: Icon(Icons.food_bank_outlined),
+            title: Text("Heart Healthy Recipes"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/healthy recipes");
+            },
+          ),
+          Divider(color: Colors.grey),
+          ListTile(
             leading: Icon(Icons.account_box_outlined),
             title: Text("User Profile"),
             onTap: () {

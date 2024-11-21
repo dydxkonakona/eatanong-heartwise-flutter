@@ -32,6 +32,7 @@ class ResultsPage extends StatelessWidget {
                   String label = recognition['label'].replaceAll(RegExp(r'^\d+\s*'), '').trim();
                   String normalizedLabel = label.toLowerCase(); // Normalize label to lowercase
 
+
                   // Generate the image path using the label (formatted for the file names)
                   String imagePath = 'assets/food_images/${label.toLowerCase().replaceAll(' ', '_')}.jpg';
 
@@ -95,10 +96,11 @@ class ResultsPage extends StatelessWidget {
                                 onPressed: () async {
                                   // Access the Hive box that contains the food items
                                   var foodBox = await Hive.openBox<FoodItem>('foodBox');
+                                  print("foodBox is loaded: ${foodBox.isOpen}");
                                   
                                   // Search for the food item using a case-insensitive comparison
                                   FoodItem? foodItem = foodBox.values.firstWhere(
-                                    (item) => item.name.toLowerCase() == normalizedLabel,
+                                    (item) => item.name.toLowerCase().trim() == normalizedLabel.trim(),
                                     orElse: () => FoodItem(
                                       name: label, 
                                       calories: 0, 
@@ -109,6 +111,14 @@ class ResultsPage extends StatelessWidget {
                                       cholesterol: 0,
                                     ), // Return a default FoodItem if no match found
                                   );
+
+                                  print("Label: $label");
+                                  print("FoodItem: ${foodItem.name}");
+                                  print("Normalized Label: $normalizedLabel");
+                                  print("FoodItem: ${foodItem.name.toLowerCase()}");
+                                  if (foodItem.name.toLowerCase() != normalizedLabel) {
+                                    print("Mismatched food item found, returning default.");
+                                  }
 
                                   if (foodItem.name.toLowerCase() != normalizedLabel) {
                                     // If the foodItem is a default one, show an error message

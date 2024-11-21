@@ -35,12 +35,34 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     // Start the fade-in animation
     _controller.forward().then((_) async {
-      // Use try-catch to handle any potential Hive initialization issues
       try {
         var personBox = await Hive.openBox<Person>('personBox');
 
-        // Debugging: Print the number of entries in the personBox
-        // print("Number of persons in the box: ${personBox.length}");
+        // If there is a person record, check and update the age
+        if (personBox.isNotEmpty) {
+          final person = personBox.getAt(0); // Assuming only one person record
+
+          if (person != null) {
+            // Get the current age from the birthdate and check if it has changed
+            final currentAge = person.age;
+            final storedAge = person.age;
+
+            // Only update if the age is outdated (i.e., one year has passed)
+            if (currentAge != storedAge) {
+              // Create a new Person object with updated age
+              final updatedPerson = Person(
+                name: person.name,
+                birthdate: person.birthdate,  // Keep the birthdate the same
+                gender: person.gender,
+                weight: person.weight,
+                height: person.height,
+              );
+
+              // Update the person's data in the box
+              await personBox.putAt(0, updatedPerson);
+            }
+          }
+        }
 
         // Navigate based on whether there is user data in the box
         if (personBox.isEmpty) {

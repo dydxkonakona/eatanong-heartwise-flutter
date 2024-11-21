@@ -18,7 +18,7 @@ class PersonAdapter extends TypeAdapter<Person> {
     };
     return Person(
       name: fields[0] as String,
-      age: fields[1] as int,
+      birthdate: fields[1] as DateTime,
       gender: fields[2] as String,
       weight: fields[3] as double,
       height: fields[4] as double,
@@ -32,7 +32,7 @@ class PersonAdapter extends TypeAdapter<Person> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.age)
+      ..write(obj.birthdate)
       ..writeByte(2)
       ..write(obj.gender)
       ..writeByte(3)

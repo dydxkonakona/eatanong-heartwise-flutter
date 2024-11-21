@@ -9,6 +9,7 @@ import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/screens/add_food.dart';
 import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
+import 'package:final_eatanong_flutter/screens/healthy_recipes_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
 import 'package:final_eatanong_flutter/screens/user_profile.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
         "/search screen": (context) => AddFood(),
         "/calendar": (context) => DietLogScreen(),
         "/exercise screen": (context) => ExerciseScreen(),
+        "/healthy recipes": (context) => HealthyRecipesScreen(),
       },
     );
   }

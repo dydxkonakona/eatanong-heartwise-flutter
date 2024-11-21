@@ -4,14 +4,14 @@ import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:intl/intl.dart'; // Import this for DateFormat
 
 class InitialPage extends StatelessWidget {
   // Define the form group
   final FormGroup form = fb.group({
     'name': FormControl<String>(value: '', validators: [Validators.required]),
-    'age': FormControl<int>(value: null, validators: [
-      Validators.required,
-      Validators.min(1), // Age must be at least 1
+    'birthdate': FormControl<DateTime>(value: null, validators: [
+      Validators.required, // Birthdate must be provided
     ]),
     'gender': FormControl<String>(value: 'Male', validators: [Validators.required]),
     'height': FormControl<double>(value: null, validators: [
@@ -50,9 +50,9 @@ class InitialPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
-                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    ),
                   ),
                   validationMessages: {
                     ValidationMessage.required: (error) => 'Please enter your name',
@@ -60,26 +60,50 @@ class InitialPage extends StatelessWidget {
                 ),
                 SizedBox(height: 16.0),
 
-                // Age Field
-                ReactiveTextField<int>(
-                  formControlName: 'age',
-                  decoration: InputDecoration(
-                    labelText: 'Age',
-                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                // Birthdate Field
+                ReactiveDatePicker(
+                  formControlName: 'birthdate',
+                  builder: (context, reactiveDatePickerDelegate, child) {
+                    return InputDecorator(
+                      decoration: InputDecoration(
+                        labelText: 'Birthdate',
+                        labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        ),
                       ),
-                  ),
-                  keyboardType: TextInputType.number,
-                  validationMessages: {
-                    ValidationMessage.required: (error) => 'Please enter your age',
-                    ValidationMessage.min: (error) => 'Age must be a positive number',
+                      child: GestureDetector(
+                        onTap: () async {
+                          final DateTime? selectedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                          );
+                          if (selectedDate != null) {
+                            // Update form control with the selected date
+                            reactiveDatePickerDelegate.control.value = selectedDate;
+                          }
+                        },
+                        child: AbsorbPointer( // Prevent editing the text field
+                          child: Text(
+                            reactiveDatePickerDelegate.control.value != null
+                                ? DateFormat('yyyy-MM-dd').format(
+                                    (reactiveDatePickerDelegate.control.value as DateTime?)!)
+                                : 'Select your birthdate',
+                            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                          ),
+                        ),
+                      ),
+                    );
                   },
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now(),
                 ),
                 SizedBox(height: 16.0),
 
@@ -94,9 +118,9 @@ class InitialPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
-                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    ),
                   ),
                   items: ['Male', 'Female', 'Other'].map((String value) {
                     return DropdownMenuItem<String>(
@@ -118,9 +142,9 @@ class InitialPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
-                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    ),
                   ),
                   keyboardType: TextInputType.number,
                   validationMessages: {
@@ -141,9 +165,9 @@ class InitialPage extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
-                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    ),
                   ),
                   keyboardType: TextInputType.number,
                   validationMessages: {
@@ -151,37 +175,37 @@ class InitialPage extends StatelessWidget {
                     ValidationMessage.min: (error) => 'Weight must be a positive number',
                   },
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.0),
 
                 // Save Button
                 ElevatedButton(
                   onPressed: () {
                     if (form.valid) {
-                      // Get form values
+                      // Here you can perform form submission
                       final String name = form.control('name').value!;
-                      final int age = form.control('age').value!;
+                      final DateTime birthdate = form.control('birthdate').value!;
                       final String gender = form.control('gender').value!;
                       final double height = form.control('height').value!;
                       final double weight = form.control('weight').value!;
 
-                      // Create a new person object
+                      // Handle saving logic here...
                       final person = Person(
-                        name: name, 
-                        age: age, 
-                        gender: gender, 
-                        height: height, 
+                        name: name,
+                        birthdate: birthdate,
+                        gender: gender,
+                        height: height,
                         weight: weight,
                       );
-                      // Add the person to the PersonProvider
+                      // add the person to the provider
                       context.read<PersonProvider>().addPerson(person);
 
-                      // Navigate to the home page
+                      // Navigate to home page
                       Navigator.pushReplacement(
-                        context,
+                        context, 
                         MaterialPageRoute(builder: (context) => HomePage()),
-                      );
+                        );
 
-                      // Reset the form after submission
+                      // You can reset the form after submission if necessary
                       form.reset();
                     } else {
                       form.markAllAsTouched(); // Mark all fields as touched to show validation errors

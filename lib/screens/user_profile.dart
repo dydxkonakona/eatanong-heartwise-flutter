@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:final_eatanong_flutter/models/person.dart';
+import 'package:intl/intl.dart'; // For date formatting
 
 class UserProfile extends StatelessWidget {
   @override
@@ -23,9 +24,8 @@ class UserProfile extends StatelessWidget {
         // Define the form group with initial values from the person object
         final form = fb.group({
           'name': FormControl<String>(value: person.name, validators: [Validators.required]),
-          'age': FormControl<int>(value: person.age, validators: [
-            Validators.required,
-            Validators.min(1), // Age must be at least 1
+          'birthdate': FormControl<DateTime>(value: person.birthdate, validators: [
+            Validators.required, // Birthdate must be provided
           ]),
           'gender': FormControl<String>(value: person.gender, validators: [Validators.required]),
           'height': FormControl<double>(value: person.height, validators: [
@@ -72,26 +72,50 @@ class UserProfile extends StatelessWidget {
                     ),
                     SizedBox(height: 16.0),
 
-                    // Age Field
-                    ReactiveTextField<int>(
-                      formControlName: 'age',
-                      decoration: InputDecoration(
-                        labelText: 'Age',
-                        labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                      validationMessages: {
-                        ValidationMessage.required: (error) => 'Please enter your age',
-                        ValidationMessage.min: (error) => 'Age must be a positive number',
+                    // Birthdate Field
+                    ReactiveDatePicker(
+                      formControlName: 'birthdate',
+                      builder: (context, reactiveDatePickerDelegate, child) {
+                        return InputDecorator(
+                          decoration: InputDecoration(
+                            labelText: 'Birthdate',
+                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                            ),
+                          ),
+                          child: GestureDetector(
+                            onTap: () async {
+                              final DateTime? selectedDate = await showDatePicker(
+                                context: context,
+                                initialDate: person.birthdate,
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                              );
+                              if (selectedDate != null) {
+                                // Update form control with the selected date
+                                reactiveDatePickerDelegate.control.value = selectedDate;
+                              }
+                            },
+                            child: AbsorbPointer(
+                              child: Text(
+                                reactiveDatePickerDelegate.control.value != null
+                                    ? DateFormat('yyyy-MM-dd').format(
+                                        (reactiveDatePickerDelegate.control.value as DateTime?)!)
+                                    : 'Select your birthdate',
+                                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                              ),
+                            ),
+                          ),
+                        );
                       },
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now(),
                     ),
                     SizedBox(height: 16.0),
 
@@ -170,7 +194,7 @@ class UserProfile extends StatelessWidget {
                       onPressed: () {
                         if (form.valid) {
                           final String name = form.control('name').value!;
-                          final int age = form.control('age').value!;
+                          final DateTime birthdate = form.control('birthdate').value!;
                           final String gender = form.control('gender').value!;
                           final double height = form.control('height').value!;
                           final double weight = form.control('weight').value!;
@@ -178,7 +202,7 @@ class UserProfile extends StatelessWidget {
                           // Create a new updated Person object
                           final updatedPerson = Person(
                             name: name,
-                            age: age,
+                            birthdate: birthdate,
                             gender: gender,
                             height: height,
                             weight: weight,

@@ -20,6 +20,7 @@ dependencies:
   regexpattern: ^2.6.0
   table_calendar: ^3.1.2
   csv: ^6.0.0
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -47,7 +48,7 @@ flutter:
     - assets/food_images/beef_tapa.jpg
     - assets/food_images/betamax.jpg
     - assets/food_images/bibingka_malagkit.jpg
-    - assets/food_images/bicol_express.jpeg
+    - assets/food_images/bicol_express.jpg
     - assets/food_images/boiled_okra.jpg
     - assets/food_images/brown_puto.jpg
     - assets/food_images/bulalo.jpg
@@ -92,3 +93,11 @@ flutter:
     - assets/food_images/tupig.jpg
     - assets/food_images/turon.jpg
     - assets/food_images/white_puto.jpg
+    - assets/heart_healthy_food_images/adobong_manok.jpg
+    - assets/heart_healthy_food_images/ampalaya_with_pork.jpg
+    - assets/heart_healthy_food_images/cantaloupe_crush.jpg
+    - assets/heart_healthy_food_images/fish_cardillo.jpg
+    - assets/heart_healthy_food_images/fresh_lumpia.jpg
+    - assets/heart_healthy_food_images/munggo_guisado.jpg
+    - assets/heart_healthy_food_images/pesang_isda.jpg
+    - assets/heart_healthy_food_images/vegetable_karekare.jpg
