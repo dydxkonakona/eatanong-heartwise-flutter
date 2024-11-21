@@ -263,8 +263,6 @@ class _DietLogScreenState extends State<DietLogScreen> {
     );
   }
 
-
-
   Widget _buildTotalMacros(Map<String, double> dailyMacros) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -376,10 +374,6 @@ class _DietLogScreenState extends State<DietLogScreen> {
       ),
     );
   }
-
-
-
-
   Widget _buildTotalCaloriesBurned(Map<String, double> dailyCaloriesBurned) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),

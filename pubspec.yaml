@@ -42,6 +42,53 @@ flutter:
     - assets/logo.png
     - assets/food_data.json
     - assets/exercise_data.json
-    - assets/food_images/pork_adobo.jpg
-    - assets/food_images/bicol_express.jpg
+    - assets/food_images/banana_cue.jpg
     - assets/food_images/beef_caldereta.jpg
+    - assets/food_images/beef_tapa.jpg
+    - assets/food_images/betamax.jpg
+    - assets/food_images/bibingka_malagkit.jpg
+    - assets/food_images/bicol_express.jpeg
+    - assets/food_images/boiled_okra.jpg
+    - assets/food_images/brown_puto.jpg
+    - assets/food_images/bulalo.jpg
+    - assets/food_images/chicken_adobo.jpg
+    - assets/food_images/chinese_tikoy.jpg
+    - assets/food_images/corned_beef.jpg
+    - assets/food_images/crispy_pata.jpg
+    - assets/food_images/espasol.jpg
+    - assets/food_images/fresh_lumpia.jpg
+    - assets/food_images/fried_chicken_-_no_breading.jpg
+    - assets/food_images/fried_fishball.jpg
+    - assets/food_images/fried_liempo.jpg
+    - assets/food_images/ginataang_kalabasa.jpg
+    - assets/food_images/ginisang_monggo.jpg
+    - assets/food_images/halo-halo.jpg
+    - assets/food_images/inihaw_na_bangus.jpg
+    - assets/food_images/inihaw_na_liempo.jpg
+    - assets/food_images/inihaw_na_pusit.jpg
+    - assets/food_images/isaw_ng_baboy.jpg
+    - assets/food_images/isaw_ng_manok.jpg
+    - assets/food_images/kare-kare.jpg
+    - assets/food_images/kutsinta_with_niyog.png
+    - assets/food_images/laing.jpg
+    - assets/food_images/lechong_manok.jpg
+    - assets/food_images/lumpiang_shanghai.jpg
+    - assets/food_images/paksiw_na_isda.jpg
+    - assets/food_images/palitaw_with_niyog.jpg
+    - assets/food_images/pancake.jpg
+    - assets/food_images/pancit_bihon.jpg
+    - assets/food_images/pinakbet.jpg
+    - assets/food_images/pork_adobo.jpg
+    - assets/food_images/pork_barbeque.jpg
+    - assets/food_images/pork_ears_barbeque.jpg
+    - assets/food_images/pork_sisig.jpg
+    - assets/food_images/pork_tocino.jpg
+    - assets/food_images/puto_bumbong.jpg
+    - assets/food_images/sapin-sapin.jpg
+    - assets/food_images/sinigang_na_baboy.jpg
+    - assets/food_images/sinigang_na_hipon.jpg
+    - assets/food_images/tinolang_manok.jpg
+    - assets/food_images/tortang_talong.jpg
+    - assets/food_images/tupig.jpg
+    - assets/food_images/turon.jpg
+    - assets/food_images/white_puto.jpg

@@ -45,7 +45,7 @@ class FoodDetails extends StatelessWidget {
               Text('Sodium: ${foodItem.sodium} mg', style: _buildNutritionalTextStyle()),
               Text('Cholesterol: ${foodItem.cholesterol} mg', style: _buildNutritionalTextStyle()),
               Text(
-                'Food Nutrition Values based on Philippine Food Composition Table (PhilFCT) Online Database',
+                'Food Nutrition Values based on Philippine Food Composition Table, nutritionix, & fatsecret',
                 style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),),
                SizedBox(height: 30),
               // Quantity input field
