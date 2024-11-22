@@ -111,7 +111,7 @@ class InitialPage extends StatelessWidget {
                 ReactiveDropdownField<String>(
                   formControlName: 'gender',
                   decoration: InputDecoration(
-                    labelText: 'Gender',
+                    labelText: 'Sex',
                     labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
@@ -122,7 +122,7 @@ class InitialPage extends StatelessWidget {
                       borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                     ),
                   ),
-                  items: ['Male', 'Female', 'Other'].map((String value) {
+                  items: ['Male', 'Female'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),

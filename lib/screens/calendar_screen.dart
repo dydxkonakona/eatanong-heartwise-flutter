@@ -185,7 +185,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
                       loggedFood.foodItem.name,
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis, // Prevent overflow if the text is too long
-                      maxLines: 1,
+                      maxLines: 2,
                     ),
                     SizedBox(height: 8), // Add space between the food name and details
 
@@ -327,7 +327,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
                       loggedExercise.exercise.name,
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis, // Truncate long names
-                      maxLines: 1,
+                      maxLines: 2,
                     ),
                     SizedBox(height: 8), // Add space between name and details
 

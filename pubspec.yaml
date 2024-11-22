@@ -101,3 +101,20 @@ flutter:
     - assets/heart_healthy_food_images/munggo_guisado.jpg
     - assets/heart_healthy_food_images/pesang_isda.jpg
     - assets/heart_healthy_food_images/vegetable_karekare.jpg
+    - assets/heart_healthy_recipes/fcardillo_i.png
+    - assets/heart_healthy_recipes/fcardillo_s.png
+    - assets/heart_healthy_recipes/adobo_i.png
+    - assets/heart_healthy_recipes/adobo_s.png
+    - assets/heart_healthy_recipes/flumpia_i.png
+    - assets/heart_healthy_recipes/flumpia_s.png
+    - assets/heart_healthy_recipes/pisda_i.png
+    - assets/heart_healthy_recipes/pisda_s.png
+    - assets/heart_healthy_recipes/mguisado_i.png
+    - assets/heart_healthy_recipes/mguisado_s.png
+    - assets/heart_healthy_recipes/ampalaya_i.png
+    - assets/heart_healthy_recipes/ampalaya_s.png
+    - assets/heart_healthy_recipes/cantaloupe_i.png
+    - assets/heart_healthy_recipes/cantaloupe_s.png
+    - assets/heart_healthy_recipes/vkarekare_i.png
+    - assets/heart_healthy_recipes/vkarekare_s.png
+
