@@ -1,8 +1,11 @@
 import 'package:final_eatanong_flutter/models/logged_exercise.dart';
+import 'package:final_eatanong_flutter/models/water_intake.dart';
 import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
 import 'package:final_eatanong_flutter/providers/food_ai.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
+import 'package:final_eatanong_flutter/providers/water_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
@@ -42,6 +45,11 @@ class _DietLogScreenState extends State<DietLogScreen> {
     final loggedExercises = exerciseProvider.getLoggedExercisesForDay(normalizedSelectedDay); // Get logged exercises for the selected day
     final personProvider = Provider.of<PersonProvider>(context); // Access PersonProvider
     final weightInKg = personProvider.persons.isNotEmpty ? personProvider.persons[0].weight : 70.0; // Default to 70 if no person is found
+    
+    // water stuff
+    final waterProvider = Provider.of<WaterProvider>(context);
+    final loggedWaterIntakes = waterProvider.getWaterIntakesForDay(normalizedSelectedDay);
+    final totalWaterIntake = waterProvider.calculateTotalWaterIntake(normalizedSelectedDay);
 
     // Calculate total macros for the selected day
     final dailyMacros = foodProvider.calculateDailyMacros(normalizedSelectedDay);
@@ -65,13 +73,46 @@ class _DietLogScreenState extends State<DietLogScreen> {
               child: SingleChildScrollView( // Ensure scrolling if content is too large
                 child: Column(
                   children: [
+                    const SizedBox(height: 16),
+                    Text('Logged Foods for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    const SizedBox(height: 16),
                     _buildLoggedFoods(loggedFoods), // Display logged foods for the selected day
                     const SizedBox(height: 16),
                     _buildTotalMacros(dailyMacros), // Display total macros for the selected day
                     const SizedBox(height: 16),
+                    Container(
+                      height: 5.0,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [const Color(0xFFFF6363), Color.fromARGB(255, 255, 198, 198)], // Custom gradient
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Logged Exercises for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    const SizedBox(height: 16),
                     _buildLoggedExercises(loggedExercises), // Display logged exercises for the selected day
                     const SizedBox(height: 16),
                     _buildTotalCaloriesBurned(dailyCaloriesBurned), // Display total calories burned for the selected day
+                    const SizedBox(height: 16),
+                    Container(
+                      height: 5.0,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [const Color(0xFFFF6363), Color.fromARGB(255, 255, 198, 198)], // Custom gradient
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Logged Water Intake for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    const SizedBox(height: 16),
+                    _buildLoggedWaterIntakes(loggedWaterIntakes), // New widget for water intake
+                    const SizedBox(height: 16),
+                    _buildTotalWaterIntake(totalWaterIntake), // Display total water intake
                     const SizedBox(height: 50),
                   ],
                 ),
@@ -269,7 +310,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Total Macros for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text('Total Nutrients for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           const SizedBox(height: 8),
           _buildMacroRow('Calories (kcal)', dailyMacros['calories']),
           _buildMacroRow('Carbohydrates (g)', dailyMacros['carbohydrates']),
@@ -387,4 +428,85 @@ class _DietLogScreenState extends State<DietLogScreen> {
       ),
     );
   }
+
+  Widget _buildLoggedWaterIntakes(List<WaterIntake> loggedWaterIntakes) {
+    if (loggedWaterIntakes.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text('No water intake logged for this day.', style: TextStyle(fontSize: 16)),
+      );
+    }
+
+    return SizedBox(
+      height: loggedWaterIntakes.length > 3 ? 300.0 : 200.0,
+      child: ListView.builder(
+        itemCount: loggedWaterIntakes.length,
+        itemBuilder: (context, index) {
+          final loggedWater = loggedWaterIntakes[index];
+
+          // Format the date and time
+          String formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(loggedWater.date);
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: Card(
+              elevation: 3, // Consistent elevation
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0), // Rounded corners for consistency
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // Align items to the left
+                  children: [
+                    // Display water amount
+                    Text(
+                      '${loggedWater.amount.toStringAsFixed(1)} ml',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8), // Space between amount and date/time
+
+                    // Display formatted date and time
+                    Text(
+                      formattedDate,
+                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    ),
+
+                    // Delete button at the bottom-right corner
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        onPressed: () {
+                          // Remove the water intake at the specified index
+                          Provider.of<WaterProvider>(context, listen: false)
+                              .deleteWaterIntake(index);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildTotalWaterIntake(double totalWaterIntake) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Total Water Intake for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          const SizedBox(height: 8),
+          _buildMacroRow('Water Intake (ml)', totalWaterIntake),
+        ],
+      ),
+    );
+  }
+
+
 }

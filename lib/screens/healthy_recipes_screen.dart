@@ -7,14 +7,14 @@ import 'package:hive_flutter/hive_flutter.dart'; // Import Hive for accessing th
 class HealthyRecipesScreen extends StatelessWidget {
   // A hardcoded list of food recipes with names and image paths
   final List<Map<String, String>> recipes = [
-    {'name': 'Fish Cardillo (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/fish_cardillo.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/fcardillo_i.png', 'stepsImage': 'assets/heart_healthy_recipes/fcardillo_s.png'},
-    {'name': 'Adobong Manok (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/adobong_manok.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/adobo_i.png', 'stepsImage': 'assets/heart_healthy_recipes/adobo_s.png'},
-    {'name': 'Fresh Lumpia (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/fresh_lumpia.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/flumpia_i.png', 'stepsImage': 'assets/heart_healthy_recipes/flumpia_s.png'},
-    {'name': 'Pesang Isda (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/pesang_isda.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/pisda_i.png', 'stepsImage': 'assets/heart_healthy_recipes/pisda_s.png'},
-    {'name': 'Munggo Guisado (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/munggo_guisado.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/mguisado_i.png', 'stepsImage': 'assets/heart_healthy_recipes/mguisado_s.png'},
-    {'name': 'Ampalaya with Pork (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/ampalaya_with_pork.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/ampalaya_i.png', 'stepsImage': 'assets/heart_healthy_recipes/ampalaya_s.png'},
-    {'name': 'Cantaloupe Crush (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/cantaloupe_crush.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/cantaloupe_i.png', 'stepsImage': 'assets/heart_healthy_recipes/cantaloupe_s.png'},
-    {'name': 'Vegetable Kare-Kare (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/vegetable_karekare.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/vkarekare_i.png', 'stepsImage': 'assets/heart_healthy_recipes/vkarekare_s.png'},
+    {'name': 'Fish Cardillo (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/fish_cardillo.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/fcardillo_i.png', 'stepsImage': 'assets/heart_healthy_recipes/fcardillo_s.png', 'source': 'Philippine Heart Center’s Healthy Heart Cookbook.'},
+    {'name': 'Adobong Manok (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/adobong_manok.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/adobo_i.png', 'stepsImage': 'assets/heart_healthy_recipes/adobo_s.png', 'source': 'Filipino-American Nutrition and Fitness Teacher’s Guide, Kalusugan Community Services, San Diego, CA.'},
+    {'name': 'Fresh Lumpia (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/fresh_lumpia.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/flumpia_i.png', 'stepsImage': 'assets/heart_healthy_recipes/flumpia_s.png', 'source': 'Mula sa Puso, Heart Healthy Traditional Filipino Recipes, American Heart Association, 1999.'},
+    {'name': 'Pesang Isda (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/pesang_isda.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/pisda_i.png', 'stepsImage': 'assets/heart_healthy_recipes/pisda_s.png', 'source': 'Filipino American Food Practices, Customs, and Holidays, American Dietetic Association, 1994.'},
+    {'name': 'Munggo Guisado (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/munggo_guisado.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/mguisado_i.png', 'stepsImage': 'assets/heart_healthy_recipes/mguisado_s.png', 'source': 'Filipino American Food Practices, Customs, and Holidays, American Dietetic Association, 1994. '},
+    {'name': 'Ampalaya with Pork (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/ampalaya_with_pork.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/ampalaya_i.png', 'stepsImage': 'assets/heart_healthy_recipes/ampalaya_s.png', 'source': 'Adapted from Mula Sa Puso, Heart Healthy Traditional Filipino Recipes, American Heart Association, 1999.'},
+    {'name': 'Cantaloupe Crush (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/cantaloupe_crush.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/cantaloupe_i.png', 'stepsImage': 'assets/heart_healthy_recipes/cantaloupe_s.png', 'source': 'Adapted from the National Cancer Institute and InteliHealth (intelihealth.com), 2013.'},
+    {'name': 'Vegetable Kare-Kare (Heart Healthy Version)', 'imagePath': 'assets/heart_healthy_food_images/vegetable_karekare.jpg', 'ingredientsImage': 'assets/heart_healthy_recipes/vkarekare_i.png', 'stepsImage': 'assets/heart_healthy_recipes/vkarekare_s.png', 'source': 'PHC Alive Diet, Division of Nutrition and Dietetics, Philippine Heart Center, East Avenue, Quezon City, Philippines, page 91.'},
   ];
 
   HealthyRecipesScreen({super.key});
@@ -43,6 +43,7 @@ class HealthyRecipesScreen extends StatelessWidget {
             final String imagePath = recipe['imagePath']!;
             final String ingredientsImage = recipe['ingredientsImage'] ?? '';
             final String stepsImage = recipe['stepsImage'] ?? '';
+            final String source = recipe['source'] ?? '';
 
             return GestureDetector(
               onTap: () {
@@ -54,6 +55,7 @@ class HealthyRecipesScreen extends StatelessWidget {
                       ingredientsImage: ingredientsImage,
                       stepsImage: stepsImage,
                       foodName: foodName,
+                      source: source,
                     ),
                   ),
                 );
@@ -115,12 +117,14 @@ class RecipeDetailScreen extends StatelessWidget {
   final String ingredientsImage;
   final String stepsImage;
   final String foodName;  // Add foodName to track which food item is being logged
+  final String source;
 
   const RecipeDetailScreen({
     super.key,
     required this.ingredientsImage,
     required this.stepsImage,
     required this.foodName, // Pass foodName to identify the recipe
+    required this.source,
   });
 
   @override
@@ -157,6 +161,14 @@ class RecipeDetailScreen extends StatelessWidget {
                 fit: BoxFit.contain,  // Use BoxFit.contain to scale the image while maintaining aspect ratio
                 width: double.infinity,  // Make image take up full width of the screen
                 height: 290,  // Set a fixed height for the image to avoid overflow
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Source: $source',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 40), // Add space before the button
             ],

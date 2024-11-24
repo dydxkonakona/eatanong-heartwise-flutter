@@ -113,7 +113,7 @@ class NavBar extends StatelessWidget {
           Divider(color: Colors.grey),
           ListTile(
             leading: Icon(Icons.calendar_month),
-            title: Text("Calendar Screen"),
+            title: Text("Calendar"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/calendar");
@@ -130,11 +130,47 @@ class NavBar extends StatelessWidget {
           ),
           Divider(color: Colors.grey),
           ListTile(
+            leading: Icon(Icons.water_drop),
+            title: Text("Water Logger"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/water screen");
+            },
+          ),
+          Divider(color: Colors.grey),
+          ListTile(
+            leading: Icon(Icons.bloodtype),
+            title: Text("Blood Pressure"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/");
+            },
+          ),
+          Divider(color: Colors.grey),
+          ListTile(
+            leading: Icon(Icons.medication),
+            title: Text("Medication"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/");
+            },
+          ),
+          Divider(color: Colors.grey),
+          ListTile(
             leading: Icon(Icons.food_bank_outlined),
             title: Text("Heart Healthy Recipes"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/healthy recipes");
+            },
+          ),
+          Divider(color: Colors.grey),
+          ListTile(
+            leading: Icon(Icons.track_changes),
+            title: Text("Progress Tracker"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/");
             },
           ),
           Divider(color: Colors.grey),
