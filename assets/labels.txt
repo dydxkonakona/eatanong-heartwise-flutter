@@ -1,3 +1,50 @@
-0 Pork Adobo
-1 Bicol Express
-2 Beef Caldereta
+0 Banana Cue
+1 Beef Caldereta
+2 Beef Tapa
+3 Betamax
+4 Bibingka Malagkit
+5 Bicol Express
+6 Boiled Okra
+7 Brown Puto
+8 Bulalo
+9 Chicken Adobo
+10 Chinese Tikoy
+11 Corned Beef
+12 Crispy Pata
+13 Espasol
+14 Fried Fishball
+15 Fresh Lumpia
+16 Fried Chicken - No Breading
+17 Fried Liempo
+18 Ginataang Kalabasa
+19 Ginisang Monggo
+20 Halo-halo
+21 Inihaw na Bangus
+22 Inihaw na Liempo
+23 Inihaw na Pusit
+24 Isaw ng Baboy
+25 Isaw ng Manok
+26 Kutsinta with Niyog
+27 Laing
+28 Lechong Manok
+29 Lumpiang Shanghai
+30 Paksiw na Isda
+31 Palitaw with Niyog
+32 Pancake
+33 Pancit Bihon
+34 Pinakbet
+35 Pork Adobo
+36 Pork Barbeque
+37 Pork Ears Barbeque
+38 Pork Sisig
+39 Pork Tocino
+40 Puto Bumbong
+41 Sapin-sapin
+42 Sinigang na Baboy
+43 Sinigang na Hipon
+44 Tinolang Manok
+45 Tortang Talong
+46 Tupig
+47 Turon
+48 White Puto
+49 Kare-kare
