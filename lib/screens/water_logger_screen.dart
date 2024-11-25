@@ -25,7 +25,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Water Logger', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        backgroundColor: Color.fromARGB(255, 173, 255, 254), // Custom color for AppBar
         elevation: 0,
       ),
       body: SafeArea(
@@ -46,7 +46,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                     max: _maxWaterAmount,
                     divisions: 200, 
                     label: '${_selectedWaterAmount.toStringAsFixed(1)} ml',
-                    activeColor: Color(0xFFFF6363), 
+                    activeColor: Color.fromARGB(255, 37, 237, 255), 
                     inactiveColor: Color(0xFFE1E1E1), 
                     onChanged: (double value) {
                       setState(() {
@@ -62,14 +62,14 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                     onPressed: _logWaterIntake(waterProvider),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
-                      backgroundColor: const Color(0xFFFF6363),
+                      backgroundColor: const Color.fromARGB(255, 37, 237, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       shadowColor: Colors.black.withOpacity(0.2),
                       elevation: 3,
                       side: BorderSide(
-                        color: const Color(0xFFFF6363),
+                        color: const Color.fromARGB(255, 37, 237, 255),
                         width: 2,
                       ),
                     ),

@@ -152,7 +152,7 @@ class NavBar extends StatelessWidget {
             title: Text("Medication"),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, "/");
+              Navigator.pushNamed(context, "/medication screen");
             },
           ),
           Divider(color: Colors.grey),

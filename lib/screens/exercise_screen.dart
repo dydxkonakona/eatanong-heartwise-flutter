@@ -22,7 +22,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Exercises', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        backgroundColor: Color.fromARGB(255, 222, 174, 255), // Custom color for AppBar
         elevation: 0,
         actions: [
           IconButton(
@@ -44,11 +44,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 decoration: InputDecoration(
                   labelText: 'Search Exercises',
                   labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 251, 98, 98)),
+                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 177, 60, 255)),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                   ),
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                 ),
@@ -144,7 +144,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 251, 98, 98), // Match with the theme color
+                    color: Color.fromARGB(255, 177, 60, 255), // Match with the theme color
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -154,11 +154,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   decoration: InputDecoration(
                     labelText: 'Exercise Name',
                     labelStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.fitness_center, color: Color.fromARGB(255, 251, 98, 98)),
+                    prefixIcon: Icon(Icons.fitness_center, color: Color.fromARGB(255, 177, 60, 255)),
                     border: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                     ),
                   ),
                   textCapitalization: TextCapitalization.words,
@@ -169,11 +169,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   decoration: InputDecoration(
                     labelText: 'MET Value',
                     labelStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.accessibility_new, color: Color.fromARGB(255, 251, 98, 98)),
+                    prefixIcon: Icon(Icons.accessibility_new, color: Color.fromARGB(255, 177, 60, 255)),
                     border: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                     ),
                   ),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -204,7 +204,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 251, 98, 98), // Custom button color
+                        backgroundColor: Color.fromARGB(255, 177, 60, 255), // Custom button color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0), // Rounded button corners
                         ),
@@ -274,7 +274,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 251, 98, 98), // Match with the theme color
+                    color: Color.fromARGB(255, 177, 60, 255), // Match with the theme color
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -292,11 +292,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     labelText: 'Enter duration (minutes)',
                     hintText: 'e.g., 30',
                     labelStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.timer, color: Color.fromARGB(255, 251, 98, 98)),
+                    prefixIcon: Icon(Icons.timer, color: Color.fromARGB(255, 177, 60, 255)),
                     border: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                     ),
                   ),
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))], // Allow only numbers and decimals
@@ -317,7 +317,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 251, 98, 98),
+                        backgroundColor: Color.fromARGB(255, 177, 60, 255),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -361,7 +361,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 251, 98, 98),
+                  color: Color.fromARGB(255, 177, 60, 255),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -402,7 +402,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 251, 98, 98),
+                      backgroundColor: Color.fromARGB(255, 177, 60, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),

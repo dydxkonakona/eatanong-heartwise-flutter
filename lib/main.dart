@@ -2,10 +2,12 @@ import 'package:final_eatanong_flutter/models/exercise.dart';
 import 'package:final_eatanong_flutter/models/food_item.dart';
 import 'package:final_eatanong_flutter/models/logged_exercise.dart';
 import 'package:final_eatanong_flutter/models/logged_food.dart';
+import 'package:final_eatanong_flutter/models/medication_reminder.dart';
 import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/models/water_intake.dart';
 import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
+import 'package:final_eatanong_flutter/providers/medication_provider.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/providers/water_provider.dart';
 import 'package:final_eatanong_flutter/screens/add_food.dart';
@@ -13,6 +15,7 @@ import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
 import 'package:final_eatanong_flutter/screens/healthy_recipes_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
+import 'package:final_eatanong_flutter/screens/medication_screen.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
 import 'package:final_eatanong_flutter/screens/user_profile.dart';
 import 'package:final_eatanong_flutter/screens/water_logger_screen.dart';
@@ -36,6 +39,7 @@ void main() async {
   Hive.registerAdapter(ExerciseAdapter()); //typeId: 3
   Hive.registerAdapter(LoggedExerciseAdapter()); //typeId: 4
   Hive.registerAdapter(WaterIntakeAdapter()); //typeId: 5
+  Hive.registerAdapter(MedicationReminderAdapter()); //typeId: 6
 
   // Open a Hive box for storing Persons
   // This line opens a Hive box named personBox that is specific to storing Person objects.
@@ -46,6 +50,7 @@ void main() async {
   await Hive.openBox<Exercise>('exerciseBox');
   await Hive.openBox<LoggedExercise>('loggedExerciseBox');
   await Hive.openBox<WaterIntake>('waterIntakeBox');
+  await Hive.openBox<MedicationReminder>('medicationBox');
   runApp(
     MultiProvider(
       providers: [
@@ -53,6 +58,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => FoodProvider()),
         ChangeNotifierProvider(create: (_) => ExerciseProvider()),
         ChangeNotifierProvider(create: (_) => WaterProvider()),
+        ChangeNotifierProvider(create: (_) => MedicationProvider())
       ], 
       child: MyApp()),
   );
@@ -72,6 +78,7 @@ class MyApp extends StatelessWidget {
         "/exercise screen": (context) => ExerciseScreen(),
         "/healthy recipes": (context) => HealthyRecipesScreen(),
         "/water screen": (context) => WaterLoggerScreen(),
+        "/medication screen": (context) => MedicationLoggerScreen(),
       },
     );
   }
