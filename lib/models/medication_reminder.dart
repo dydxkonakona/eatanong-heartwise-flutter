@@ -16,10 +16,14 @@ class MedicationReminder extends HiveObject {
   @HiveField(3)
   bool isTaken;
 
+  @HiveField(4)
+  String? specialInstructions; // New optional field
+
   MedicationReminder({
     required this.name,
     required this.dosage,
     required this.time,
     this.isTaken = false,
+    this.specialInstructions, // New field in constructor
   });
 }

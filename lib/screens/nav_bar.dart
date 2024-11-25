@@ -181,7 +181,17 @@ class NavBar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/user profile");
             },
-          ),Divider(color: Colors.grey),
+          ),
+          Divider(color: Colors.grey),
+          ListTile(
+            leading: Icon(Icons.restart_alt_outlined),
+            title: Text("Restart App"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/");
+            },
+          ),
+          Divider(color: Colors.grey),
         ],
       ),
     );

@@ -21,13 +21,14 @@ class MedicationReminderAdapter extends TypeAdapter<MedicationReminder> {
       dosage: fields[1] as String,
       time: fields[2] as DateTime,
       isTaken: fields[3] as bool,
+      specialInstructions: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, MedicationReminder obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class MedicationReminderAdapter extends TypeAdapter<MedicationReminder> {
       ..writeByte(2)
       ..write(obj.time)
       ..writeByte(3)
-      ..write(obj.isTaken);
+      ..write(obj.isTaken)
+      ..writeByte(4)
+      ..write(obj.specialInstructions);
   }
 
   @override

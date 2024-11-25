@@ -12,12 +12,12 @@ class MedicationLoggerScreen extends StatefulWidget {
 class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dosageController = TextEditingController();
+  final TextEditingController _specialInstructionsController = TextEditingController(); // New controller
   TimeOfDay _selectedTime = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
     final medicationProvider = Provider.of<MedicationProvider>(context);
-
     final DateTime normalizedSelectedDay = DateTime.now(); // Current date
     final loggedMedications = medicationProvider.getMedicationRemindersForDay(normalizedSelectedDay);
 
@@ -120,6 +120,19 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 12),
+
+                    // Special Instructions input (optional)
+                    TextField(
+                      controller: _specialInstructionsController,
+                      decoration: InputDecoration(
+                        labelText: 'Special Instructions (optional)',
+                        labelStyle: TextStyle(color: Colors.green.shade700),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 16),
 
                     // Time selection
@@ -204,19 +217,6 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
     );
   }
 
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: _selectedTime,
-    );
-    if (picked != null) {
-      setState(() {
-        _selectedTime = picked;
-      });
-    }
-  }
-
   void _addMedicationReminder(BuildContext context) {
     // Check if any of the fields are empty
     if (_nameController.text.isEmpty || _dosageController.text.isEmpty) {
@@ -244,86 +244,85 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
         name: _nameController.text,
         dosage: _dosageController.text,
         time: DateTime(now.year, now.month, now.day, _selectedTime.hour, _selectedTime.minute),
+        specialInstructions: _specialInstructionsController.text.isNotEmpty
+            ? _specialInstructionsController.text
+            : null, // Handle optional special instructions
       ),
     );
 
-    // Show success Snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Medication reminder added: ${_nameController.text}'),
-        backgroundColor: Colors.green, // Success color
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-
-    // Close the dialog and clear inputs
-    Navigator.pop(context);
+    // Clear the text fields
     _nameController.clear();
     _dosageController.clear();
+    _specialInstructionsController.clear();
+    Navigator.pop(context);
   }
 
-
-  Widget _buildLoggedMedications(List<MedicationReminder> loggedMedications, MedicationProvider medicationProvider) {
+  Widget _buildLoggedMedications(
+    List<MedicationReminder> loggedMedications, 
+    MedicationProvider medicationProvider) {
     if (loggedMedications.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text('No medications logged for this day.', style: TextStyle(fontSize: 16)),
+      return Center(
+        child: Text(
+          'No logged medications for today.',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       );
     }
-
+    
     return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
       itemCount: loggedMedications.length,
-      itemBuilder: (context, index) {
-        final medication = loggedMedications[index];
-        final timeString = TimeOfDay.fromDateTime(medication.time).format(context);
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: Card(
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        medication.name,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Dosage: ${medication.dosage}',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      Text(
-                        'Time: $timeString',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete, color: Colors.redAccent),
-                    onPressed: () {
-                      medicationProvider.deleteMedicationReminder(index);
-                    },
-                  ),
-                ],
+      shrinkWrap: true,
+      itemBuilder: (ctx, index) {
+        final reminder = loggedMedications[index];
+        return Card(
+          margin: EdgeInsets.symmetric(vertical: 8.0),
+          child: ListTile(
+            title: Text(
+              reminder.name,
+              style: TextStyle(
+                decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
               ),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Dosage: ${reminder.dosage}',
+                  style: TextStyle(
+                    decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
+                  ),
+                ),
+                if (reminder.specialInstructions != null && reminder.specialInstructions!.isNotEmpty)
+                  Text(
+                    'Special Instructions: ${reminder.specialInstructions}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontStyle: FontStyle.italic,
+                      decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
+                    ),
+                  ),
+                Text(
+                  'Time: ${TimeOfDay.fromDateTime(reminder.time).format(ctx)}',
+                  style: TextStyle(
+                    decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
+                  ),
+                ),
+              ],
+            ),
+            trailing: IconButton(
+              icon: Icon(reminder.isTaken ? Icons.check_circle : Icons.check_circle_outline),
+              onPressed: () {
+                medicationProvider.toggleMedicationTakenStatus(index);
+              },
             ),
           ),
         );
       },
     );
   }
+
 }
