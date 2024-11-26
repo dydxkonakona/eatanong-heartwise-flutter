@@ -123,7 +123,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _imageClassifier.classifyImageFromCamera(); // Start image classification
+          _imageClassifier.classifyImageFromCamera();
         },
         tooltip: 'Add Food',
         backgroundColor: Color.fromARGB(255, 255, 198, 198), // Customize your button color
@@ -133,7 +133,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
       bottomNavigationBar: Container(
-        height: 50.0,
+        height: 50.0, // Set your desired height here
         child: BottomAppBar(
           color: Color.fromARGB(255, 255, 198, 198),
           shape: const CircularNotchedRectangle(),
@@ -149,6 +149,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
               IconButton(
                 icon: Icon(Icons.settings),
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.pushNamed(context, '/user profile');
                 },
               ),
