@@ -170,4 +170,38 @@ class FoodProvider extends ChangeNotifier {
       'cholesterol': totalCholesterol,
     };
   }
+
+  Map<String, double> calculateDailyMacrosInRange(DateTimeRange dateRange) {
+    final dailyIntakes = _loggedFoodBox.values.where((loggedFood) {
+      final loggedDate = DateTime(loggedFood.loggedTime.year, loggedFood.loggedTime.month, loggedFood.loggedTime.day);
+      return loggedDate.isAfter(dateRange.start.subtract(Duration(days: 1))) && loggedDate.isBefore(dateRange.end.add(Duration(days: 1)));
+    }).toList();
+
+    double totalCalories = 0;
+    double totalCarbohydrates = 0;
+    double totalProtein = 0;
+    double totalFat = 0;
+    double totalSodium = 0;
+    double totalCholesterol = 0;
+
+    for (var loggedFood in dailyIntakes) {
+      totalCalories += (loggedFood.foodItem.calories / 100) * loggedFood.quantity;
+      totalCarbohydrates += (loggedFood.foodItem.carbohydrates / 100) * loggedFood.quantity;
+      totalProtein += (loggedFood.foodItem.protein / 100) * loggedFood.quantity;
+      totalFat += (loggedFood.foodItem.fat / 100) * loggedFood.quantity;
+      totalSodium += (loggedFood.foodItem.sodium / 100) * loggedFood.quantity;
+      totalCholesterol += (loggedFood.foodItem.cholesterol / 100) * loggedFood.quantity;
+    }
+
+    return {
+      'calories': totalCalories,
+      'carbohydrates': totalCarbohydrates,
+      'protein': totalProtein,
+      'fat': totalFat,
+      'sodium': totalSodium,
+      'cholesterol': totalCholesterol,
+    };
+  }
+
+
 }

@@ -19,6 +19,7 @@ import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
 import 'package:final_eatanong_flutter/screens/healthy_recipes_screen.dart';
 import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/medication_screen.dart';
+import 'package:final_eatanong_flutter/screens/progress_tracker.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
 import 'package:final_eatanong_flutter/screens/user_profile.dart';
 import 'package:final_eatanong_flutter/screens/water_logger_screen.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
         "/water screen": (context) => WaterLoggerScreen(),
         "/medication screen": (context) => MedicationLoggerScreen(),
         "/bp screen": (context) => BloodPressureScreen(),
+        "/progress screen": (context) => ProgressTracker(),
       },
     );
   }

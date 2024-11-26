@@ -170,7 +170,7 @@ class NavBar extends StatelessWidget {
             title: Text("Progress Tracker"),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, "/");
+              Navigator.pushNamed(context, "/progress screen");
             },
           ),
           Divider(color: Colors.grey),
