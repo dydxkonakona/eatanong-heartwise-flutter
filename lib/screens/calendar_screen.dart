@@ -143,7 +143,8 @@ class _DietLogScreenState extends State<DietLogScreen> {
               IconButton(
                 icon: Icon(Icons.home),
                 onPressed: () {
-                  // Handle home button press
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/home');
                 },
               ),
               IconButton(
