@@ -1,3 +1,4 @@
+import 'package:final_eatanong_flutter/models/blood_pressure.dart';
 import 'package:final_eatanong_flutter/models/exercise.dart';
 import 'package:final_eatanong_flutter/models/food_item.dart';
 import 'package:final_eatanong_flutter/models/logged_exercise.dart';
@@ -5,12 +6,14 @@ import 'package:final_eatanong_flutter/models/logged_food.dart';
 import 'package:final_eatanong_flutter/models/medication_reminder.dart';
 import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/models/water_intake.dart';
+import 'package:final_eatanong_flutter/providers/bp_provider.dart';
 import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
 import 'package:final_eatanong_flutter/providers/medication_provider.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/providers/water_provider.dart';
 import 'package:final_eatanong_flutter/screens/add_food.dart';
+import 'package:final_eatanong_flutter/screens/bp_screen.dart';
 import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
 import 'package:final_eatanong_flutter/screens/healthy_recipes_screen.dart';
@@ -40,6 +43,7 @@ void main() async {
   Hive.registerAdapter(LoggedExerciseAdapter()); //typeId: 4
   Hive.registerAdapter(WaterIntakeAdapter()); //typeId: 5
   Hive.registerAdapter(MedicationReminderAdapter()); //typeId: 6
+  Hive.registerAdapter(BloodPressureAdapter()); // typeId: 7
 
   // Open a Hive box for storing Persons
   // This line opens a Hive box named personBox that is specific to storing Person objects.
@@ -51,6 +55,8 @@ void main() async {
   await Hive.openBox<LoggedExercise>('loggedExerciseBox');
   await Hive.openBox<WaterIntake>('waterIntakeBox');
   await Hive.openBox<MedicationReminder>('medicationBox');
+  await Hive.openBox<BloodPressure>('bloodPressureBox');
+
   runApp(
     MultiProvider(
       providers: [
@@ -58,7 +64,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => FoodProvider()),
         ChangeNotifierProvider(create: (_) => ExerciseProvider()),
         ChangeNotifierProvider(create: (_) => WaterProvider()),
-        ChangeNotifierProvider(create: (_) => MedicationProvider())
+        ChangeNotifierProvider(create: (_) => MedicationProvider()),
+        ChangeNotifierProvider(create: (_) => BloodPressureProvider()) 
       ], 
       child: MyApp()),
   );
@@ -79,6 +86,7 @@ class MyApp extends StatelessWidget {
         "/healthy recipes": (context) => HealthyRecipesScreen(),
         "/water screen": (context) => WaterLoggerScreen(),
         "/medication screen": (context) => MedicationLoggerScreen(),
+        "/bp screen": (context) => BloodPressureScreen(),
       },
     );
   }

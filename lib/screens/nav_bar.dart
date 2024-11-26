@@ -143,7 +143,7 @@ class NavBar extends StatelessWidget {
             title: Text("Blood Pressure"),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, "/");
+              Navigator.pushNamed(context, "/bp screen");
             },
           ),
           Divider(color: Colors.grey),
