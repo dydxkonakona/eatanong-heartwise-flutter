@@ -54,7 +54,7 @@ class ImageClassifier {
         imageMean: 127.5,
         imageStd: 127.5,
         numResults: 5,
-        threshold: 0.5,
+        threshold: 0.000001,
       );
 
       if (recognitions != null) {

@@ -8,6 +8,7 @@ import 'package:final_eatanong_flutter/providers/food_provider.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/providers/water_provider.dart';
 import 'package:final_eatanong_flutter/screens/bp_screen.dart';
+import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
 import 'package:final_eatanong_flutter/screens/water_logger_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => WaterLoggerScreen()),
+                          MaterialPageRoute(builder: (context) => ExerciseScreen()),
                         );
                       },
                       child: CustomCard(
