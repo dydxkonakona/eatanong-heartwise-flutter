@@ -2,8 +2,10 @@
 
 import 'package:final_eatanong_flutter/models/logged_exercise.dart';
 import 'package:final_eatanong_flutter/models/water_intake.dart';
+import 'package:final_eatanong_flutter/providers/bp_provider.dart';
 import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
 import 'package:final_eatanong_flutter/providers/water_provider.dart';
+import 'package:final_eatanong_flutter/screens/bp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -43,6 +45,8 @@ class _HomePageState extends State<HomePage> {
 
     final exerciseProvider = Provider.of<ExerciseProvider>(context);
     final waterProvider = Provider.of<WaterProvider>(context);
+    final bloodPressureProvider = Provider.of<BloodPressureProvider>(context);
+    final bloodPressureClass = bloodPressureProvider.classifyLatestBloodPressure();
 
     final loggedExercises = exerciseProvider.getLoggedExercisesForDay(dateOnly);
     final loggedWaterIntakes = waterProvider.getWaterIntakesForDay(DateTime.now());
@@ -69,10 +73,18 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   controller: _controller,
                   children: [
-                    CustomCard(
-                      title: 'Blood Pressure',
-                      status: 'High',
-                      color: Color(0xFFFF6363),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BloodPressureScreen()),
+                        );
+                      },
+                      child: CustomCard(
+                        title: 'Blood Pressure',
+                        status: bloodPressureClass['message'], // Display message from classification
+                        color: bloodPressureClass['color'], // Set color from classification
+                      ),
                     ),
                     CustomCard(
                       title: 'Exercise',

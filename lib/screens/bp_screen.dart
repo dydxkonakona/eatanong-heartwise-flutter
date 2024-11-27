@@ -1,4 +1,5 @@
 import 'package:final_eatanong_flutter/providers/bp_provider.dart';
+import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -121,6 +122,13 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                             backgroundColor: Colors.green, // Green color for success
                           ),
                         );
+
+                        // Navigate to the Blood Pressure Log page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomePage()),
+                        );
+
                       } else {
                         // Show an error SnackBar with custom style
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -170,7 +178,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                           height: 250.0,
                           child: LineChart(
                             LineChartData(
-                              minY: 60,
+                              minY: 0,
                               maxY: 250,
                               lineBarsData: [
                                 LineChartBarData(
@@ -207,19 +215,31 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                                     showTitles: true,
                                     reservedSize: 40,
                                     getTitlesWidget: (value, meta) {
-                                      return Text(value.toInt().toString());
+                                      int hour = value.toInt();
+                                      // Format the hour to display AM/PM
+                                      String amPm = hour < 12 ? "AM" : "PM";
+                                      int displayHour = hour % 12;  // Convert to 12-hour format
+                                      if (displayHour == 0) {
+                                        displayHour = 12;  // Handle 12 AM and 12 PM
+                                      }
+
+                                      return Text(
+                                        '$displayHour $amPm',  // Display time in format "12 AM" or "3 PM"
+                                        style: TextStyle(fontSize: 10),
+                                      );
                                     },
                                     interval: 1, // Display hourly on x-axis
                                   ),
                                 ),
                                 topTitles: AxisTitles(
-                                  sideTitles: SideTitles(showTitles: true, reservedSize: 40),
+                                  sideTitles: SideTitles(showTitles: false, reservedSize: 40),
                                 ),
                               ),
                             ),
                           ),
                         ),
                 ),
+
                 SizedBox(height: 20),
 
                 // Display logged blood pressure readings for the day
