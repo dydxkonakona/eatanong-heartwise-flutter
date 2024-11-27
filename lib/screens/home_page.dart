@@ -4,8 +4,11 @@ import 'package:final_eatanong_flutter/models/logged_exercise.dart';
 import 'package:final_eatanong_flutter/models/water_intake.dart';
 import 'package:final_eatanong_flutter/providers/bp_provider.dart';
 import 'package:final_eatanong_flutter/providers/exercise_provider.dart';
+import 'package:final_eatanong_flutter/providers/food_provider.dart';
+import 'package:final_eatanong_flutter/providers/person_provider.dart';
 import 'package:final_eatanong_flutter/providers/water_provider.dart';
 import 'package:final_eatanong_flutter/screens/bp_screen.dart';
+import 'package:final_eatanong_flutter/screens/water_logger_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -40,10 +43,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
+    var foodProvider = Provider.of<FoodProvider>(context);
+
     DateTime date = DateTime.now();
     DateTime dateOnly = DateTime(date.year, date.month, date.day);
 
+    final personProvider = Provider.of<PersonProvider>(context, listen: false);
+    final weightInKg = personProvider.persons.isNotEmpty ? personProvider.persons[0].weight : 70.0;
     final exerciseProvider = Provider.of<ExerciseProvider>(context);
+    final exerciseClass = exerciseProvider.calculateDailyCaloriesBurned(dateOnly, weightInKg);
+    String caloriesBurnedString = (exerciseClass['calories_burned'] ?? 0.0).toStringAsFixed(2);
+
     final waterProvider = Provider.of<WaterProvider>(context);
     final bloodPressureProvider = Provider.of<BloodPressureProvider>(context);
     final bloodPressureClass = bloodPressureProvider.classifyLatestBloodPressure();
@@ -65,7 +75,24 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
+              // Beautified and Centered Date
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),  // Adds padding to the sides
+                  child: Text(
+                    DateFormat('yyyy-MM-dd').format(dateOnly),  // Formats date to only show "YYYY-MM-DD"
+                    textAlign: TextAlign.center,  // Centers the text horizontally
+                    style: TextStyle(
+                      fontSize: 24,  // Larger font size for better readability
+                      fontWeight: FontWeight.w600,  // Slightly bolder text
+                      color: Colors.black,  // Custom text color
+                      letterSpacing: 1.2,  // Slight letter spacing for a more polished look
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
               // Cards in a PageView
               Container(
                 height: 200,
@@ -86,15 +113,31 @@ class _HomePageState extends State<HomePage> {
                         color: bloodPressureClass['color'], // Set color from classification
                       ),
                     ),
-                    CustomCard(
-                      title: 'Exercise',
-                      status: 'High',
-                      color: Color.fromARGB(255, 177, 60, 255),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => WaterLoggerScreen()),
+                        );
+                      },
+                      child: CustomCard(
+                        title: 'Water Intake',
+                        status: waterProvider.getWaterIntakeProgress(context, date), // Display message from classification
+                        color: Color.fromARGB(255, 1, 196, 255), // Set color from classification
+                      ),
                     ),
-                    CustomCard(
-                      title: 'Water Intake',
-                      status: 'Finished',
-                      color: Color.fromARGB(255, 37, 237, 255),
+                                        GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => WaterLoggerScreen()),
+                        );
+                      },
+                      child: CustomCard(
+                        title: 'Calories Burned',
+                        status: '$caloriesBurnedString kcal', // Display message from classification
+                        color: Color.fromARGB(255, 177, 60, 255),// Set color from classification
+                      ),
                     ),
                   ],
                 ),

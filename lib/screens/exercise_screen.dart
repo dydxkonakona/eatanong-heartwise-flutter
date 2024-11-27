@@ -387,7 +387,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         exerciseProvider.addLoggedExercise(exercise, duration, person);
                       }
                       Navigator.pop(context);
-                      Navigator.pushNamed(context, "/calendar");
+                      Navigator.pushNamed(context, "/home");
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
