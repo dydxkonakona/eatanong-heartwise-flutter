@@ -181,7 +181,6 @@ class RecipeDetailScreen extends StatelessWidget {
           onPressed: () async {
             // Access the Hive box that contains the food items
             var foodBox = await Hive.openBox<FoodItem>('foodBox');
-            print("foodBox is loaded: ${foodBox.isOpen}");
 
             // Search for the food item using a case-insensitive comparison
             FoodItem? foodItem = foodBox.values.firstWhere(

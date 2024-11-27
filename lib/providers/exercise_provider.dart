@@ -33,12 +33,12 @@ class ExerciseProvider extends ChangeNotifier {
             );
             _exerciseBox.add(exercise);
           } catch (e) {
-            print("Error parsing exercise item: ${item['Exercise name']} - $e");
+            // Removed debug print here
           }
         }
         notifyListeners();
       } catch (e) {
-        print("Error loading exercise preset data: $e");
+        // Removed debug print here
       }
     }
   }
@@ -65,7 +65,6 @@ class ExerciseProvider extends ChangeNotifier {
   void deleteExercise(int index) {
     _exerciseBox.deleteAt(index);
     _filteredExercises = _exerciseBox.values.toList();
-
     notifyListeners();
   }
 

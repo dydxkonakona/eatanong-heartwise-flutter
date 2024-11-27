@@ -77,8 +77,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           );
         }
       } catch (e) {
-        // Handle error (e.g., if the box can't be opened)
-        print("Error opening personBox: $e");
         // Default navigation in case of error
         Navigator.pushReplacement(
           context,

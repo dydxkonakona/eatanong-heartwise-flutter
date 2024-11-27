@@ -23,7 +23,6 @@ class ImageClassifier {
       );
       _isModelLoaded = true;
     } catch (e) {
-      print("Error loading model: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error loading model")),
       );
@@ -37,7 +36,6 @@ class ImageClassifier {
     if (image != null) {
       await _classifyImage(image.path);
     } else {
-      print("No image selected.");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("No image selected")),
       );
@@ -47,7 +45,6 @@ class ImageClassifier {
   // Function to classify the image
   Future<void> _classifyImage(String imagePath) async {
     if (!_isModelLoaded) {
-      print("Model not loaded.");
       return;
     }
 
@@ -68,13 +65,11 @@ class ImageClassifier {
           ),
         );
       } else {
-        print("No recognitions found.");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("No recognitions found")),
         );
       }
     } catch (e) {
-      print("Error during classification: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error during classification")),
       );

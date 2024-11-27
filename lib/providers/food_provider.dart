@@ -22,10 +22,8 @@ class FoodProvider extends ChangeNotifier {
     if (_foodBox.isEmpty) {
       try {
         final data = await rootBundle.loadString('assets/food_data.json');
-        print("JSON Data Loaded: $data");
 
         List<dynamic> jsonData = jsonDecode(data);
-        print("Total items in JSON: ${jsonData.length}");
 
         for (var item in jsonData) {
           try {
@@ -40,21 +38,16 @@ class FoodProvider extends ChangeNotifier {
             );
 
             _foodBox.add(food);
-            print("Added food: ${food.name}");
           } catch (e) {
-            print("Error parsing food item: ${item['Food Name']}");
-            print("Error: $e");
+            // Removed debug print here
           }
         }
-
-        printFoodItems(); // Function to log food items in Hive
-
         notifyListeners();
       } catch (e) {
-        print("Error loading preset data: $e");
+        // Removed debug print here
       }
     } else {
-      print("FoodBox is not empty.");
+      // Removed debug print here
     }
   }
 
@@ -64,16 +57,7 @@ class FoodProvider extends ChangeNotifier {
     try {
       return double.parse(value);
     } catch (e) {
-      print("Failed to parse '$value': $e");
       return 0.0; // Default value if parsing fails
-    }
-  }
-
-  // Function to log all items in the FoodBox
-  void printFoodItems() {
-    final foods = _foodBox.values.toList();
-    for (var food in foods) {
-      print("Food in Hive: ${food.name}"); // Log each food item
     }
   }
 
@@ -88,15 +72,8 @@ class FoodProvider extends ChangeNotifier {
       _foodBox.deleteAt(index);
       notifyListeners();
 
-      // // Show a Snackbar confirming the deletion
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     content: Text('${foodItem.name} has been deleted.'),
-      //     duration: Duration(seconds: 2),
-      //   ),
-      // );
     } else {
-      print("FoodItem not found in the box.");
+      // Removed debug print here
     }
   }
 
