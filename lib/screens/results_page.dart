@@ -25,12 +25,14 @@ class ResultsPage extends StatelessWidget {
               // Display the "Top 3 Recognitions" title
               const Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
-                child: Text(
-                  'Top 3 Recognitions', // Title text
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                child: Center(
+                  child: Text(
+                    'Top 3 Recognitions', // Title text
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
                   ),
                 ),
               ),
@@ -80,7 +82,7 @@ class ResultsPage extends StatelessWidget {
                             child: Text(
                               label,
                               style: const TextStyle(
-                                fontSize: 24,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black87,
                               ),
@@ -93,7 +95,7 @@ class ResultsPage extends StatelessWidget {
                             child: Text(
                               'Confidence: ${(recognition['confidence'] * 100).toStringAsFixed(2)}%',
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 16,
                                 color: Colors.grey,
                               ),
                             ),
