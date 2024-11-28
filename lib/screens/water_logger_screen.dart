@@ -17,10 +17,12 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
   @override
   Widget build(BuildContext context) {
     final waterProvider = Provider.of<WaterProvider>(context);
-
     final DateTime normalizedSelectedDay = DateTime.now(); // Current date
     final loggedWaterIntakes = waterProvider.getWaterIntakesForDay(normalizedSelectedDay);
     final totalWaterIntake = waterProvider.calculateTotalWaterIntake(normalizedSelectedDay);
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,66 +31,122 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  Text(
-                    'Select water intake (ml)',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Slider(
-                    value: _selectedWaterAmount,
-                    min: 0.0,
-                    max: _maxWaterAmount,
-                    divisions: 200, 
-                    label: '${_selectedWaterAmount.toStringAsFixed(1)} ml',
-                    activeColor: Color.fromARGB(255, 2, 64, 141), 
-                    inactiveColor: Color(0xFFE1E1E1), 
-                    onChanged: (double value) {
-                      setState(() {
-                        _selectedWaterAmount = value;
-                      });
-                    },
-                  ),
-                  Text(
-                    'Amount: ${_selectedWaterAmount.toStringAsFixed(1)} ml',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  ElevatedButton(
-                    onPressed: _logWaterIntake(waterProvider),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
-                      backgroundColor: const Color.fromARGB(255, 2, 64, 141),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                Column(
+                  children: [
+                    Text(
+                      'Select Water Intake (ml)',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Slider(
+                      value: _selectedWaterAmount,
+                      min: 0.0,
+                      max: _maxWaterAmount,
+                      divisions: 200,
+                      label: '${_selectedWaterAmount.toStringAsFixed(1)} ml',
+                      activeColor: Color.fromARGB(255, 2, 64, 141),
+                      inactiveColor: Color(0xFFE1E1E1),
+                      onChanged: (double value) {
+                        setState(() {
+                          _selectedWaterAmount = value;
+                        });
+                      },
+                    ),
+                    Text(
+                      'Amount: ${_selectedWaterAmount.toStringAsFixed(1)} ml',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    ElevatedButton(
+                      onPressed: _logWaterIntake(waterProvider),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                          vertical: screenHeight * 0.02,
+                          horizontal: screenWidth * 0.05,
+                        ),
+                        backgroundColor: const Color.fromARGB(255, 2, 64, 141),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        shadowColor: Colors.black.withOpacity(0.2),
+                        elevation: 3,
+                        side: BorderSide(
+                          color: const Color.fromARGB(255, 2, 64, 141),
+                          width: 2,
+                        ),
                       ),
-                      shadowColor: Colors.black.withOpacity(0.2),
-                      elevation: 3,
-                      side: BorderSide(
-                        color: const Color.fromARGB(255, 2, 64, 141), 
-                        width: 2,
+                      child: const Text(
+                        'Log Water Intake',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                    child: const Text(
-                      'Log Water',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _buildLoggedWaterIntakes(loggedWaterIntakes, waterProvider),
+                _buildTotalWaterIntake(totalWaterIntake),
+                const SizedBox(height: 16),
+                // Water intake recommendations
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Card(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(screenWidth * 0.03),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Row with Icon and Text
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.water_drop, // Water drop icon
+                                color: Colors.blue, // Optional: change color of the icon
+                                size: 20, // Size of the icon
+                              ),
+                              const SizedBox(width: 8), // Spacing between icon and text
+                              Text(
+                                'Recommended Daily Water Intake',
+                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          // Water intake recommendations
+                          ...[
+                            '1 - 18 years: 1000 ml + 50 ml per kg body weight',
+                            '19 years and up: 2500 ml',
+                            '65 years and up: 1500 ml',
+                            'Pregnant women: 2800 ml',
+                            'Lactating women: 3250 - 3500 ml',
+                            'Drink more if in a hotter climate or physically active.',
+                          ].map((text) => Padding(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Text(
+                                  text,
+                                  style: TextStyle(fontSize: 10),
+                                ),
+                              )),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+
+              ],
             ),
-            const SizedBox(height: 16),
-            _buildLoggedWaterIntakes(loggedWaterIntakes, waterProvider),
-            _buildTotalWaterIntake(totalWaterIntake),
-          ],
+          ),
         ),
       ),
       drawer: NavBar(),
@@ -98,43 +156,35 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
   void Function() _logWaterIntake(WaterProvider waterProvider) {
     return () {
       if (_selectedWaterAmount > 0) {
-        // Log the water intake
         waterProvider.addWaterIntake(
-          WaterIntake(amount: _selectedWaterAmount, date: DateTime.now())
+          WaterIntake(amount: _selectedWaterAmount, date: DateTime.now()),
         );
-
-        // Show a custom success Snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Water logged: ${_selectedWaterAmount.toStringAsFixed(1)} ml'),
             behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(top: 50, left: 16, right: 16),
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            backgroundColor: Colors.green, // Success color
+            backgroundColor: Colors.green,
           ),
         );
-
-        // Reset the slider value
         setState(() {
           _selectedWaterAmount = 0.0;
         });
-
-        // Navigate back or to calendar
         Navigator.pop(context);
         Navigator.pushNamed(context, "/home");
       } else {
-        // If invalid input, show error snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Please select a valid amount of water'),
             behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(top: 50, left: 16, right: 16),
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            backgroundColor: Colors.redAccent, // Error color
+            backgroundColor: Colors.redAccent,
           ),
         );
       }
@@ -143,7 +193,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
 
   Widget _buildTotalWaterIntake(double totalWaterIntake) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Card(
         elevation: 3,
         shape: RoundedRectangleBorder(
@@ -169,7 +219,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
     if (loggedWaterIntakes.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text('No water intake logged for this day.', style: TextStyle(fontSize: 16)),
+        child: Text('No water intake logged for today.', style: TextStyle(fontSize: 16)),
       );
     }
 
@@ -179,12 +229,9 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
         itemCount: loggedWaterIntakes.length,
         itemBuilder: (context, index) {
           final loggedWater = loggedWaterIntakes[index];
-
-          // Format the date and time
           String formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(loggedWater.date);
-
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Card(
               elevation: 3,
               shape: RoundedRectangleBorder(
@@ -195,7 +242,6 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Display water amount
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -203,7 +249,6 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                           '${loggedWater.amount.toStringAsFixed(1)} ml',
                           style: TextStyle(fontSize: 16),
                         ),
-                        // Display formatted date and time
                         Text(
                           formattedDate,
                           style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -213,7 +258,6 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                     IconButton(
                       icon: Icon(Icons.delete, color: Colors.redAccent),
                       onPressed: () {
-                        // Remove the water intake at the specified index
                         waterProvider.deleteWaterIntake(index);
                       },
                     ),

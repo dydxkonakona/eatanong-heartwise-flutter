@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:final_eatanong_flutter/providers/food_provider.dart';
+import 'package:final_eatanong_flutter/providers/person_provider.dart'; // Import the PersonProvider
 import 'package:provider/provider.dart';
 
 class ProgressTracker extends StatefulWidget {
@@ -11,13 +12,19 @@ class ProgressTracker extends StatefulWidget {
 }
 
 class _ProgressTrackerState extends State<ProgressTracker> {
-  DateTimeRange? selectedDateRange;
+  DateTimeRange? selectedDateRange = DateTimeRange(
+      start: DateTime.now().subtract(Duration(days: 30)),
+      end: DateTime.now()); // Default date range
+  double recommendedProtein = 0;
+  double recommendedFat = 0;
+  double recommendedCarbs = 0;
 
   @override
   Widget build(BuildContext context) {
     final foodProvider = Provider.of<FoodProvider>(context);
-    final now = DateTime.now();
-
+    final personProvider = Provider.of<PersonProvider>(context, listen: false);
+    final person = personProvider.persons.isNotEmpty ? personProvider.persons.last : null;
+    int age = person?.age ?? 0; // Use person's age from the provider
     Map<String, double> macros = {};
     double sodium = 0;
     double cholesterol = 0;
@@ -35,7 +42,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
     }
 
     double maxValue = [sodium, cholesterol].reduce((a, b) => a > b ? a : b);
-    double maxY = (maxValue / 10).ceil() * 10 + 3;
+    double maxY = (maxValue / 10).ceil() * 10 + 10;
 
     return Scaffold(
       appBar: AppBar(
@@ -54,6 +61,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Date range selection button
                       Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -68,7 +76,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                             final picked = await showDateRangePicker(
                               context: context,
                               firstDate: DateTime(2020),
-                              lastDate: now,
+                              lastDate: DateTime.now(),
                               initialDateRange: selectedDateRange,
                             );
 
@@ -104,6 +112,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                               "Macronutrient Distribution",
                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
+                            SizedBox(height: 30),
                             Center(
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.7,
@@ -113,11 +122,129 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                     sections: showingSections(macros),
                                     borderData: FlBorderData(show: false),
                                     sectionsSpace: 0,
-                                    centerSpaceRadius: 50,
+                                    centerSpaceRadius: 60,
                                   ),
                                 ),
                               ),
                             ),
+                            SizedBox(height: 20),
+                            // Legend for Pie Chart
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _buildLegendBox(Colors.blue, "Protein"),
+                                SizedBox(width: 10),
+                                _buildLegendBox(Colors.orange, "Carbs"),
+                                SizedBox(width: 10),
+                                _buildLegendBox(Colors.green, "Fat"),
+                              ],
+                            ),
+                            SizedBox(height: 30),
+                            // Macronutrient Recommendations Section
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Macronutrient Recommendations Section
+                                Card(
+                                  elevation: 4,
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(Icons.pie_chart, color: Colors.deepOrange),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              "Recommended Macronutrient Distribution",
+                                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        if (age >= 3 && age <= 18)
+                                          Text(
+                                            "• Protein: 6-15% of daily intake\n"
+                                            "• Fat: 15-30% of daily intake\n"
+                                            "• Carbs: 55-79% of daily intake",
+                                            style: TextStyle(fontSize: 14, height: 1.5),
+                                          ),
+                                        if (age >= 19)
+                                          Text(
+                                            "• Protein: 10-15% of daily intake\n"
+                                            "• Fat: 15-30% of daily intake\n"
+                                            "• Carbs: 55-75% of daily intake",
+                                            style: TextStyle(fontSize: 14, height: 1.5),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                // Sodium Intake Section
+                                Card(
+                                  elevation: 4,
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(Icons.heart_broken, color: Colors.blue),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              "Recommended Sodium Intake",
+                                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Text(
+                                          "• No more than 2300 mg per day",
+                                          style: TextStyle(fontSize: 14, height: 1.5),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                // Cholesterol Intake Section
+                                Card(
+                                  elevation: 4,
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(Icons.heart_broken, color: Colors.red),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              "Recommended Cholesterol Intake",
+                                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Text(
+                                          "• For Healthy Adults: 300 mg per day\n"
+                                          "• For at-risk individuals: 200 mg per day",
+                                          style: TextStyle(fontSize: 14, height: 1.5),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
                           ],
                         ),
                       SizedBox(height: 30),
@@ -196,7 +323,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                   barGroups: [
                                     BarChartGroupData(x: 0, barRods: [
                                       BarChartRodData(toY: sodium, color: Colors.teal, width: 25),
-                                    ]),
+                                    ]), 
                                     BarChartGroupData(x: 1, barRods: [
                                       BarChartRodData(toY: cholesterol, color: Colors.pink, width: 25),
                                     ]),
@@ -237,25 +364,42 @@ class _ProgressTrackerState extends State<ProgressTracker> {
     return [
       PieChartSectionData(
         value: proteinPercentage,
-        title: '${proteinPercentage.toStringAsFixed(1)}%\nProtein',
-        radius: 50,
+        title: '${proteinPercentage.toStringAsFixed(1)}%',
+        radius: 70,
         color: Colors.blue,
-        titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+        titleStyle: TextStyle(fontSize: 16, color: Colors.black),
       ),
       PieChartSectionData(
         value: carbsPercentage,
-        title: '${carbsPercentage.toStringAsFixed(1)}%\nCarbs',
-        radius: 50,
+        title: '${carbsPercentage.toStringAsFixed(1)}%',
+        radius: 70,
         color: Colors.orange,
-        titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+        titleStyle: TextStyle(fontSize: 16, color: Colors.black),
       ),
       PieChartSectionData(
         value: fatPercentage,
-        title: '${fatPercentage.toStringAsFixed(1)}%\nFat',
-        radius: 50,
+        title: '${fatPercentage.toStringAsFixed(1)}%',
+        radius: 70,
         color: Colors.green,
-        titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+        titleStyle: TextStyle(fontSize: 16, color: Colors.black),
       ),
     ];
+  }
+
+  Widget _buildLegendBox(Color color, String label) {
+    return Row(
+      children: [
+        Container(
+          width: 20,
+          height: 20,
+          color: color,
+        ),
+        SizedBox(width: 8),
+        Text(
+          label,
+          style: TextStyle(fontSize: 16),
+        ),
+      ],
+    );
   }
 }

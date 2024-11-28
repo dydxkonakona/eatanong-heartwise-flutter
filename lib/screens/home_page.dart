@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                         color: Color.fromARGB(255, 1, 196, 255), // Set color from classification
                       ),
                     ),
-                                        GestureDetector(
+                      GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
