@@ -60,7 +60,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               ),
             ),
             Text(
-              'Calories burned calculated based on METs. Calories burned = METs * Weight (kg) * Time (minutes)/60',
+              'Tap the + icon to add an exercise not in database.',
               style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
             ),
             const SizedBox(height: 8.0),

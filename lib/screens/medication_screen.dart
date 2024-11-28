@@ -79,145 +79,168 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Dialog title
-                    Text(
-                      'Add Medication',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green.shade700,
-                      ),
-                      textAlign: TextAlign.center,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.8, // Limit height to 80% of the screen
                     ),
-                    const SizedBox(height: 16),
-                    
-                    // Medication Name input
-                    TextField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: 'Medication Name',
-                        labelStyle: TextStyle(color: Colors.green.shade700),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green),
-                        ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 16.0,
+                        right: 16.0,
+                        top: 16.0,
+                        bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust for the keyboard
                       ),
-                    ),
-                    const SizedBox(height: 12),
-
-                    // Dosage input
-                    TextField(
-                      controller: _dosageController,
-                      decoration: InputDecoration(
-                        labelText: 'Dosage',
-                        labelStyle: TextStyle(color: Colors.green.shade700),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-
-                    // Special Instructions input (optional)
-                    TextField(
-                      controller: _specialInstructionsController,
-                      decoration: InputDecoration(
-                        labelText: 'Special Instructions (optional)',
-                        labelStyle: TextStyle(color: Colors.green.shade700),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Time selection
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Time: ${_selectedTime.format(context)}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.green.shade800,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // Dialog title
+                          Text(
+                            'Add Medication',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green.shade700,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            final picked = await showTimePicker(
-                              context: context,
-                              initialTime: _selectedTime,
-                            );
-                            if (picked != null) {
-                              setDialogState(() {
-                                _selectedTime = picked;
-                              });
-                            }
-                          },
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.green,
-                          ),
-                          child: const Text(
-                            'Choose Time',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                      ],
-                    ),
+                          const SizedBox(height: 16),
 
-                    const SizedBox(height: 20),
-
-                    // Action buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Cancel Button
-                        ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey.shade200,
-                            foregroundColor: Colors.green.shade800,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                          // Medication Name input
+                          TextField(
+                            controller: _nameController,
+                            decoration: InputDecoration(
+                              labelText: 'Medication Name',
+                              labelStyle: TextStyle(color: Colors.green.shade700),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green),
+                              ),
                             ),
                           ),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                        // Add Button
-                        ElevatedButton(
-                          onPressed: () => _addMedicationReminder(context),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                          const SizedBox(height: 12),
+
+                          // Dosage input
+                          TextField(
+                            controller: _dosageController,
+                            decoration: InputDecoration(
+                              labelText: 'Dosage',
+                              labelStyle: TextStyle(color: Colors.green.shade700),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green),
+                              ),
                             ),
                           ),
-                          child: const Text(
-                            'Add',
-                            style: TextStyle(fontSize: 14),
+                          const SizedBox(height: 12),
+
+                          // Special Instructions input (optional)
+                          TextField(
+                            controller: _specialInstructionsController,
+                            decoration: InputDecoration(
+                              labelText: 'Special Instructions (optional)',
+                              labelStyle: TextStyle(color: Colors.green.shade700),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 16),
+
+                          // Time selection
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Time text
+                              Expanded(
+                                child: Text(
+                                  'Time: ${_selectedTime.format(context)}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.green.shade800,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              // Choose Time button
+                              TextButton(
+                                onPressed: () async {
+                                  final picked = await showTimePicker(
+                                    context: context,
+                                    initialTime: _selectedTime,
+                                  );
+                                  if (picked != null) {
+                                    setDialogState(() {
+                                      _selectedTime = picked;
+                                    });
+                                  }
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Colors.green,
+                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                ),
+                                child: const Text(
+                                  'Choose Time',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+
+                          // Action buttons
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Cancel Button
+                              ElevatedButton(
+                                onPressed: () => Navigator.pop(context),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey.shade200,
+                                  foregroundColor: Colors.green.shade800,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ),
+                              // Add Button
+                              ElevatedButton(
+                                onPressed: () => _addMedicationReminder(context),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Add',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
           ),
         );
       },
     );
   }
+
+
+
+
 
   void _addMedicationReminder(BuildContext context) {
     // Check if any of the fields are empty

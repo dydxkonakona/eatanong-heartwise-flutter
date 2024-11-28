@@ -38,7 +38,7 @@ class AddFood extends StatelessWidget {
           children: [
             // Search Field with updated modern styling
             Text(
-                    'The + icon allows you to create a new food item (not in database).',
+                    'Tap + icon allows you to create a new food item not in database.',
                     style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
                   ),
             const SizedBox(height: 10),

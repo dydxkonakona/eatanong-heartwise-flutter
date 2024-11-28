@@ -76,6 +76,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
                     ),
                     const SizedBox(height: 16),
                     _buildTotalMacros(dailyMacros), // Display total macros for the selected day
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),
@@ -271,32 +272,68 @@ class _DietLogScreenState extends State<DietLogScreen> {
   Widget _buildTotalMacros(Map<String, double> dailyMacros) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Total Nutrients for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          const SizedBox(height: 8),
-          _buildMacroRow('Calories (kcal)', dailyMacros['calories']),
-          _buildMacroRow('Carbohydrates (g)', dailyMacros['carbohydrates']),
-          _buildMacroRow('Protein (g)', dailyMacros['protein']),
-          _buildMacroRow('Fat (g)', dailyMacros['fat']),
-          _buildMacroRow('Sodium (mg)', dailyMacros['sodium']),
-          _buildMacroRow('Cholesterol (mg)', dailyMacros['cholesterol']),
-        ],
+      child: Card(
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Total Nutrients for the Day',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                _buildMacroRow('Calories (kcal)', dailyMacros['calories']),
+                _buildMacroRow('Carbohydrates (g)', dailyMacros['carbohydrates']),
+                _buildMacroRow('Protein (g)', dailyMacros['protein']),
+                _buildMacroRow('Fat (g)', dailyMacros['fat']),
+                _buildMacroRow('Sodium (mg)', dailyMacros['sodium']),
+                _buildMacroRow('Cholesterol (mg)', dailyMacros['cholesterol']),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildMacroRow(String label, double? value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 4.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(fontSize: 16)),
-          Text(value != null ? value.toStringAsFixed(1) : '0.0', style: const TextStyle(fontSize: 16)),
+          Expanded(
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.black54,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Text(
+            value != null ? value.toStringAsFixed(1) : '0.0',
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
         ],
       ),
     );
   }
+
 }

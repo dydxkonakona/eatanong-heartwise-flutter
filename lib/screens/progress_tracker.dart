@@ -160,9 +160,11 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                           children: [
                                             Icon(Icons.pie_chart, color: Colors.deepOrange),
                                             SizedBox(width: 8),
-                                            Text(
-                                              "Recommended Macronutrient Distribution",
-                                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                            Expanded(
+                                              child: Text(
+                                                "Recommended Macronutrient Distribution",
+                                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -199,9 +201,11 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                           children: [
                                             Icon(Icons.heart_broken, color: Colors.blue),
                                             SizedBox(width: 8),
-                                            Text(
-                                              "Recommended Sodium Intake",
-                                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                            Expanded(
+                                              child: Text(
+                                                "Recommended Sodium Intake",
+                                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -228,9 +232,11 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                           children: [
                                             Icon(Icons.heart_broken, color: Colors.red),
                                             SizedBox(width: 8),
-                                            Text(
-                                              "Recommended Cholesterol Intake",
-                                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                            Expanded(
+                                              child: Text(
+                                                "Recommended Cholesterol Intake",
+                                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                              ),
                                             ),
                                           ],
                                         ),
