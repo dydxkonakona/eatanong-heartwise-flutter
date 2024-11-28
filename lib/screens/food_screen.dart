@@ -38,8 +38,8 @@ class FoodScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Food', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        title: const Text('Create Food', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
         elevation: 0,
       ),
       body: GestureDetector(
@@ -55,7 +55,7 @@ class FoodScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   // Food Name Field
                   ReactiveTextField<String>(
                     formControlName: 'name',
@@ -64,23 +64,23 @@ class FoodScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                       ),
                     ),
                     validationMessages: {
                       ValidationMessage.required: (error) => 'Food Name is required',
                     },
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Text(
                     'If you don\'t know the exact value, enter 0.',
                     style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   // Calories Field
                   ReactiveTextField<double>(
                     formControlName: 'calories',
@@ -89,11 +89,11 @@ class FoodScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                       ),
                     ),
                     keyboardType: TextInputType.number,
@@ -102,7 +102,7 @@ class FoodScreen extends StatelessWidget {
                       ValidationMessage.min: (error) => 'Calories must be a non-negative number',
                     },
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Fat Field
                   ReactiveTextField<double>(
@@ -112,11 +112,11 @@ class FoodScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                       ),
                     ),
                     keyboardType: TextInputType.number,
@@ -125,7 +125,7 @@ class FoodScreen extends StatelessWidget {
                       ValidationMessage.min: (error) => 'Fat must be a non-negative number',
                     },
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Protein Field
                   ReactiveTextField<double>(
@@ -135,11 +135,11 @@ class FoodScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                       ),
                     ),
                     keyboardType: TextInputType.number,
@@ -148,7 +148,7 @@ class FoodScreen extends StatelessWidget {
                       ValidationMessage.min: (error) => 'Protein must be a non-negative number',
                     },
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Carbohydrates Field
                   ReactiveTextField<double>(
@@ -158,11 +158,11 @@ class FoodScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                       ),
                     ),
                     keyboardType: TextInputType.number,
@@ -171,7 +171,7 @@ class FoodScreen extends StatelessWidget {
                       ValidationMessage.min: (error) => 'Carbohydrates must be a non-negative number',
                     },
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Sodium Field
                   ReactiveTextField<double>(
@@ -181,11 +181,11 @@ class FoodScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                       ),
                     ),
                     keyboardType: TextInputType.number,
@@ -194,7 +194,7 @@ class FoodScreen extends StatelessWidget {
                       ValidationMessage.min: (error) => 'Sodium must be a non-negative number',
                     },
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Cholesterol Field
                   ReactiveTextField<double>(
@@ -204,11 +204,11 @@ class FoodScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                       ),
                     ),
                     keyboardType: TextInputType.number,
@@ -217,7 +217,7 @@ class FoodScreen extends StatelessWidget {
                       ValidationMessage.min: (error) => 'Cholesterol must be a non-negative number',
                     },
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Submit Button
                   ElevatedButton(
@@ -251,7 +251,7 @@ class FoodScreen extends StatelessWidget {
                           SnackBar(
                             content: Text('Food "$name" added successfully!'),
                             behavior: SnackBarBehavior.floating, // Custom positioning
-                            margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                            margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -269,7 +269,7 @@ class FoodScreen extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0), // More spacious padding
-                      backgroundColor: Color(0xFFFF6363), // A softer, pastel-like red for the background
+                      backgroundColor: const Color(0xFFFF6363), // A softer, pastel-like red for the background
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0), // Round corners for a modern look
                       ),

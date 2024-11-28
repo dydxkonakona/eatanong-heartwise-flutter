@@ -6,6 +6,8 @@ import 'package:final_eatanong_flutter/providers/water_provider.dart';
 import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 
 class WaterLoggerScreen extends StatefulWidget {
+  const WaterLoggerScreen({super.key});
+
   @override
   _WaterLoggerScreenState createState() => _WaterLoggerScreenState();
 }
@@ -26,8 +28,8 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Water Logger', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 1, 196, 255), // Custom color for AppBar
+        title: const Text('Water Logger', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 1, 196, 255), // Custom color for AppBar
         elevation: 0,
       ),
       body: SafeArea(
@@ -39,7 +41,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                 const SizedBox(height: 16),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       'Select Water Intake (ml)',
                       style: TextStyle(fontSize: 18),
                     ),
@@ -49,8 +51,8 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                       max: _maxWaterAmount,
                       divisions: 200,
                       label: '${_selectedWaterAmount.toStringAsFixed(1)} ml',
-                      activeColor: Color.fromARGB(255, 2, 64, 141),
-                      inactiveColor: Color(0xFFE1E1E1),
+                      activeColor: const Color.fromARGB(255, 2, 64, 141),
+                      inactiveColor: const Color(0xFFE1E1E1),
                       onChanged: (double value) {
                         setState(() {
                           _selectedWaterAmount = value;
@@ -59,7 +61,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                     ),
                     Text(
                       'Amount: ${_selectedWaterAmount.toStringAsFixed(1)} ml',
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
                     ElevatedButton(
                       onPressed: _logWaterIntake(waterProvider),
@@ -74,8 +76,8 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                         ),
                         shadowColor: Colors.black.withOpacity(0.2),
                         elevation: 3,
-                        side: BorderSide(
-                          color: const Color.fromARGB(255, 2, 64, 141),
+                        side: const BorderSide(
+                          color: Color.fromARGB(255, 2, 64, 141),
                           width: 2,
                         ),
                       ),
@@ -108,14 +110,14 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Row with Icon and Text
-                          Row(
+                          const Row(
                             children: [
                               Icon(
                                 Icons.water_drop, // Water drop icon
                                 color: Colors.blue, // Optional: change color of the icon
                                 size: 20, // Size of the icon
                               ),
-                              const SizedBox(width: 8), // Spacing between icon and text
+                              SizedBox(width: 8), // Spacing between icon and text
                               Text(
                                 'Recommended Daily Water Intake',
                                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -135,7 +137,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                                 padding: const EdgeInsets.only(bottom: 5.0),
                                 child: Text(
                                   text,
-                                  style: TextStyle(fontSize: 10),
+                                  style: const TextStyle(fontSize: 10),
                                 ),
                               )),
                         ],
@@ -149,7 +151,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
           ),
         ),
       ),
-      drawer: NavBar(),
+      drawer: const NavBar(),
     );
   }
 
@@ -163,7 +165,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
           SnackBar(
             content: Text('Water logged: ${_selectedWaterAmount.toStringAsFixed(1)} ml'),
             behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -178,9 +180,9 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Please select a valid amount of water'),
+            content: const Text('Please select a valid amount of water'),
             behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -206,7 +208,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
             children: [
               Text(
                 'Total Water Intake: ${totalWaterIntake.toStringAsFixed(1)} ml',
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),
@@ -217,8 +219,8 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
 
   Widget _buildLoggedWaterIntakes(List<WaterIntake> loggedWaterIntakes, WaterProvider waterProvider) {
     if (loggedWaterIntakes.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Text('No water intake logged for today.', style: TextStyle(fontSize: 16)),
       );
     }
@@ -247,16 +249,16 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
                       children: [
                         Text(
                           '${loggedWater.amount.toStringAsFixed(1)} ml',
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                         Text(
                           formattedDate,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style: const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ],
                     ),
                     IconButton(
-                      icon: Icon(Icons.delete, color: Colors.redAccent),
+                      icon: const Icon(Icons.delete, color: Colors.redAccent),
                       onPressed: () {
                         waterProvider.deleteWaterIntake(index);
                       },

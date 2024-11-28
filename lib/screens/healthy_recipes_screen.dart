@@ -70,7 +70,7 @@ class HealthyRecipesScreen extends StatelessWidget {
                   children: [
                     // Display the food image
                     ClipRRect(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(12.0)),
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(12.0)),
                       child: Image.asset(
                         imagePath,
                         width: double.infinity,
@@ -107,7 +107,7 @@ class HealthyRecipesScreen extends StatelessWidget {
           },
         ),
       ),
-      drawer: NavBar(),
+      drawer: const NavBar(),
     );
   }
 }
@@ -131,8 +131,8 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipe Details', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        title: const Text('Recipe Details', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
         elevation: 0,
       ),
       body: SingleChildScrollView(  // Use SingleChildScrollView to make the content scrollable
@@ -142,7 +142,7 @@ class RecipeDetailScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '$foodName',
+                foodName,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ) ?? const TextStyle(fontWeight: FontWeight.bold),
@@ -222,8 +222,8 @@ class RecipeDetailScreen extends StatelessWidget {
             ),
             shadowColor: Colors.black.withOpacity(0.2), // Subtle shadow effect
             elevation: 3, // Slight elevation
-            side: BorderSide(
-              color: const Color(0xFFFF6363),
+            side: const BorderSide(
+              color: Color(0xFFFF6363),
               width: 2,
             ),
           ),

@@ -41,42 +41,42 @@ class NavBar extends StatelessWidget {
                 String bmiClassification = classifyBMI(bmi); // Get BMI classification
 
                 return Container(
-                  padding: EdgeInsets.all(16.0),
-                  color: Color.fromARGB(255, 255, 198, 198),
+                  padding: const EdgeInsets.all(16.0),
+                  color: const Color.fromARGB(255, 255, 198, 198),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.white,
+                        radius: 30,
                         child: Text(
                           person.name[0], // Display the first letter of the user's name
-                          style: TextStyle(fontSize: 40, color: Colors.black),
-                        ),
-                        radius: 30, // Set the radius for the avatar
+                          style: const TextStyle(fontSize: 40, color: Colors.black),
+                        ), // Set the radius for the avatar
                       ),
-                      SizedBox(height: 16), // Spacing
+                      const SizedBox(height: 16), // Spacing
                       Text(
                         "Hello, ${person.name}!",
-                        style: TextStyle(fontSize: 20, color: Colors.black),
+                        style: const TextStyle(fontSize: 20, color: Colors.black),
                       ),
-                      SizedBox(height: 4), // Spacing
+                      const SizedBox(height: 4), // Spacing
                       Text(
                         "Age: ${person.age}",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: const TextStyle(fontSize: 16, color: Colors.black),
                       ),
-                      SizedBox(height: 4), // Spacing
+                      const SizedBox(height: 4), // Spacing
                       Text(
                         "BMI: ${bmi.toStringAsFixed(2)} ($bmiClassification)",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: const TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
                   ),
                 );
               } else {
                 return Container(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   color: Colors.blue,
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -95,103 +95,103 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text("Home"),
+            leading: const Icon(Icons.home),
+            title: const Text("Home"),
             onTap: () {
               Navigator.pushNamed(context, "/home");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.search),
-            title: Text("Search Food"),
+            leading: const Icon(Icons.search),
+            title: const Text("Search Food"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/search screen");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.calendar_month),
-            title: Text("Calendar"),
+            leading: const Icon(Icons.calendar_month),
+            title: const Text("Calendar"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/calendar");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.fitness_center),
-            title: Text("Exercise"),
+            leading: const Icon(Icons.fitness_center),
+            title: const Text("Exercise"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/exercise screen");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.water_drop),
-            title: Text("Water Logger"),
+            leading: const Icon(Icons.water_drop),
+            title: const Text("Water Logger"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/water screen");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.bloodtype),
-            title: Text("Blood Pressure"),
+            leading: const Icon(Icons.bloodtype),
+            title: const Text("Blood Pressure"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/bp screen");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.medication),
-            title: Text("Medication"),
+            leading: const Icon(Icons.medication),
+            title: const Text("Medication"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/medication screen");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.food_bank_outlined),
-            title: Text("Heart Healthy Recipes"),
+            leading: const Icon(Icons.food_bank_outlined),
+            title: const Text("Heart Healthy Recipes"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/healthy recipes");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.track_changes),
-            title: Text("Progress Tracker"),
+            leading: const Icon(Icons.track_changes),
+            title: const Text("Progress Tracker"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/progress screen");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.account_box_outlined),
-            title: Text("User Profile"),
+            leading: const Icon(Icons.account_box_outlined),
+            title: const Text("User Profile"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/user profile");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
           ListTile(
-            leading: Icon(Icons.restart_alt_outlined),
-            title: Text("Restart App"),
+            leading: const Icon(Icons.restart_alt_outlined),
+            title: const Text("Restart App"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/");
             },
           ),
-          Divider(color: Colors.grey),
+          const Divider(color: Colors.grey),
         ],
       ),
     );

@@ -68,27 +68,29 @@ void main() async {
         ChangeNotifierProvider(create: (_) => MedicationProvider()),
         ChangeNotifierProvider(create: (_) => BloodPressureProvider()) 
       ], 
-      child: MyApp()),
+      child: const MyApp()),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
       routes: {
         "/home": (context) => const HomePage(),
-        "/user profile": (context) => UserProfile(),
+        "/user profile": (context) => const UserProfile(),
         "/search screen": (context) => AddFood(),
-        "/calendar": (context) => DietLogScreen(),
-        "/exercise screen": (context) => ExerciseScreen(),
+        "/calendar": (context) => const DietLogScreen(),
+        "/exercise screen": (context) => const ExerciseScreen(),
         "/healthy recipes": (context) => HealthyRecipesScreen(),
-        "/water screen": (context) => WaterLoggerScreen(),
-        "/medication screen": (context) => MedicationLoggerScreen(),
-        "/bp screen": (context) => BloodPressureScreen(),
-        "/progress screen": (context) => ProgressTracker(),
+        "/water screen": (context) => const WaterLoggerScreen(),
+        "/medication screen": (context) => const MedicationLoggerScreen(),
+        "/bp screen": (context) => const BloodPressureScreen(),
+        "/progress screen": (context) => const ProgressTracker(),
       },
     );
   }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -20,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     // Initialize the animation controller and animations
     _controller = AnimationController(
-      duration: Duration(seconds: 3), // Total animation duration
+      duration: const Duration(seconds: 3), // Total animation duration
       vsync: this,
     );
 
@@ -30,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     // Fade-out animation
     _fadeOutAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
       parent: _controller,
-      curve: Interval(0.5, 1.0, curve: Curves.easeIn), // Start fading out after 1.5 seconds
+      curve: const Interval(0.5, 1.0, curve: Curves.easeIn), // Start fading out after 1.5 seconds
     ));
 
     // Start the fade-in animation
@@ -73,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         } else {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => const HomePage()),
           );
         }
       } catch (e) {
@@ -95,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 234, 234),
+      backgroundColor: const Color.fromARGB(255, 255, 234, 234),
       body: FadeTransition(
         opacity: _fadeInAnimation, // Apply fade-in effect
         child: Center(

@@ -7,6 +7,8 @@ import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:intl/intl.dart'; // For date formatting
 
 class UserProfile extends StatelessWidget {
+  const UserProfile({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<PersonProvider>(
@@ -16,8 +18,8 @@ class UserProfile extends StatelessWidget {
         // If no person data, show an error message
         if (person == null) {
           return Scaffold(
-            appBar: AppBar(title: Text('Edit Profile')),
-            body: Center(child: Text('No profile data available')),
+            appBar: AppBar(title: const Text('Edit Profile')),
+            body: const Center(child: Text('No profile data available')),
           );
         }
 
@@ -40,8 +42,8 @@ class UserProfile extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.bold)),
-            backgroundColor: Color.fromARGB(255, 255, 198, 198),
+            title: const Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.bold)),
+            backgroundColor: const Color.fromARGB(255, 255, 198, 198),
             elevation: 0,
           ),
           body: Padding(
@@ -59,18 +61,18 @@ class UserProfile extends StatelessWidget {
                         labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                         ),
                       ),
                       validationMessages: {
                         ValidationMessage.required: (error) => 'Please enter your name',
                       },
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
 
                     // Birthdate Field
                     ReactiveDatePicker(
@@ -82,11 +84,11 @@ class UserProfile extends StatelessWidget {
                             labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12.0),
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12.0),
-                              borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                             ),
                           ),
                           child: GestureDetector(
@@ -117,7 +119,7 @@ class UserProfile extends StatelessWidget {
                       firstDate: DateTime(1900),
                       lastDate: DateTime.now(),
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
 
                     // Gender Dropdown
                     ReactiveDropdownField<String>(
@@ -127,11 +129,11 @@ class UserProfile extends StatelessWidget {
                         labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                         ),
                       ),
                       items: ['Male', 'Female'].map((String value) {
@@ -141,7 +143,7 @@ class UserProfile extends StatelessWidget {
                         );
                       }).toList(),
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
 
                     // Height Field
                     ReactiveTextField<double>(
@@ -151,11 +153,11 @@ class UserProfile extends StatelessWidget {
                         labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                         ),
                       ),
                       keyboardType: TextInputType.number,
@@ -164,7 +166,7 @@ class UserProfile extends StatelessWidget {
                         ValidationMessage.min: (error) => 'Height must be a positive number',
                       },
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
 
                     // Weight Field
                     ReactiveTextField<double>(
@@ -174,11 +176,11 @@ class UserProfile extends StatelessWidget {
                         labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                         ),
                       ),
                       keyboardType: TextInputType.number,
@@ -187,7 +189,7 @@ class UserProfile extends StatelessWidget {
                         ValidationMessage.min: (error) => 'Weight must be a positive number',
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Save Button
                     ElevatedButton(
@@ -217,9 +219,9 @@ class UserProfile extends StatelessWidget {
                           // Success message using ScaffoldMessenger at the top
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Profile updated successfully!'),
+                              content: const Text('Profile updated successfully!'),
                               behavior: SnackBarBehavior.floating, // This allows custom positioning
-                              margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Margin to position at the top
+                              margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Margin to position at the top
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -232,7 +234,7 @@ class UserProfile extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                        backgroundColor: Color(0xFFFF6363),
+                        backgroundColor: const Color(0xFFFF6363),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -256,7 +258,7 @@ class UserProfile extends StatelessWidget {
               ),
             ),
           ),
-          drawer: NavBar(), // Adding the NavBar for navigation
+          drawer: const NavBar(), // Adding the NavBar for navigation
         );
       },
     );

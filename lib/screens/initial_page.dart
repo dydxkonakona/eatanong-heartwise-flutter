@@ -28,8 +28,8 @@ class InitialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Initial Setup', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198),
+        title: const Text('Initial Setup', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198),
         elevation: 0,
       ),
       body: Padding(
@@ -47,18 +47,18 @@ class InitialPage extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                     ),
                   ),
                   validationMessages: {
                     ValidationMessage.required: (error) => 'Please enter your name',
                   },
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
 
                 // Birthdate Field
                 ReactiveDatePicker(
@@ -70,11 +70,11 @@ class InitialPage extends StatelessWidget {
                         labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                         ),
                       ),
                       child: GestureDetector(
@@ -105,7 +105,7 @@ class InitialPage extends StatelessWidget {
                   firstDate: DateTime(1900),
                   lastDate: DateTime.now(),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
 
                 // Gender Dropdown
                 ReactiveDropdownField<String>(
@@ -115,11 +115,11 @@ class InitialPage extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                     ),
                   ),
                   items: ['Male', 'Female'].map((String value) {
@@ -129,7 +129,7 @@ class InitialPage extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
 
                 // Height Field
                 ReactiveTextField<double>(
@@ -139,11 +139,11 @@ class InitialPage extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                     ),
                   ),
                   keyboardType: TextInputType.number,
@@ -152,7 +152,7 @@ class InitialPage extends StatelessWidget {
                     ValidationMessage.min: (error) => 'Height must be a positive number',
                   },
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
 
                 // Weight Field
                 ReactiveTextField<double>(
@@ -162,11 +162,11 @@ class InitialPage extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                     ),
                   ),
                   keyboardType: TextInputType.number,
@@ -175,7 +175,7 @@ class InitialPage extends StatelessWidget {
                     ValidationMessage.min: (error) => 'Weight must be a positive number',
                   },
                 ),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
 
                 // Save Button
                 ElevatedButton(
@@ -202,7 +202,7 @@ class InitialPage extends StatelessWidget {
                       // Navigate to home page
                       Navigator.pushReplacement(
                         context, 
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => const HomePage()),
                         );
 
                       // You can reset the form after submission if necessary
@@ -213,7 +213,7 @@ class InitialPage extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                    backgroundColor: Color(0xFFFF6363),
+                    backgroundColor: const Color(0xFFFF6363),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),

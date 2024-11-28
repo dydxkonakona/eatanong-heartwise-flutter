@@ -32,7 +32,7 @@ class BloodPressureProvider with ChangeNotifier {
     if (systolic < 0 || diastolic < 0) {
       return {
         'message': 'Invalid Blood Pressure Reading: Blood pressure cannot be negative.',
-        'color': Color.fromARGB(255, 128, 128, 128)
+        'color': const Color.fromARGB(255, 128, 128, 128)
       };
     }
 
@@ -40,7 +40,7 @@ class BloodPressureProvider with ChangeNotifier {
     if (systolic > 180 || diastolic > 120) {
       return {
         'message': 'HYPERTENSIVE CRISIS (consult your doctor immediately)',
-        'color': Color.fromARGB(255, 153, 7, 17)
+        'color': const Color.fromARGB(255, 153, 7, 17)
       };
     }
 
@@ -48,7 +48,7 @@ class BloodPressureProvider with ChangeNotifier {
     if (systolic >= 140 || diastolic >= 90) {
       return {
         'message': 'HIGH BLOOD PRESSURE (HYPERTENSION) STAGE 2',
-        'color': Color.fromARGB(255, 187, 58, 1)
+        'color': const Color.fromARGB(255, 187, 58, 1)
       };
     }
 
@@ -56,7 +56,7 @@ class BloodPressureProvider with ChangeNotifier {
     if ((systolic >= 130 && systolic <= 139) || (diastolic >= 80 && diastolic <= 89)) {
       return {
         'message': 'HIGH BLOOD PRESSURE (HYPERTENSION) STAGE 1',
-        'color': Color.fromARGB(255, 255, 182, 0)
+        'color': const Color.fromARGB(255, 255, 182, 0)
       };
     }
 
@@ -64,7 +64,7 @@ class BloodPressureProvider with ChangeNotifier {
     if (systolic >= 120 && systolic <= 129 && diastolic < 80) {
       return {
         'message': 'ELEVATED',
-        'color': Color.fromARGB(255, 255, 236, 1)
+        'color': const Color.fromARGB(255, 255, 236, 1)
       };
     }
 
@@ -72,14 +72,14 @@ class BloodPressureProvider with ChangeNotifier {
     if (systolic < 120 && diastolic < 80) {
       return {
         'message': 'NORMAL',
-        'color': Color.fromARGB(255, 166, 206, 57)
+        'color': const Color.fromARGB(255, 166, 206, 57)
       };
     }
 
     // Step 7: If no category matches (which shouldn't happen with valid input)
     return {
       'message': 'Invalid Blood Pressure Reading: Unexpected input.',
-      'color': Color.fromARGB(255, 128, 128, 128)
+      'color': const Color.fromARGB(255, 128, 128, 128)
     };
   }
 
@@ -89,7 +89,7 @@ class BloodPressureProvider with ChangeNotifier {
     if (_bloodPressureBox.isEmpty) {
       return {
         'message': "No blood pressure readings found.",
-        'color': Color.fromARGB(255, 128, 128, 128) // Default color (grey)
+        'color': const Color.fromARGB(255, 128, 128, 128) // Default color (grey)
       };
     }
 

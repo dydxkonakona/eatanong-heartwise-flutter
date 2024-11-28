@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     DateFormat('yyyy-MM-dd').format(dateOnly),  // Formats date to only show "YYYY-MM-DD"
                     textAlign: TextAlign.center,  // Centers the text horizontally
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24,  // Larger font size for better readability
                       fontWeight: FontWeight.w600,  // Slightly bolder text
                       color: Colors.black,  // Custom text color
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 10),
               // Cards in a PageView
-              Container(
+              SizedBox(
                 height: 200,
                 child: PageView(
                   scrollDirection: Axis.horizontal,
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BloodPressureScreen()),
+                          MaterialPageRoute(builder: (context) => const BloodPressureScreen()),
                         );
                       },
                       child: CustomCard(
@@ -118,26 +118,26 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => WaterLoggerScreen()),
+                          MaterialPageRoute(builder: (context) => const WaterLoggerScreen()),
                         );
                       },
                       child: CustomCard(
                         title: 'Water Intake',
                         status: waterProvider.getWaterIntakeProgress(context, date), // Display message from classification
-                        color: Color.fromARGB(255, 1, 196, 255), // Set color from classification
+                        color: const Color.fromARGB(255, 1, 196, 255), // Set color from classification
                       ),
                     ),
                       GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ExerciseScreen()),
+                          MaterialPageRoute(builder: (context) => const ExerciseScreen()),
                         );
                       },
                       child: CustomCard(
                         title: 'Calories Burned',
                         status: '$caloriesBurnedString kcal', // Display message from classification
-                        color: Color.fromARGB(255, 177, 60, 255),// Set color from classification
+                        color: const Color.fromARGB(255, 177, 60, 255),// Set color from classification
                       ),
                     ),
                   ],
@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               _buildLoggedExercises(loggedExercises, exerciseProvider),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               const Center(
                 child: Text(
                   'Logged Water Intake for the Day', 
@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               _buildLoggedWaterIntakes(loggedWaterIntakes, waterProvider),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -182,29 +182,29 @@ class _HomePageState extends State<HomePage> {
           _imageClassifier.classifyImageFromCamera();
         },
         tooltip: 'Add Food',
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Customize your button color
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Customize your button color
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         child: Image.asset('assets/logo.png'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 50.0, // Set your desired height here
         child: BottomAppBar(
-          color: Color.fromARGB(255, 255, 198, 198),
+          color: const Color.fromARGB(255, 255, 198, 198),
           shape: const CircularNotchedRectangle(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: Icon(Icons.home),
+                icon: const Icon(Icons.home),
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/home');
                 },
               ),
               IconButton(
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/user profile');
@@ -219,8 +219,8 @@ class _HomePageState extends State<HomePage> {
   }
   Widget _buildLoggedExercises(List<LoggedExercise> loggedExercises, ExerciseProvider exerciseProvider) {
     if (loggedExercises.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Text('No exercise logged for this day.', style: TextStyle(fontSize: 16)),
       );
     }
@@ -252,11 +252,11 @@ class _HomePageState extends State<HomePage> {
                           // Exercise name
                           Text(
                             loggedExercise.exercise.name,
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis, // Truncate long names
                             maxLines: 2,
                           ),
-                          SizedBox(height: 8), // Add space between name and details
+                          const SizedBox(height: 8), // Add space between name and details
 
                           // Exercise details (Duration and Calories Burned)
                           Column(
@@ -287,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        icon: const Icon(Icons.delete, color: Colors.redAccent),
                         onPressed: () {
                           // Delete the logged exercise
                           exerciseProvider.deleteLoggedExercise(index);
@@ -307,8 +307,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildLoggedWaterIntakes(List<WaterIntake> loggedWaterIntakes, WaterProvider waterProvider) {
     if (loggedWaterIntakes.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Text('No Water intake logged for this day.', style: TextStyle(fontSize: 16)),
       );
     }
@@ -341,17 +341,17 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           '${loggedWater.amount.toStringAsFixed(1)} ml',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         // Display formatted date and time
                         Text(
                           formattedDate,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style: const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ],
                     ),
                     IconButton(
-                      icon: Icon(Icons.delete, color: Colors.redAccent),
+                      icon: const Icon(Icons.delete, color: Colors.redAccent),
                       onPressed: () {
                         // Remove the water intake at the specified index
                         waterProvider.deleteWaterIntake(index);
@@ -376,11 +376,11 @@ class CustomCard extends StatelessWidget {
   final Color? color;
 
   const CustomCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.status,
     this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -398,7 +398,7 @@ class CustomCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,  // Increased font size for the title
                 fontWeight: FontWeight.bold,  // Make the title bold
                 color: Colors.white,  // White color for good contrast
@@ -408,7 +408,7 @@ class CustomCard extends StatelessWidget {
             const SizedBox(height: 8),  // More space between title and status text
             Text(
               status,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,  // Slightly smaller font size for status
                 fontWeight: FontWeight.w500,  // Medium weight for status text
                 color: Colors.white70,  // Lighter shade of white for status

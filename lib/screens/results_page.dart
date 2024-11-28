@@ -22,9 +22,21 @@ class ResultsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Display the "Top 3 Recognitions" title
+              const Padding(
+                padding: EdgeInsets.only(bottom: 16.0),
+                child: Text(
+                  'Top 3 Recognitions', // Title text
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
               ListView.builder(
                 shrinkWrap: true, // Prevent overflow and ensure list can be wrapped in a scrollable view
-                physics: NeverScrollableScrollPhysics(), // Disable scroll within ListView itself, scroll handled by SingleChildScrollView
+                physics: const NeverScrollableScrollPhysics(), // Disable scroll within ListView itself, scroll handled by SingleChildScrollView
                 itemCount: recognitions.length,
                 itemBuilder: (context, index) {
                   final recognition = recognitions[index];
@@ -48,7 +60,7 @@ class ResultsPage extends StatelessWidget {
                         children: [
                           // Display the food image
                           ClipRRect(
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(12.0)),
+                            borderRadius: const BorderRadius.vertical(top: Radius.circular(12.0)),
                             child: Image.asset(
                               imagePath,
                               width: double.infinity,
@@ -137,8 +149,8 @@ class ResultsPage extends StatelessWidget {
                                   ),
                                   shadowColor: Colors.black.withOpacity(0.2), // Subtle shadow effect
                                   elevation: 5, // Add elevation for 3D effect
-                                  side: BorderSide(
-                                    color: const Color(0xFFFF6363), // Border color to match button
+                                  side: const BorderSide(
+                                    color: Color(0xFFFF6363), // Border color to match button
                                     width: 2, // Thin border for subtle effect
                                   ),
                                 ),

@@ -151,7 +151,7 @@ class FoodProvider extends ChangeNotifier {
   Map<String, double> calculateDailyMacrosInRange(DateTimeRange dateRange) {
     final dailyIntakes = _loggedFoodBox.values.where((loggedFood) {
       final loggedDate = DateTime(loggedFood.loggedTime.year, loggedFood.loggedTime.month, loggedFood.loggedTime.day);
-      return loggedDate.isAfter(dateRange.start.subtract(Duration(days: 1))) && loggedDate.isBefore(dateRange.end.add(Duration(days: 1)));
+      return loggedDate.isAfter(dateRange.start.subtract(const Duration(days: 1))) && loggedDate.isBefore(dateRange.end.add(const Duration(days: 1)));
     }).toList();
 
     double totalCalories = 0;

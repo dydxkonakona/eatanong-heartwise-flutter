@@ -7,13 +7,15 @@ import 'package:final_eatanong_flutter/providers/person_provider.dart'; // Impor
 import 'package:provider/provider.dart';
 
 class ProgressTracker extends StatefulWidget {
+  const ProgressTracker({super.key});
+
   @override
   _ProgressTrackerState createState() => _ProgressTrackerState();
 }
 
 class _ProgressTrackerState extends State<ProgressTracker> {
   DateTimeRange? selectedDateRange = DateTimeRange(
-      start: DateTime.now().subtract(Duration(days: 30)),
+      start: DateTime.now().subtract(const Duration(days: 30)),
       end: DateTime.now()); // Default date range
   double recommendedProtein = 0;
   double recommendedFat = 0;
@@ -65,8 +67,8 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                       Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFFF6363),
-                            padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 24.0),
+                            backgroundColor: const Color(0xFFFF6363),
+                            padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 24.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -90,15 +92,15 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                             selectedDateRange == null
                                 ? "Select Date Range"
                                 : "Selected Range: ${DateFormat.yMMMd().format(selectedDateRange!.start)} - ${DateFormat.yMMMd().format(selectedDateRange!.end)}",
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       if (selectedDateRange == null)
-                        Center(child: Text("Please select a date range to see the chart.")),
+                        const Center(child: Text("Please select a date range to see the chart.")),
                       if (selectedDateRange != null && !hasData)
-                        Center(
+                        const Center(
                           child: Text(
                             "No data available for the selected range.",
                             style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
@@ -108,13 +110,13 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               "Macronutrient Distribution",
                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             Center(
-                              child: Container(
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.7,
                                 height: MediaQuery.of(context).size.width * 0.7,
                                 child: PieChart(
@@ -127,19 +129,19 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             // Legend for Pie Chart
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 _buildLegendBox(Colors.blue, "Protein"),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 _buildLegendBox(Colors.orange, "Carbs"),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 _buildLegendBox(Colors.green, "Fat"),
                               ],
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             // Macronutrient Recommendations Section
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +156,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Row(
+                                        const Row(
                                           children: [
                                             Icon(Icons.pie_chart, color: Colors.deepOrange),
                                             SizedBox(width: 8),
@@ -164,16 +166,16 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 10),
+                                        const SizedBox(height: 10),
                                         if (age >= 3 && age <= 18)
-                                          Text(
+                                          const Text(
                                             "• Protein: 6-15% of daily intake\n"
                                             "• Fat: 15-30% of daily intake\n"
                                             "• Carbs: 55-79% of daily intake",
                                             style: TextStyle(fontSize: 14, height: 1.5),
                                           ),
                                         if (age >= 19)
-                                          Text(
+                                          const Text(
                                             "• Protein: 10-15% of daily intake\n"
                                             "• Fat: 15-30% of daily intake\n"
                                             "• Carbs: 55-75% of daily intake",
@@ -188,8 +190,8 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                   elevation: 4,
                                   margin: const EdgeInsets.symmetric(vertical: 10),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(16.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -217,8 +219,8 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                   elevation: 4,
                                   margin: const EdgeInsets.symmetric(vertical: 10),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(16.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -247,17 +249,17 @@ class _ProgressTrackerState extends State<ProgressTracker> {
 
                           ],
                         ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       if (selectedDateRange != null && hasData)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               "Sodium and Cholesterol Intake",
                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 30),
-                            Container(
+                            const SizedBox(height: 30),
+                            SizedBox(
                               width: double.infinity,
                               height: 250,
                               child: BarChart(
@@ -272,12 +274,12 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                     },
                                   ),
                                   titlesData: FlTitlesData(
-                                    topTitles: AxisTitles(
+                                    topTitles: const AxisTitles(
                                       sideTitles: SideTitles(showTitles: false),
                                     ),
                                     bottomTitles: AxisTitles(
-                                      axisNameWidget: Padding(
-                                        padding: const EdgeInsets.only(bottom: 0.0),
+                                      axisNameWidget: const Padding(
+                                        padding: EdgeInsets.only(bottom: 0.0),
                                         child: Text(
                                           '',
                                           style: TextStyle(
@@ -290,7 +292,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                         showTitles: true,
                                         getTitlesWidget: (value, meta) {
                                           if (value == 0) {
-                                            return Text(
+                                            return const Text(
                                               'Sodium',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -298,7 +300,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                                   fontSize: 14),
                                             );
                                           } else if (value == 1) {
-                                            return Text(
+                                            return const Text(
                                               'Cholesterol',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -311,7 +313,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                                         reservedSize: 40,
                                       ),
                                     ),
-                                    leftTitles: AxisTitles(
+                                    leftTitles: const AxisTitles(
                                       axisNameWidget: Text('Total amount consumed (mg)'),
                                       sideTitles: SideTitles(
                                         reservedSize: 40,
@@ -343,7 +345,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
           },
         ),
       ),
-      drawer: NavBar(),
+      drawer: const NavBar(),
     );
   }
 
@@ -367,21 +369,21 @@ class _ProgressTrackerState extends State<ProgressTracker> {
         title: '${proteinPercentage.toStringAsFixed(1)}%',
         radius: 70,
         color: Colors.blue,
-        titleStyle: TextStyle(fontSize: 16, color: Colors.black),
+        titleStyle: const TextStyle(fontSize: 16, color: Colors.black),
       ),
       PieChartSectionData(
         value: carbsPercentage,
         title: '${carbsPercentage.toStringAsFixed(1)}%',
         radius: 70,
         color: Colors.orange,
-        titleStyle: TextStyle(fontSize: 16, color: Colors.black),
+        titleStyle: const TextStyle(fontSize: 16, color: Colors.black),
       ),
       PieChartSectionData(
         value: fatPercentage,
         title: '${fatPercentage.toStringAsFixed(1)}%',
         radius: 70,
         color: Colors.green,
-        titleStyle: TextStyle(fontSize: 16, color: Colors.black),
+        titleStyle: const TextStyle(fontSize: 16, color: Colors.black),
       ),
     ];
   }
@@ -394,10 +396,10 @@ class _ProgressTrackerState extends State<ProgressTracker> {
           height: 20,
           color: color,
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Text(
           label,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     );

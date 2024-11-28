@@ -24,7 +24,7 @@ class ImageClassifier {
       _isModelLoaded = true;
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error loading model")),
+        const SnackBar(content: Text("Error loading model")),
       );
     }
   }
@@ -37,7 +37,7 @@ class ImageClassifier {
       await _classifyImage(image.path);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("No image selected")),
+        const SnackBar(content: Text("No image selected")),
       );
     }
   }
@@ -53,7 +53,7 @@ class ImageClassifier {
         path: imagePath,
         imageMean: 127.5,
         imageStd: 127.5,
-        numResults: 5,
+        numResults: 3,
         threshold: 0.000001,
       );
 
@@ -66,12 +66,12 @@ class ImageClassifier {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("No recognitions found")),
+          const SnackBar(content: Text("No recognitions found")),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error during classification")),
+        const SnackBar(content: Text("Error during classification")),
       );
     }
   }

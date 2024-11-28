@@ -6,6 +6,8 @@ import 'package:final_eatanong_flutter/providers/food_provider.dart';
 import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 
 class DietLogScreen extends StatefulWidget {
+  const DietLogScreen({super.key});
+
   @override
   _DietLogScreenState createState() => _DietLogScreenState();
 }
@@ -43,11 +45,11 @@ class _DietLogScreenState extends State<DietLogScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Calendar', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        title: const Text('Calendar', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
         elevation: 0,
       ),
-      drawer: NavBar(),
+      drawer: const NavBar(),
       body: SafeArea( // SafeArea to avoid overlaps with system UI (e.g., notches)
         child: Column(
           children: [
@@ -58,15 +60,15 @@ class _DietLogScreenState extends State<DietLogScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 16),
-                    Text('Logged Foods for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    const Text('Logged Foods for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                     const SizedBox(height: 30),
                     _buildLoggedFoods(loggedFoods), // Display logged foods for the selected day
                     const SizedBox(height: 16),
                     Container(
                       height: 5.0,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [const Color(0xFFFF6363), Color.fromARGB(255, 255, 198, 198)], // Custom gradient
+                          colors: [Color(0xFFFF6363), Color.fromARGB(255, 255, 198, 198)], // Custom gradient
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -86,29 +88,29 @@ class _DietLogScreenState extends State<DietLogScreen> {
           _imageClassifier.classifyImageFromCamera();
         },
         tooltip: 'Add Food',
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Customize your button color
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Customize your button color
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         child: Image.asset('assets/logo.png'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 50.0, // Set your desired height here
         child: BottomAppBar(
-          color: Color.fromARGB(255, 255, 198, 198),
+          color: const Color.fromARGB(255, 255, 198, 198),
           shape: const CircularNotchedRectangle(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: Icon(Icons.home),
+                icon: const Icon(Icons.home),
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/home');
                 },
               ),
               IconButton(
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/user profile');
@@ -137,17 +139,17 @@ class _DietLogScreenState extends State<DietLogScreen> {
       },
       calendarFormat: CalendarFormat.week,
       startingDayOfWeek: StartingDayOfWeek.monday,
-      headerStyle: HeaderStyle(
+      headerStyle: const HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,
       ),
-      daysOfWeekStyle: DaysOfWeekStyle(
+      daysOfWeekStyle: const DaysOfWeekStyle(
         weekdayStyle: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold),
         weekendStyle: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Colors.redAccent),
       ),
-      calendarStyle: CalendarStyle(
+      calendarStyle: const CalendarStyle(
         todayDecoration: BoxDecoration(color: Colors.redAccent, shape: BoxShape.circle),
-        selectedDecoration: BoxDecoration(color: const Color.fromARGB(255, 255, 171, 165), shape: BoxShape.circle),
+        selectedDecoration: BoxDecoration(color: Color.fromARGB(255, 255, 171, 165), shape: BoxShape.circle),
         cellMargin: EdgeInsets.all(6.0),
         defaultTextStyle: TextStyle(fontSize: 16),
         weekendTextStyle: TextStyle(fontSize: 16, color: Colors.redAccent),
@@ -158,8 +160,8 @@ class _DietLogScreenState extends State<DietLogScreen> {
 
   Widget _buildLoggedFoods(List loggedFoods) {
     if (loggedFoods.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Text('No food logged for this day.', style: TextStyle(fontSize: 16)),
       );
     }
@@ -186,11 +188,11 @@ class _DietLogScreenState extends State<DietLogScreen> {
                     // Food name at the top
                     Text(
                       loggedFood.foodItem.name,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis, // Prevent overflow if the text is too long
                       maxLines: 2,
                     ),
-                    SizedBox(height: 8), // Add space between the food name and details
+                    const SizedBox(height: 8), // Add space between the food name and details
 
                     // Quantity and Calories information at the bottom
                     Column(
@@ -248,7 +250,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        icon: const Icon(Icons.delete, color: Colors.redAccent),
                         onPressed: () {
                           // Delete the logged food
                           Provider.of<FoodProvider>(context, listen: false)
@@ -272,7 +274,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Total Nutrients for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          const Text('Total Nutrients for the Day', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           const SizedBox(height: 8),
           _buildMacroRow('Calories (kcal)', dailyMacros['calories']),
           _buildMacroRow('Carbohydrates (g)', dailyMacros['carbohydrates']),
@@ -291,8 +293,8 @@ class _DietLogScreenState extends State<DietLogScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(fontSize: 16)),
-          Text(value != null ? value.toStringAsFixed(1) : '0.0', style: TextStyle(fontSize: 16)),
+          Text(label, style: const TextStyle(fontSize: 16)),
+          Text(value != null ? value.toStringAsFixed(1) : '0.0', style: const TextStyle(fontSize: 16)),
         ],
       ),
     );

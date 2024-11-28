@@ -5,6 +5,8 @@ import 'package:final_eatanong_flutter/models/medication_reminder.dart';
 import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 
 class MedicationLoggerScreen extends StatefulWidget {
+  const MedicationLoggerScreen({super.key});
+
   @override
   _MedicationLoggerScreenState createState() => _MedicationLoggerScreenState();
 }
@@ -23,8 +25,8 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Medication Logger', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 198, 255, 220), // Custom color for AppBar
+        title: const Text('Medication Logger', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 198, 255, 220), // Custom color for AppBar
         elevation: 0,
       ),
       body: SafeArea(
@@ -64,7 +66,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
           ),
         ),
       ),
-      drawer: NavBar(),
+      drawer: const NavBar(),
     );
   }
 
@@ -102,7 +104,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                       decoration: InputDecoration(
                         labelText: 'Medication Name',
                         labelStyle: TextStyle(color: Colors.green.shade700),
-                        focusedBorder: UnderlineInputBorder(
+                        focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
                       ),
@@ -115,7 +117,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                       decoration: InputDecoration(
                         labelText: 'Dosage',
                         labelStyle: TextStyle(color: Colors.green.shade700),
-                        focusedBorder: UnderlineInputBorder(
+                        focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
                       ),
@@ -128,7 +130,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                       decoration: InputDecoration(
                         labelText: 'Special Instructions (optional)',
                         labelStyle: TextStyle(color: Colors.green.shade700),
-                        focusedBorder: UnderlineInputBorder(
+                        focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
                       ),
@@ -161,7 +163,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.green,
                           ),
-                          child: Text(
+                          child: const Text(
                             'Choose Time',
                             style: TextStyle(fontSize: 14),
                           ),
@@ -185,7 +187,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Cancel',
                             style: TextStyle(fontSize: 14),
                           ),
@@ -200,7 +202,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Add',
                             style: TextStyle(fontSize: 14),
                           ),
@@ -223,10 +225,10 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
       // Show a warning Snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Please enter valid medication name and dosage.'),
+          content: const Text('Please enter valid medication name and dosage.'),
           backgroundColor: Colors.redAccent, // Warning color
           behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.all(16),
+          margin: const EdgeInsets.all(16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -261,7 +263,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
     List<MedicationReminder> loggedMedications, 
     MedicationProvider medicationProvider) {
     if (loggedMedications.isEmpty) {
-      return Center(
+      return const Center(
         child: Text(
           'No logged medications for today.',
           style: TextStyle(
@@ -279,7 +281,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
       itemBuilder: (ctx, index) {
         final reminder = loggedMedications[index];
         return Card(
-          margin: EdgeInsets.symmetric(vertical: 8.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: ListTile(
             title: Text(
               reminder.name,

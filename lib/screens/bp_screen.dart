@@ -8,14 +8,16 @@ import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class BloodPressureScreen extends StatefulWidget {
+  const BloodPressureScreen({super.key});
+
   @override
   _BloodPressureScreenState createState() => _BloodPressureScreenState();
 }
 
 class _BloodPressureScreenState extends State<BloodPressureScreen> {
   // Controllers for systolic and diastolic values
-  TextEditingController _systolicController = TextEditingController();
-  TextEditingController _diastolicController = TextEditingController();
+  final TextEditingController _systolicController = TextEditingController();
+  final TextEditingController _diastolicController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
 
@@ -26,8 +28,8 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Blood Pressure Logger', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        title: const Text('Blood Pressure Logger', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
         elevation: 0,
       ),
       body: GestureDetector(
@@ -40,7 +42,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 // Systolic Field with Hint Text
                 TextField(
                   controller: _systolicController,
@@ -50,16 +52,16 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                     labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                     ),
                   ),
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 // Diastolic Field with Hint Text
                 TextField(
                   controller: _diastolicController,
@@ -69,21 +71,21 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                     labelStyle: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                     ),
                   ),
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Text(
                   'Input your blood pressure reading in mmHg.',
                   style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
 
                 // Center the Log Blood Pressure Button
                 Center(
@@ -113,9 +115,9 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                         // Show a success SnackBar with custom style
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Blood pressure logged'),
+                            content: const Text('Blood pressure logged'),
                             behavior: SnackBarBehavior.floating, // Custom positioning
-                            margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                            margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -133,9 +135,9 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                         // Show an error SnackBar with custom style
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Please enter valid values'),
+                            content: const Text('Please enter valid values'),
                             behavior: SnackBarBehavior.floating, // Custom positioning
-                            margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                            margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -146,7 +148,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                      backgroundColor: Color(0xFFFF6363), // Softer red color
+                      backgroundColor: const Color(0xFFFF6363), // Softer red color
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -167,14 +169,14 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Display the chart for the blood pressure readings
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: loggedBloodPressures.isEmpty
-                      ? Center(child: Text('No data available'))
-                      : Container(
+                      ? const Center(child: Text('No data available'))
+                      : SizedBox(
                           height: 250.0,
                           child: LineChart(
                             LineChartData(
@@ -207,7 +209,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                                 ),
                               ],
                               titlesData: FlTitlesData(
-                                leftTitles: AxisTitles(
+                                leftTitles: const AxisTitles(
                                   sideTitles: SideTitles(showTitles: true, reservedSize: 40),
                                 ),
                                 bottomTitles: AxisTitles(
@@ -225,13 +227,13 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
 
                                       return Text(
                                         '$displayHour $amPm',  // Display time in format "12 AM" or "3 PM"
-                                        style: TextStyle(fontSize: 10),
+                                        style: const TextStyle(fontSize: 10),
                                       );
                                     },
                                     interval: 1, // Display hourly on x-axis
                                   ),
                                 ),
-                                topTitles: AxisTitles(
+                                topTitles: const AxisTitles(
                                   sideTitles: SideTitles(showTitles: false, reservedSize: 40),
                                 ),
                               ),
@@ -240,16 +242,16 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                         ),
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Display logged blood pressure readings for the day
                 loggedBloodPressures.isEmpty
-                    ? Center(child: Text('No readings for today'))
+                    ? const Center(child: Text('No readings for today'))
                     : Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: loggedBloodPressures.length,
                           itemBuilder: (context, index) {
                             final reading = loggedBloodPressures[index];
@@ -260,7 +262,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                                   'Systolic: ${reading.systolic} | Diastolic: ${reading.diastolic}'),
                               subtitle: Text('Date: $formattedDate'),
                               trailing: IconButton(
-                                icon: Icon(Icons.delete, color: Colors.red),
+                                icon: const Icon(Icons.delete, color: Colors.red),
                                 onPressed: () async {
                                   await bloodPressureProvider.deleteBloodPressure(index);
                                 },
@@ -274,7 +276,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
           ),
         ),
       ),
-      drawer: NavBar(),
+      drawer: const NavBar(),
     );
   }
 }

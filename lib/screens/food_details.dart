@@ -6,16 +6,16 @@ import 'package:provider/provider.dart';
 class FoodDetails extends StatelessWidget {
   final FoodItem foodItem;
 
-  const FoodDetails({Key? key, required this.foodItem}) : super(key: key);
+  const FoodDetails({super.key, required this.foodItem});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _quantityController = TextEditingController();
+    final TextEditingController quantityController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Log Food', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198),
+        title: const Text('Log Food', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -26,8 +26,8 @@ class FoodDetails extends StatelessWidget {
             children: [
               // Food title
               Text(
-                '${foodItem.name}',
-                style: TextStyle(
+                foodItem.name,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
@@ -36,7 +36,7 @@ class FoodDetails extends StatelessWidget {
               Text(
                 ' per 100g',
                 style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),),
-               SizedBox(height: 10),
+               const SizedBox(height: 10),
               // Nutritional information
               Text('Calories: ${foodItem.calories} kcal', style: _buildNutritionalTextStyle()),
               Text('Protein: ${foodItem.protein} g', style: _buildNutritionalTextStyle()),
@@ -47,27 +47,27 @@ class FoodDetails extends StatelessWidget {
               Text(
                 'Sources: Philippine Food Composition Table,	National Heart, Lung, and Blood Institute, nutritionix, & fatsecret',
                 style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),),
-               SizedBox(height: 30),
+               const SizedBox(height: 30),
               // Quantity input field
               TextField(
-                controller: _quantityController,
+                controller: quantityController,
                 decoration: InputDecoration(
                   labelText: 'Quantity (in grams)',
-                  labelStyle: TextStyle(color: Colors.grey),
+                  labelStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                   ),
-                  prefixIcon: Icon(Icons.scale, color: Color.fromARGB(255, 251, 98, 98)),
+                  prefixIcon: const Icon(Icons.scale, color: Color.fromARGB(255, 251, 98, 98)),
                 ),
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               // Center the Log Food Button and add padding
               Center(
@@ -76,27 +76,27 @@ class FoodDetails extends StatelessWidget {
                     var foodProvider = Provider.of<FoodProvider>(context, listen: false);
 
                     // Parse quantity input and log food item
-                    double quantity = double.tryParse(_quantityController.text) ?? 0.0;
+                    double quantity = double.tryParse(quantityController.text) ?? 0.0;
                     if (quantity > 0) {
                       foodProvider.addLoggedFood(foodItem, quantity);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('${foodItem.name} logged with quantity: $quantity grams'),
                           behavior: SnackBarBehavior.floating, // Custom positioning
-                          margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                          margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                           backgroundColor: Colors.green, // Green color for success
                         ),
                       );
-                      _quantityController.clear();
+                      quantityController.clear();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Please enter a valid quantity'),
+                          content: const Text('Please enter a valid quantity'),
                           behavior: SnackBarBehavior.floating, // Custom positioning
-                          margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                          margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -108,19 +108,19 @@ class FoodDetails extends StatelessWidget {
                     Navigator.pushNamed(context, "/calendar");
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 40.0), // Increased horizontal padding
-                    backgroundColor: Color(0xFFFF6363), // Softer, pastel-like red
+                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 40.0), // Increased horizontal padding
+                    backgroundColor: const Color(0xFFFF6363), // Softer, pastel-like red
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0), // Rounded corners for modern look
                     ),
                     shadowColor: Colors.black.withOpacity(0.2), // Subtle shadow for depth
                     elevation: 5, // Add elevation for 3D effect
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Color(0xFFFF6363), // Matching border color
                       width: 2, // Subtle border
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Log Food',
                     style: TextStyle(
                       fontSize: 18, // Slightly larger font size for emphasis
@@ -139,7 +139,7 @@ class FoodDetails extends StatelessWidget {
 
   // Helper method for consistent nutritional text style
   TextStyle _buildNutritionalTextStyle() {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w600,
       color: Colors.black54,

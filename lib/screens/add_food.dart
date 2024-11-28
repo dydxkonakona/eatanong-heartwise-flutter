@@ -15,12 +15,12 @@ class AddFood extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Food', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
+        title: const Text('Search Food', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             tooltip: 'Create a new food item (not in database)', // Tooltip added
             onPressed: () {
               Navigator.push(
@@ -41,22 +41,22 @@ class AddFood extends StatelessWidget {
                     'The + icon allows you to create a new food item (not in database).',
                     style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
                   ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
                   labelText: 'Search Food Items',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 251, 98, 98)), // Search icon with custom color
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  prefixIcon: const Icon(Icons.search, color: Color.fromARGB(255, 251, 98, 98)), // Search icon with custom color
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 255, 198, 198)),
                   ),
                 ),
                 onChanged: (value) {
@@ -68,14 +68,14 @@ class AddFood extends StatelessWidget {
             // Food items list with better list item styling
             Expanded(
               child: _searchController.text.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: Text(
                         'Please enter a search term.',
                         style: TextStyle(fontSize: 16, color: Colors.black54),
                       ),
                     )
                   : foodProvider.filteredFoods.isEmpty
-                      ? Center(
+                      ? const Center(
                           child: Text(
                             'No food items found.',
                             style: TextStyle(fontSize: 16, color: Colors.black54),
@@ -86,20 +86,20 @@ class AddFood extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final foodItem = foodProvider.filteredFoods[index];
                             return Card(
-                              margin: EdgeInsets.only(bottom: 10),
+                              margin: const EdgeInsets.only(bottom: 10),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               elevation: 2,
                               child: ListTile(
-                                contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                                 title: Text(
                                   foodItem.name,
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                 ),
                                 subtitle: Text(
                                   'Calories: ${foodItem.calories}',
-                                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                                  style: const TextStyle(fontSize: 14, color: Colors.black54),
                                 ),
                                 onTap: () {
                                   // Navigate to food details screen on tap
@@ -111,7 +111,7 @@ class AddFood extends StatelessWidget {
                                   );
                                 },
                                 trailing: IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.redAccent),
+                                  icon: const Icon(Icons.delete, color: Colors.redAccent),
                                   onPressed: () {
                                     foodProvider.deleteFood(context, foodItem);
                                     // Clear the search text after deleting the food item
@@ -120,9 +120,9 @@ class AddFood extends StatelessWidget {
                                     // Show SnackBar at the top when food is deleted
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text('Food item deleted!'),
+                                        content: const Text('Food item deleted!'),
                                         behavior: SnackBarBehavior.floating, // Custom positioning
-                                        margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                                        margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(10),
                                         ),
@@ -139,7 +139,7 @@ class AddFood extends StatelessWidget {
           ],
         ),
       ),
-      drawer: NavBar(),
+      drawer: const NavBar(),
     );
   }
 }

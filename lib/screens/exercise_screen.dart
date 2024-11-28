@@ -8,6 +8,8 @@ import 'package:final_eatanong_flutter/screens/nav_bar.dart';
 import 'package:flutter/services.dart';
 
 class ExerciseScreen extends StatefulWidget {
+  const ExerciseScreen({super.key});
+
   @override
   _ExerciseScreenState createState() => _ExerciseScreenState();
 }
@@ -21,12 +23,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exercises', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color.fromARGB(255, 222, 174, 255), // Custom color for AppBar
+        title: const Text('Exercises', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 222, 174, 255), // Custom color for AppBar
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => _showAddExerciseDialog(context),
           ),
         ],
@@ -43,14 +45,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 controller: _searchController,
                 decoration: InputDecoration(
                   labelText: 'Search Exercises',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 177, 60, 255)),
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  prefixIcon: const Icon(Icons.search, color: Color.fromARGB(255, 177, 60, 255)),
+                  border: const OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                   ),
-                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                 ),
                 onChanged: (query) {
                   exerciseProvider.searchExercise(query);
@@ -61,7 +63,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               'Calories burned calculated based on METs. Calories burned = METs * Weight (kg) * Time (minutes)/60',
               style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             // List of exercises
             Expanded(
               child: Consumer<ExerciseProvider>(
@@ -71,7 +73,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   exercises.sort((a, b) => a.name.compareTo(b.name)); // Sorting alphabetically
 
                   if (exercises.isEmpty) {
-                    return Center(
+                    return const Center(
                       child: Text(
                         'No exercises found.',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -86,20 +88,20 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       final mainIndex = provider.exercises.indexOf(exercise); // Get the corresponding index in the main list
 
                       return Card(
-                        margin: EdgeInsets.only(bottom: 8.0),
+                        margin: const EdgeInsets.only(bottom: 8.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         elevation: 2,
                         child: ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                           title: Text(
                             exercise.name,
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text('MET: ${exercise.metValue}'),
                           trailing: IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
+                            icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () => _deleteExercise(context, provider, mainIndex), // Use the correct index
                           ),
                           onTap: () => _showExerciseDetails(
@@ -139,7 +141,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Add Exercise',
                   style: TextStyle(
                     fontSize: 18,
@@ -148,44 +150,44 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 16), // Add some space between title and fields
+                const SizedBox(height: 16), // Add some space between title and fields
                 TextField(
                   controller: nameController,
                   decoration: InputDecoration(
                     labelText: 'Exercise Name',
-                    labelStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.fitness_center, color: Color.fromARGB(255, 177, 60, 255)),
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: const Icon(Icons.fitness_center, color: Color.fromARGB(255, 177, 60, 255)),
+                    border: const OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                     ),
                   ),
                   textCapitalization: TextCapitalization.words,
                 ),
-                SizedBox(height: 16), // Add space between fields
+                const SizedBox(height: 16), // Add space between fields
                 TextField(
                   controller: metController,
                   decoration: InputDecoration(
                     labelText: 'MET Value',
-                    labelStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.accessibility_new, color: Color.fromARGB(255, 177, 60, 255)),
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: const Icon(Icons.accessibility_new, color: Color.fromARGB(255, 177, 60, 255)),
+                    border: const OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                     ),
                   ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))], // Allow numbers and decimals only
                 ),
-                SizedBox(height: 24), // Add space between the last input and buttons
+                const SizedBox(height: 24), // Add space between the last input and buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text('Cancel', style: TextStyle(color: Colors.grey)),
+                      child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -199,17 +201,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                           Navigator.pop(context);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Please fill in all fields properly')),
+                            const SnackBar(content: Text('Please fill in all fields properly')),
                           );
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 177, 60, 255), // Custom button color
+                        backgroundColor: const Color.fromARGB(255, 177, 60, 255), // Custom button color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0), // Rounded button corners
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Add',
                         style: TextStyle(
                           fontSize: 16,
@@ -235,9 +237,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     // Show SnackBar at the top when exercise is deleted
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Exercise deleted!'),
+        content: const Text('Exercise deleted!'),
         behavior: SnackBarBehavior.floating, // Custom positioning
-        margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+        margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -271,43 +273,43 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               children: [
                 Text(
                   exercise.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 177, 60, 255), // Match with the theme color
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 8), // Add some space between title and details
+                const SizedBox(height: 8), // Add some space between title and details
                 Text('MET Value: ${exercise.metValue}', 
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 Text(
                   'based on 2024 Adult Compendium of Physical Activities',
                   style: TextStyle(fontSize: 12, color: Colors.grey[600], fontStyle: FontStyle.italic),),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextField(
                   controller: durationController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: 'Enter duration (minutes)',
                     hintText: 'e.g., 30',
-                    labelStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.timer, color: Color.fromARGB(255, 177, 60, 255)),
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: const Icon(Icons.timer, color: Color.fromARGB(255, 177, 60, 255)),
+                    border: const OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 222, 174, 255)),
                     ),
                   ),
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))], // Allow only numbers and decimals
                 ),
-                SizedBox(height: 24), // Space between the input field and buttons
+                const SizedBox(height: 24), // Space between the input field and buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text('Cancel', style: TextStyle(color: Colors.grey)),
+                      child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -317,12 +319,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 177, 60, 255),
+                        backgroundColor: const Color.fromARGB(255, 177, 60, 255),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Next',
                         style: TextStyle(
                           fontSize: 16,
@@ -356,7 +358,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Calories Burned',
                 style: TextStyle(
                   fontSize: 18,
@@ -365,19 +367,19 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 'You burned ${caloriesBurned.toStringAsFixed(2)} calories.',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Close', style: TextStyle(color: Colors.grey)),
+                    child: const Text('Close', style: TextStyle(color: Colors.grey)),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -391,9 +393,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                            content: Text('Calories burned added successfully!'),
+                            content: const Text('Calories burned added successfully!'),
                             behavior: SnackBarBehavior.floating, // Custom positioning
-                            margin: EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
+                            margin: const EdgeInsets.only(top: 50, left: 16, right: 16), // Position at the top
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -402,12 +404,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 177, 60, 255),
+                      backgroundColor: const Color.fromARGB(255, 177, 60, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Log Exercise',
                       style: TextStyle(
                         fontSize: 16,
