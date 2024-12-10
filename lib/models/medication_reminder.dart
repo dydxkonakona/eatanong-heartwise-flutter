@@ -17,13 +17,23 @@ class MedicationReminder extends HiveObject {
   bool isTaken;
 
   @HiveField(4)
-  String? specialInstructions; // New optional field
+  String? specialInstructions;
+
+  @HiveField(5)
+  DateTime? takenTimestamp;  // New field to track when the medication was taken
 
   MedicationReminder({
     required this.name,
     required this.dosage,
     required this.time,
     this.isTaken = false,
-    this.specialInstructions, // New field in constructor
+    this.specialInstructions,
+    this.takenTimestamp,  // New field in the constructor
   });
+
+  // Method to mark the medication as taken and store the time
+  void markAsTaken() {
+    isTaken = true;
+    takenTimestamp = DateTime.now();  // Store the current time when medication is taken
+  }
 }

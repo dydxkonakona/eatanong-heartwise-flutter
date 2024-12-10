@@ -14,19 +14,19 @@ class MedicationLoggerScreen extends StatefulWidget {
 class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dosageController = TextEditingController();
-  final TextEditingController _specialInstructionsController = TextEditingController(); // New controller
+  final TextEditingController _specialInstructionsController = TextEditingController();
   TimeOfDay _selectedTime = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
     final medicationProvider = Provider.of<MedicationProvider>(context);
-    final DateTime normalizedSelectedDay = DateTime.now(); // Current date
-    final loggedMedications = medicationProvider.getMedicationRemindersForDay(normalizedSelectedDay);
+    final allReminders = medicationProvider.getAllMedicationReminders();
+    final incompleteReminders = allReminders.where((reminder) => !reminder.isTaken).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Medication Logger', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: const Color.fromARGB(255, 198, 255, 220), // Custom color for AppBar
+        title: const Text('Medication', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 198, 255, 220),
         elevation: 0,
       ),
       body: SafeArea(
@@ -59,7 +59,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildLoggedMedications(loggedMedications, medicationProvider),
+                  _buildLoggedMedications(incompleteReminders, medicationProvider),
                 ],
               ),
             ),
@@ -97,7 +97,6 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          // Dialog title
                           Text(
                             'Add Medication',
                             style: TextStyle(
@@ -152,7 +151,6 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // Time text
                               Expanded(
                                 child: Text(
                                   'Time: ${_selectedTime.format(context)}',
@@ -163,7 +161,6 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              // Choose Time button
                               TextButton(
                                 onPressed: () async {
                                   final picked = await showTimePicker(
@@ -193,7 +190,6 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // Cancel Button
                               ElevatedButton(
                                 onPressed: () => Navigator.pop(context),
                                 style: ElevatedButton.styleFrom(
@@ -208,7 +204,6 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                                   style: TextStyle(fontSize: 14),
                                 ),
                               ),
-                              // Add Button
                               ElevatedButton(
                                 onPressed: () => _addMedicationReminder(context),
                                 style: ElevatedButton.styleFrom(
@@ -238,18 +233,13 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
     );
   }
 
-
-
-
-
   void _addMedicationReminder(BuildContext context) {
     // Check if any of the fields are empty
     if (_nameController.text.isEmpty || _dosageController.text.isEmpty) {
-      // Show a warning Snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Please enter valid medication name and dosage.'),
-          backgroundColor: Colors.redAccent, // Warning color
+          backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.all(16),
           shape: RoundedRectangleBorder(
@@ -271,7 +261,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
         time: DateTime(now.year, now.month, now.day, _selectedTime.hour, _selectedTime.minute),
         specialInstructions: _specialInstructionsController.text.isNotEmpty
             ? _specialInstructionsController.text
-            : null, // Handle optional special instructions
+            : null, 
       ),
     );
 
@@ -303,12 +293,15 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
       shrinkWrap: true,
       itemBuilder: (ctx, index) {
         final reminder = loggedMedications[index];
+        final isOverdue = DateTime.now().isAfter(reminder.time) && !reminder.isTaken;
+
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: ListTile(
             title: Text(
               reminder.name,
               style: TextStyle(
+                color: isOverdue ? Colors.red : Colors.black,
                 decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
               ),
             ),
@@ -318,6 +311,7 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                 Text(
                   'Dosage: ${reminder.dosage}',
                   style: TextStyle(
+                    color: isOverdue ? Colors.red : Colors.black,
                     decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
                   ),
                 ),
@@ -327,12 +321,14 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       fontStyle: FontStyle.italic,
+                      color: isOverdue ? Colors.red : Colors.black,
                       decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
                     ),
                   ),
                 Text(
                   'Time: ${TimeOfDay.fromDateTime(reminder.time).format(ctx)}',
                   style: TextStyle(
+                    color: isOverdue ? Colors.red : Colors.black,
                     decoration: reminder.isTaken ? TextDecoration.lineThrough : TextDecoration.none,
                   ),
                 ),
@@ -349,5 +345,4 @@ class _MedicationLoggerScreenState extends State<MedicationLoggerScreen> {
       },
     );
   }
-
 }

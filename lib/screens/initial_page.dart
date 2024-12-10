@@ -1,6 +1,6 @@
 import 'package:final_eatanong_flutter/models/person.dart';
 import 'package:final_eatanong_flutter/providers/person_provider.dart';
-import 'package:final_eatanong_flutter/screens/home_page.dart';
+import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -202,7 +202,7 @@ class InitialPage extends StatelessWidget {
                       // Navigate to home page
                       Navigator.pushReplacement(
                         context, 
-                        MaterialPageRoute(builder: (context) => const HomePage()),
+                        MaterialPageRoute(builder: (context) => const DietLogScreen()),
                         );
 
                       // You can reset the form after submission if necessary

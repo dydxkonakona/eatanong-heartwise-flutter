@@ -88,7 +88,7 @@ class BloodPressureProvider with ChangeNotifier {
     // Get the latest blood pressure reading (most recent entry)
     if (_bloodPressureBox.isEmpty) {
       return {
-        'message': "No blood pressure readings found.",
+        'message': "Record your blood pressure.",
         'color': const Color.fromARGB(255, 128, 128, 128) // Default color (grey)
       };
     }

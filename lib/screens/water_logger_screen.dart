@@ -28,7 +28,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Water Logger', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Water', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: const Color.fromARGB(255, 1, 196, 255), // Custom color for AppBar
         elevation: 0,
       ),
@@ -176,7 +176,7 @@ class _WaterLoggerScreenState extends State<WaterLoggerScreen> {
           _selectedWaterAmount = 0.0;
         });
         Navigator.pop(context);
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushNamed(context, "/calendar");
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

@@ -23,7 +23,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Exercises', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Exercise', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: const Color.fromARGB(255, 222, 174, 255), // Custom color for AppBar
         elevation: 0,
         actions: [
@@ -389,7 +389,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         exerciseProvider.addLoggedExercise(exercise, duration, person);
                       }
                       Navigator.pop(context);
-                      Navigator.pushNamed(context, "/home");
+                      Navigator.pushNamed(context, "/calendar");
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

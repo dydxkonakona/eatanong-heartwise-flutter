@@ -44,7 +44,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
     }
 
     double maxValue = [sodium, cholesterol].reduce((a, b) => a > b ? a : b);
-    double maxY = (maxValue / 10).ceil() * 10 + 10;
+    double maxY = ((maxValue / 10).ceil() * 10) * 1.1;
 
     return Scaffold(
       appBar: AppBar(

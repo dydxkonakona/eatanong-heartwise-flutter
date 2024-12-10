@@ -95,10 +95,10 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text("Home"),
+            leading: const Icon(Icons.dashboard),
+            title: const Text("Dashboard"),
             onTap: () {
-              Navigator.pushNamed(context, "/home");
+              Navigator.pushNamed(context, "/calendar");
             },
           ),
           const Divider(color: Colors.grey),
@@ -108,15 +108,6 @@ class NavBar extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/search screen");
-            },
-          ),
-          const Divider(color: Colors.grey),
-          ListTile(
-            leading: const Icon(Icons.calendar_month),
-            title: const Text("Calendar"),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/calendar");
             },
           ),
           const Divider(color: Colors.grey),
@@ -131,7 +122,7 @@ class NavBar extends StatelessWidget {
           const Divider(color: Colors.grey),
           ListTile(
             leading: const Icon(Icons.water_drop),
-            title: const Text("Water Logger"),
+            title: const Text("Water"),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/water screen");

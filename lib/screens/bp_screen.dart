@@ -1,5 +1,5 @@
 import 'package:final_eatanong_flutter/providers/bp_provider.dart';
-import 'package:final_eatanong_flutter/screens/home_page.dart';
+import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Blood Pressure Logger', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Blood Pressure', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: const Color.fromARGB(255, 255, 198, 198), // Custom color for AppBar
         elevation: 0,
       ),
@@ -128,7 +128,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                         // Navigate to the Blood Pressure Log page
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const HomePage()),
+                          MaterialPageRoute(builder: (context) => const DietLogScreen()),
                         );
 
                       } else {

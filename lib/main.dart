@@ -17,7 +17,6 @@ import 'package:final_eatanong_flutter/screens/bp_screen.dart';
 import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
 import 'package:final_eatanong_flutter/screens/healthy_recipes_screen.dart';
-import 'package:final_eatanong_flutter/screens/home_page.dart';
 import 'package:final_eatanong_flutter/screens/medication_screen.dart';
 import 'package:final_eatanong_flutter/screens/progress_tracker.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
@@ -81,7 +80,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       routes: {
-        "/home": (context) => const HomePage(),
         "/user profile": (context) => const UserProfile(),
         "/search screen": (context) => AddFood(),
         "/calendar": (context) => const DietLogScreen(),

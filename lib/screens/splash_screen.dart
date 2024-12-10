@@ -1,5 +1,5 @@
 import 'package:final_eatanong_flutter/models/person.dart';
-import 'package:final_eatanong_flutter/screens/home_page.dart';
+import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/initial_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -75,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         } else {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const DietLogScreen()),
           );
         }
       } catch (e) {

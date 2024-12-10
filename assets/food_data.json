@@ -647,5 +647,27 @@
     "Carbohydrates(g)": 13,
     "Sodium(mg)": 175,
     "Cholesterol (mg)": 0
+  },
+  {
+    "Food Name": "White Rice",
+    "Edible Portion": "-",
+    "Water (g)": "-",
+    "Calories(kcal)": 129,
+    "Protein(g)": 2.1,
+    "Total Fat(g)": 0.2,
+    "Carbohydrates(g)": 29.7,
+    "Sodium(mg)": 3,
+    "Cholesterol (mg)": 0
+  },
+  {
+    "Food Name": "Sinangag",
+    "Edible Portion": "-",
+    "Water (g)": "-",
+    "Calories(kcal)": 187,
+    "Protein(g)": 2.6,
+    "Total Fat(g)": 4.0,
+    "Carbohydrates(g)": 35.2,
+    "Sodium(mg)": 4,
+    "Cholesterol (mg)": 0
   }
 ]

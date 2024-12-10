@@ -22,20 +22,6 @@ class ResultsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Display the "Top 3 Recognitions" title
-              const Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: Center(
-                  child: Text(
-                    'Top 3 Recognitions', // Title text
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-              ),
               ListView.builder(
                 shrinkWrap: true, // Prevent overflow and ensure list can be wrapped in a scrollable view
                 physics: const NeverScrollableScrollPhysics(), // Disable scroll within ListView itself, scroll handled by SingleChildScrollView
