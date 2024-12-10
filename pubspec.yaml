@@ -25,6 +25,7 @@ dependencies:
   vibration: ^2.0.1
   flutter_local_notifications: ^18.0.1
   smooth_page_indicator: ^1.2.0+3
+  video_player: ^2.9.2
 
 dev_dependencies:
   flutter_test:
@@ -121,4 +122,5 @@ flutter:
     - assets/heart_healthy_recipes/cantaloupe_s.png
     - assets/heart_healthy_recipes/vkarekare_i.png
     - assets/heart_healthy_recipes/vkarekare_s.png
+    - assets/tutorial_video.mp4
 

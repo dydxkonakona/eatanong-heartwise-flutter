@@ -142,7 +142,7 @@ class _DietLogScreenState extends State<DietLogScreen> {
                       child: CustomCard(
                         title: 'Medication',
                         status: medicationClass['message'], // Display message from classification
-                        color: Color(0xFF63FFA3),
+                        color: const Color(0xFF63FFA3),
                       ),
                     ),
                   ],

@@ -175,6 +175,15 @@ class NavBar extends StatelessWidget {
           ),
           const Divider(color: Colors.grey),
           ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text("Tutorial"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "/onboarding");
+            },
+          ),
+          const Divider(color: Colors.grey),
+          ListTile(
             leading: const Icon(Icons.restart_alt_outlined),
             title: const Text("Restart App"),
             onTap: () {

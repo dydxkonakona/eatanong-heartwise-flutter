@@ -18,6 +18,7 @@ import 'package:final_eatanong_flutter/screens/calendar_screen.dart';
 import 'package:final_eatanong_flutter/screens/exercise_screen.dart';
 import 'package:final_eatanong_flutter/screens/healthy_recipes_screen.dart';
 import 'package:final_eatanong_flutter/screens/medication_screen.dart';
+import 'package:final_eatanong_flutter/screens/onboarding_screen.dart';
 import 'package:final_eatanong_flutter/screens/progress_tracker.dart';
 import 'package:final_eatanong_flutter/screens/splash_screen.dart';
 import 'package:final_eatanong_flutter/screens/user_profile.dart';
@@ -89,6 +90,7 @@ class MyApp extends StatelessWidget {
         "/medication screen": (context) => const MedicationLoggerScreen(),
         "/bp screen": (context) => const BloodPressureScreen(),
         "/progress screen": (context) => const ProgressTracker(),
+        "/onboarding": (context) => const OnboardingScreen(),
       },
     );
   }
