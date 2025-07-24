@@ -28,3 +28,8 @@ EaTanong Heartwise is a Flutter-based mobile app designed as a personal wellness
 </p>
 
 [![Watch the video](https://img.shields.io/badge/Watch_on-YouTube-red?logo=youtube)](https://www.youtube.com/watch?v=FQdSz_GBqO4)
+
+
+
+### Installation instructions
+[Read the installation instructions here](https://docs.google.com/document/d/1HO6EzX7xckpFfoaxsfUZphIFwLb-eUUr/edit?usp=sharing&ouid=100289269373118425704&rtpof=true&sd=true)
